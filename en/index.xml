@@ -6,7 +6,34 @@
     <description>Recent content on Indonesian Runners Japan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate></lastBuildDate>
     <atom:link href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About IRJ</title>
+      <link>https://Ichirun955.github.io/IndonesianRunnersJapan/en/tentang/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Ichirun955.github.io/IndonesianRunnersJapan/en/tentang/</guid>
+      <description>Indonesian Runners Japan (IRJ) started from a desire to unite runners from Indonesia who are living in Japan.&#xA;Whether you are a casual runner looking to break a sweat on weekends, or a marathoner aiming for a podium finish or a Personal Best, this community is a place to support each other, share training routes, and plan participations in various races across Japan.</description>
+    </item>
+    <item>
+      <title>IRJ Board</title>
+      <link>https://Ichirun955.github.io/IndonesianRunnersJapan/en/pengurus/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Ichirun955.github.io/IndonesianRunnersJapan/en/pengurus/</guid>
+      <description>Here is the board of Indonesian Runners Japan:&#xA;Founder / Head: Ichiro Nathanael Wiratma Vice Head: (To be filled) Secretary: (To be filled) </description>
+    </item>
+    <item>
+      <title>Regional Branches</title>
+      <link>https://Ichirun955.github.io/IndonesianRunnersJapan/en/cabang/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Ichirun955.github.io/IndonesianRunnersJapan/en/cabang/</guid>
+      <description>Please join the branch closest to your residence:&#xA;IRJ Kanto (Tokyo, Yokohama) IRJ Kansai (Osaka, Kyoto, Kobe) IRJ Chubu (Nagoya) IRJ Kyushu IRJ Chugoku IRJ Hokkaido IRJ Tohoku-Okinawa IRJ Shikoku IRJ She Runs (Women only) Ex-Japan Runners (Alumni) </description>
+    </item>
+    <item>
+      <title>Upcoming Events</title>
+      <link>https://Ichirun955.github.io/IndonesianRunnersJapan/en/agenda/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Ichirun955.github.io/IndonesianRunnersJapan/en/agenda/</guid>
+      <description>Here are some upcoming running events that IRJ members will participate in:&#xA;April 5, 2026: Higashiyodogawa 5K Race October 2026: Batik Run </description>
+    </item>
   </channel>
 </rss>

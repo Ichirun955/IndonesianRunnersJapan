@@ -2,22 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/</loc>
-    <lastmod>2026-04-01T15:11:06+09:00</lastmod>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/tentang/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://Ichirun955.github.io/IndonesianRunnersJapan/"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/tentang/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/tentang/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/tentang/"
                 />
   </url><url>
     <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/categories/</loc>
@@ -37,6 +36,57 @@
                 href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/categories/"
                 />
   </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/"
+                />
+  </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/pengurus/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/pengurus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/pengurus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/pengurus/"
+                />
+  </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/cabang/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/cabang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/cabang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/cabang/"
+                />
+  </url><url>
     <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
@@ -52,6 +102,23 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/tags/"
+                />
+  </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/en/agenda/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/agenda/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/agenda/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/agenda/"
                 />
   </url>
 </urlset>

@@ -2,6 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/agenda/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/agenda/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/agenda/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/agenda/"
+                />
+  </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/cabang/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/cabang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/cabang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/cabang/"
+                />
+  </url><url>
     <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/categories/</loc>
     <xhtml:link
                 rel="alternate"
@@ -36,6 +70,23 @@
                 href="https://Ichirun955.github.io/IndonesianRunnersJapan/"
                 />
   </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/pengurus/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/pengurus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/pengurus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/pengurus/"
+                />
+  </url><url>
     <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/tags/</loc>
     <xhtml:link
                 rel="alternate"
@@ -51,6 +102,23 @@
                 rel="alternate"
                 hreflang="id"
                 href="https://Ichirun955.github.io/IndonesianRunnersJapan/tags/"
+                />
+  </url><url>
+    <loc>https://Ichirun955.github.io/IndonesianRunnersJapan/tentang/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/en/tentang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/ja/tentang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="id"
+                href="https://Ichirun955.github.io/IndonesianRunnersJapan/tentang/"
                 />
   </url>
 </urlset>

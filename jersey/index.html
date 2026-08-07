@@ -108,20 +108,21 @@
     }
 
     /* Navigation Buttons */
-    .carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.6);
-        color: white;
-        border: none;
-        font-size: 24px;
-        padding: 10px 15px;
-        cursor: pointer;
-        border-radius: 50%;
-        z-index: 10;
-        transition: background 0.3s;
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 100; /* Increased to break through invisible layers */
+            transition: background 0.3s;
     }
+        
     .carousel-btn:hover {
         background: rgba(0, 0, 0, 0.9);
     }
@@ -178,11 +179,10 @@
 
     function moveCarousel(carouselId, direction) {
         const carousel = document.getElementById(carouselId);
-        
-        // Safety check to ensure the carousel exists
         if (!carousel) return; 
 
-        const scrollAmount = carousel.clientWidth;
+        // Added +15 to perfectly account for the CSS gap between images
+        const scrollAmount = carousel.clientWidth + 15; 
         const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
         // If clicking NEXT and we are at the end, loop back to the start
@@ -218,6 +218,7 @@
         startAutoScroll(carousel.id);
     });
 </script>
+
 
 <h3 id="cara-mendapatkan">Cara Mendapatkan</h3>
 <p>Jersey ini diproduksi secara terbatas melalui sistem <em>Pre-Order</em> berkala. Pantau terus grup WhatsApp cabang atau Instagram  <strong>@runnerjapan01</strong> untuk informasi pembukaan PO selanjutnya!</p>

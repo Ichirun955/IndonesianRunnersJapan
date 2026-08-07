@@ -68,7 +68,7 @@
                             </header>
                             
                             <div style="text-align: center; margin-bottom: 40px;">
-    <img src="../images/nama-file-jersey.jpeg" alt="Jersey IRJ" style="width: 500px; max-width: 90%; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+
 </div>
 <h3 id="identitas-kami-di-lintasan">Identitas Kami di Lintasan</h3>
 <p>Jersey <strong>Indonesian Runners Japan</strong> bukan sekadar pakaian olahraga. Ini adalah simbol semangat kebersamaan di setiap langkah lari kita di Jepang. Jersey ini dirancang agar kita mudah mengenali satu sama lain saat sedang lari bersama ataupun <em>race</em> besar.</p>
@@ -77,33 +77,56 @@
 
 
 <style>
-    /* Carousel Container */
-    .jersey-carousel {
-        display: flex;
-        overflow-x: auto; /* Allows horizontal scrolling */
-        scroll-snap-type: x mandatory; /* Makes it snap into place */
-        gap: 15px; /* Space between images */
-        padding-bottom: 15px; /* Room for the scrollbar */
+    /* Wrapper to hold the carousel and buttons */
+    .carousel-wrapper {
+        position: relative;
+        max-width: 100%;
         margin-bottom: 30px;
     }
 
-    /* Individual Images inside the carousel */
-    .jersey-carousel img {
-        flex: 0 0 100%; /* Makes each image take up 100% of the view */
-        scroll-snap-align: center; /* Snaps the image to the center */
-        max-width: 100%;
-        border-radius: 10px; /* Nice rounded corners */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    /* The Carousel */
+    .jersey-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth; /* Ensures smooth sliding */
+        gap: 15px;
     }
 
-    /* Hides the scrollbar for a cleaner look on some browsers (optional) */
+    /* Hide the scrollbar for a cleaner look */
     .jersey-carousel::-webkit-scrollbar {
-        height: 8px;
+        display: none;
     }
-    .jersey-carousel::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 4px;
+
+    /* Individual Images */
+    .jersey-carousel img {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
+    /* Navigation Buttons */
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        font-size: 24px;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 50%;
+        z-index: 10;
+        transition: background 0.3s;
+    }
+    .carousel-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
 </style>
 
 <h3 id="desain-2025">Desain 2025</h3>
@@ -112,12 +135,57 @@
     <li><strong>Filosofi:</strong> Ikon kota-kota Jepang dimana cabang-cabang IRJ berada, dengan identitas INDONESIA di dada dan nama Indonesian Runners Japan di punggung. Logo IRJ v1 di dada sebelah kiri dan bendera Indonesia serta nama member di sebelah kiri.</li>
 </ul>
 
-<!-- The Carousel -->
-<div class="jersey-carousel">
-    <img src="../images/Short_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ Short Sleeve">
-    <img src="../images/Long_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ Long Sleeve">
-    <img src="../images/No_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ No Sleeve">
+<!-- Carousel HTML -->
+<div class="carousel-wrapper">
+    <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
+    
+    <div class="jersey-carousel" id="jerseyCarousel">
+        <img src="../images/Short_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ Short Sleeve">
+        <img src="../images/Long_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ Long Sleeve">
+        <img src="../images/No_Jersey_IRJ_2025.jpeg" alt="Jersey IRJ No Sleeve">
+    </div>
 
+    <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
+</div>
+
+<!-- JavaScript for Buttons and Auto-Swipe -->
+<script>
+    const carousel = document.getElementById('jerseyCarousel');
+    let autoScrollTimer;
+
+    function moveCarousel(direction) {
+        const scrollAmount = carousel.clientWidth;
+        let newScrollPosition = carousel.scrollLeft + (scrollAmount * direction);
+
+        // Loop back to the beginning if we hit the end
+        if (direction === 1 && newScrollPosition >= carousel.scrollWidth - 10) {
+            newScrollPosition = 0;
+        } 
+        // Loop to the end if we click previous on the first image
+        else if (direction === -1 && carousel.scrollLeft <= 10) {
+            newScrollPosition = carousel.scrollWidth;
+        }
+
+        carousel.scrollTo({ left: newScrollPosition, behavior: 'smooth' });
+        
+        // Reset the timer when a user clicks a button so it doesn't double-swipe
+        resetAutoScroll();
+    }
+
+    function startAutoScroll() {
+        autoScrollTimer = setInterval(() => {
+            moveCarousel(1); // Swipe right every 5 seconds
+        }, 5000);
+    }
+
+    function resetAutoScroll() {
+        clearInterval(autoScrollTimer);
+        startAutoScroll();
+    }
+
+    // Start the timer as soon as the page loads
+    startAutoScroll();
+</script>
 
 <h3 id="cara-mendapatkan">Cara Mendapatkan</h3>
 <p>Jersey ini diproduksi secara terbatas melalui sistem <em>Pre-Order</em> berkala. Pantau terus grup WhatsApp cabang atau Instagram  <strong>@runnerjapan01</strong> untuk informasi pembukaan PO selanjutnya!</p>

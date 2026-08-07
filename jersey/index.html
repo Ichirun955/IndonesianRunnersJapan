@@ -172,42 +172,51 @@
 </div>
 
 <!-- JavaScript for Buttons and Auto-Swipe -->
+<!-- UPGRADED JAVASCRIPT -->
 <script>
-    const carousel = document.getElementById('jerseyCarousel');
-    let autoScrollTimer;
+    const autoScrollTimers = {};
 
-    function moveCarousel(direction) {
+    function moveCarousel(carouselId, direction) {
+        const carousel = document.getElementById(carouselId);
+        
+        // Safety check to ensure the carousel exists
+        if (!carousel) return; 
+
         const scrollAmount = carousel.clientWidth;
-        let newScrollPosition = carousel.scrollLeft + (scrollAmount * direction);
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
-        // Loop back to the beginning if we hit the end
-        if (direction === 1 && newScrollPosition >= carousel.scrollWidth - 10) {
-            newScrollPosition = 0;
+        // If clicking NEXT and we are at the end, loop back to the start
+        if (direction === 1 && carousel.scrollLeft >= maxScroll - 10) {
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
         } 
-        // Loop to the end if we click previous on the first image
+        // If clicking PREV and we are at the start, loop to the end
         else if (direction === -1 && carousel.scrollLeft <= 10) {
-            newScrollPosition = carousel.scrollWidth;
+            carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+        } 
+        // Otherwise, just scroll normally left or right
+        else {
+            carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
 
-        carousel.scrollTo({ left: newScrollPosition, behavior: 'smooth' });
-        
-        // Reset the timer when a user clicks a button so it doesn't double-swipe
-        resetAutoScroll();
+        // Reset the timer so it doesn't auto-swipe while you are clicking
+        resetAutoScroll(carouselId);
     }
 
-    function startAutoScroll() {
-        autoScrollTimer = setInterval(() => {
-            moveCarousel(1); // Swipe right every 5 seconds
+    function startAutoScroll(carouselId) {
+        autoScrollTimers[carouselId] = setInterval(() => {
+            moveCarousel(carouselId, 1);
         }, 5000);
     }
 
-    function resetAutoScroll() {
-        clearInterval(autoScrollTimer);
-        startAutoScroll();
+    function resetAutoScroll(carouselId) {
+        clearInterval(autoScrollTimers[carouselId]);
+        startAutoScroll(carouselId);
     }
 
-    // Start the timer as soon as the page loads
-    startAutoScroll();
+    // Start auto-scroll for every carousel found on the page
+    document.querySelectorAll('.jersey-carousel').forEach(carousel => {
+        startAutoScroll(carousel.id);
+    });
 </script>
 
 <h3 id="cara-mendapatkan">Cara Mendapatkan</h3>

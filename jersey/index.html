@@ -77,58 +77,141 @@
 
 
 <style>
-    /* Wrapper to hold the carousel and buttons */
-    .carousel-wrapper {
+    /* The main container */
+    .bulletproof-carousel {
         position: relative;
-        max-width: 100%;
-        margin-bottom: 30px;
+        max-width: 600px; /* Keeps the images from getting too huge on desktop */
+        margin: 0 auto 30px auto; /* Centers the carousel */
     }
 
-    /* The Carousel */
-    .jersey-carousel {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth; /* Ensures smooth sliding */
-        gap: 15px;
-    }
-
-    /* Hide the scrollbar for a cleaner look */
-    .jersey-carousel::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Individual Images */
-    .jersey-carousel img {
-        flex: 0 0 100%;
-        scroll-snap-align: center;
-        max-width: 100%;
+    /* Hide all images by default */
+    .carousel-images img {
+        width: 100%;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: none; 
     }
 
-    /* Navigation Buttons */
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            font-size: 24px;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 50%;
-            z-index: 100; /* Increased to break through invisible layers */
-            transition: background 0.3s;
+    /* ONLY show the image with the 'active' class */
+    .carousel-images img.active {
+        display: block; 
+        animation: fadeEffect 0.5s; /* Adds a nice smooth fade transition */
     }
-        
-    .carousel-btn:hover {
-        background: rgba(0, 0, 0, 0.9);
+
+    @keyframes fadeEffect {
+        from {opacity: 0.4;}
+        to {opacity: 1;}
     }
+
+    /* The Buttons */
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        font-size: 24px;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 50%;
+        z-index: 999; /* Forces buttons to the absolute front */
+    }
+    .carousel-btn:hover { background: rgba(0, 0, 0, 1); }
     .carousel-btn.prev { left: 10px; }
     .carousel-btn.next { right: 10px; }
 </style>
+
+<!-- 2026 SECTION -->
+<h3 id="desain-2026">Desain 2026</h3>
+<ul>
+    <li><strong>Warna Utama:</strong> [Warna 2026]</li>
+    <li><strong>Filosofi:</strong> [Deskripsi 2026]</li>
+</ul>
+
+<div class="bulletproof-carousel" data-carousel="2026">
+    <button class="carousel-btn prev" onclick="changeSlide('2026', -1)">&#10094;</button>
+    <div class="carousel-images" id="images-2026">
+        <!-- Notice the first image has class="active" -->
+        <img src="../images/placeholder-2026-1.jpg" class="active" alt="Jersey 2026 1">
+        <img src="../images/placeholder-2026-2.jpg" alt="Jersey 2026 2">
+    </div>
+    <button class="carousel-btn next" onclick="changeSlide('2026', 1)">&#10095;</button>
+</div>
+
+<hr>
+
+<!-- 2025 SECTION -->
+<h3 id="desain-2025">Desain 2025</h3>
+<ul>
+    <li><strong>Warna Utama:</strong> Biru</li>
+    <li><strong>Filosofi:</strong> Ikon kota-kota Jepang dimana cabang-cabang IRJ berada, dengan identitas INDONESIA di dada dan nama Indonesian Runners Japan di punggung. Logo IRJ v1 di dada sebelah kiri dan bendera Indonesia serta nama member di sebelah kiri.</li>
+</ul>
+
+<div class="bulletproof-carousel" data-carousel="2025">
+    <button class="carousel-btn prev" onclick="changeSlide('2025', -1)">&#10094;</button>
+    <div class="carousel-images" id="images-2025">
+        <!-- Notice the first image has class="active" -->
+        <img src="../images/Short_Jersey_IRJ_2025.jpeg" class="active" alt="Short Sleeve">
+        <img src="../images/Long_Jersey_IRJ_2025.jpeg" alt="Long Sleeve">
+        <img src="../images/No_Jersey_IRJ_2025.jpeg" alt="No Sleeve">
+    </div>
+    <button class="carousel-btn next" onclick="changeSlide('2025', 1)">&#10095;</button>
+</div>
+
+<!-- BULLETPROOF JAVASCRIPT -->
+<script>
+    // This object keeps track of which image is currently showing for each carousel
+    const carouselState = {};
+
+    // 1. Setup the carousels when the page loads
+    document.querySelectorAll('.bulletproof-carousel').forEach(carousel => {
+        const id = carousel.getAttribute('data-carousel');
+        carouselState[id] = { index: 0, timer: null };
+        startTimer(id); // Start the 5-second auto-swipe
+    });
+
+    // 2. The function that swaps the images
+    function changeSlide(id, direction) {
+        const container = document.getElementById('images-' + id);
+        if (!container) return;
+        
+        const images = container.querySelectorAll('img');
+        
+        // Remove the 'active' class from the current image to hide it
+        images[carouselState[id].index].classList.remove('active');
+        
+        // Calculate the next image's number
+        carouselState[id].index += direction;
+        
+        // If we go past the last image, loop back to the first (0)
+        if (carouselState[id].index >= images.length) {
+            carouselState[id].index = 0;
+        } 
+        // If we click 'previous' on the first image, loop to the very last one
+        else if (carouselState[id].index < 0) {
+            carouselState[id].index = images.length - 1;
+        }
+        
+        // Add the 'active' class to the new image to show it
+        images[carouselState[id].index].classList.add('active');
+        
+        // Restart the timer so it doesn't double-swipe
+        resetTimer(id);
+    }
+
+    // 3. Timer functions
+    function startTimer(id) {
+        carouselState[id].timer = setInterval(() => {
+            changeSlide(id, 1);
+        }, 5000);
+    }
+
+    function resetTimer(id) {
+        clearInterval(carouselState[id].timer);
+        startTimer(id);
+    }
+</script>
 
 <h3 id="desain-2026">Desain 2026</h3>
 <ul>
@@ -172,52 +255,6 @@
     <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
 </div>
 
-<!-- JavaScript for Buttons and Auto-Swipe -->
-<!-- UPGRADED JAVASCRIPT -->
-<script>
-    const autoScrollTimers = {};
-
-    function moveCarousel(carouselId, direction) {
-        const carousel = document.getElementById(carouselId);
-        if (!carousel) return; 
-
-        // Added +15 to perfectly account for the CSS gap between images
-        const scrollAmount = carousel.clientWidth + 15; 
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-
-        // If clicking NEXT and we are at the end, loop back to the start
-        if (direction === 1 && carousel.scrollLeft >= maxScroll - 10) {
-            carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        } 
-        // If clicking PREV and we are at the start, loop to the end
-        else if (direction === -1 && carousel.scrollLeft <= 10) {
-            carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
-        } 
-        // Otherwise, just scroll normally left or right
-        else {
-            carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-        }
-
-        // Reset the timer so it doesn't auto-swipe while you are clicking
-        resetAutoScroll(carouselId);
-    }
-
-    function startAutoScroll(carouselId) {
-        autoScrollTimers[carouselId] = setInterval(() => {
-            moveCarousel(carouselId, 1);
-        }, 5000);
-    }
-
-    function resetAutoScroll(carouselId) {
-        clearInterval(autoScrollTimers[carouselId]);
-        startAutoScroll(carouselId);
-    }
-
-    // Start auto-scroll for every carousel found on the page
-    document.querySelectorAll('.jersey-carousel').forEach(carousel => {
-        startAutoScroll(carousel.id);
-    });
-</script>
 
 
 <h3 id="cara-mendapatkan">Cara Mendapatkan</h3>

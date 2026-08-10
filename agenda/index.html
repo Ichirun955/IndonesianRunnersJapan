@@ -25,7 +25,26 @@
         }
     }
 </style>
-
+<!-- FullCalendar Library -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+        
+        <style>
+            #calendar {
+                margin-top: 2rem;
+                background: #ffffff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            .fc-day-today {
+                background-color: rgba(230, 57, 70, 0.15) !important; 
+            }
+            .fc-event {
+                cursor: pointer;
+                background-color: #e63946;
+                border: none;
+            }
+        </style>
 	</head>
 
 	<body lang='id' class="is-preload">
@@ -68,10 +87,8 @@
                             </header>
                             
                             <p>Berikut adalah beberapa agenda lari yang akan diikuti oleh member IRJ dalam waktu dekat:</p>
-<ul>
-<li><strong>29 Agustus 2026:</strong> NIGHT RUN KANTO</li>
-<li><strong>29 Agustus 2026:</strong> NIGHT RUN KANSAI</li>
-</ul>
+<!-- The calendar will render here -->
+        <div id="calendar"></div>
       
                             
                         </section>
@@ -101,6 +118,38 @@
 
 <script src='/IndonesianRunnersJapan/assets/js/bundle.js'></script>
 
+<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                
+                var eventData = [
+                    {{ range where .Site.RegularPages "Section" "agenda" }}
+                    {
+                        title: '{{ .Title }}',
+                        start: '{{ .Date.Format "2006-01-02" }}',
+                        url: '{{ .Permalink }}'
+                    },
+                    {{ end }}
+                ];
 
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    events: eventData, 
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,listMonth'
+                    },
+                    eventClick: function(info) {
+                        if (info.event.url) {
+                            window.location.href = info.event.url;
+                            info.jsEvent.preventDefault(); 
+                        }
+                    }
+                });
+                
+                calendar.render();
+            });
+        </script>
 	</body>
 </html>

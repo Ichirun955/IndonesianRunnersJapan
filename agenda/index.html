@@ -119,37 +119,35 @@
 <script src='/IndonesianRunnersJapan/assets/js/bundle.js'></script>
 
 <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                
-                var eventData = [
-                    {{ range where .Site.RegularPages "Section" "agenda" }}
-                    {
-                        title: '{{ .Title }}',
-                        start: '{{ .Date.Format "2006-01-02" }}',
-                        url: '{{ .Permalink }}'
-                    },
-                    {{ end }}
-                ];
-
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    events: eventData, 
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,listMonth'
-                    },
-                    eventClick: function(info) {
-                        if (info.event.url) {
-                            window.location.href = info.event.url;
-                            info.jsEvent.preventDefault(); 
-                        }
-                    }
-                });
-                
-                calendar.render();
-            });
-        </script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var calendarEl = document.getElementById('calendar');
+                        
+                        // Static test data without any Hugo {{ }} tags
+                        var eventData = [
+                            {
+                                title: 'NIGHT RUN KANTO',
+                                start: '2026-08-29',
+                                url: '#'
+                            },
+                            {
+                                title: 'NIGHT RUN KANSAI',
+                                start: '2026-08-29',
+                                url: '#'
+                            }
+                        ];
+        
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth',
+                            events: eventData, 
+                            headerToolbar: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,listMonth'
+                            }
+                        });
+                        
+                        calendar.render();
+                    });
+                </script>
 	</body>
 </html>

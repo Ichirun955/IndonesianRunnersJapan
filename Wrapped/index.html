@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRJ 2026 Wrapped — Rekap Race &amp; Medali Indonesian Runners Japan</title>
+  <title>IRJ 2026 Wrapped — Rekap Race Finished Indonesian Runners Japan</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Space Grotesk -->
@@ -55,7 +55,6 @@
     .animate-pop {
       animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    /* Custom subtle scrollbar for dark containers */
     .dark-scroll::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -78,7 +77,6 @@
   <!-- ==================== STICKY HEADER & NAVIGASI ==================== -->
   <header class="sticky top-0 z-40 bg-[#07090F]/90 backdrop-blur-xl border-b border-white/10 shadow-xl">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <!-- Baris Atas: Kembali ke Web IRJ + Logo + Judul + Live Counter -->
       <div class="flex items-center justify-between h-16 gap-3">
         <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
           <!-- Link Kembali ke Web IRJ -->
@@ -88,13 +86,11 @@
             <span class="sm:hidden">Web IRJ</span>
           </a>
 
-          <!-- Logo IRJ + Judul -->
+          <!-- Logo IRJ + Judul (Tap 5x untuk membuka Tab Admin) -->
           <div class="flex items-center gap-2.5 min-w-0">
-            <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 ring-2 ring-white/25 bg-slate-900 shadow-lg">
-              <img id="headerLogoImg" src="../images/IRJLOGONEW.png" alt="Logo IRJ"
-                class="w-full h-full object-cover"
-                onerror="handleHeaderLogoError(this)" />
-              <div id="headerLogoFallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-crimson via-crimson to-white">
+            <div onclick="handleSecretAdminTap()" title="Indonesian Runners Japan" class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 ring-2 ring-white/25 bg-slate-900/80 shadow-lg cursor-pointer select-none flex items-center justify-center p-0.5">
+              <img id="headerLogoImg" alt="Logo IRJ" class="hidden w-full h-full object-contain" />
+              <div id="headerLogoFallback" class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-crimson via-crimson to-white rounded-lg">
                 <span class="font-display font-bold text-xs tracking-tighter text-white leading-none">IRJ</span>
                 <span class="w-5 h-0.5 bg-crimson mt-0.5 rounded-full"></span>
               </div>
@@ -109,22 +105,22 @@
                 </span>
               </div>
               <p class="text-[10px] sm:text-[11px] font-medium text-slate-400 mt-0.5 truncate">
-                Indonesian Runners Japan • Rekap Race &amp; Medali
+                Indonesian Runners Japan • Rekap Race Finished 2026
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Pill Counter Medali Komunitas -->
+        <!-- Pill Counter Race Finished Komunitas -->
         <button type="button" onclick="switchTab('hub')" class="hidden md:flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-3.5 py-1.5 text-xs font-semibold transition shrink-0">
           <span id="headerSyncDot" class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
-          <span class="text-slate-400">Koleksi 2026:</span>
+          <span class="text-slate-400">Total 2026:</span>
           <span id="headerMedalTotal" class="font-display font-bold text-volt text-sm">0</span>
-          <span class="text-slate-400">Race</span>
+          <span class="text-slate-400">Race Finished</span>
         </button>
       </div>
 
-      <!-- 3 Tab Navigasi -->
+      <!-- Navigasi Utama (Tab Admin disembunyikan dari publik) -->
       <nav class="flex gap-1.5 pb-2.5 overflow-x-auto no-scrollbar" aria-label="Navigasi Utama">
         <button id="tabBtn-create" type="button" onclick="switchTab('create')" class="tab-btn flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
@@ -138,7 +134,7 @@
           </svg>
           Rekap Komunitas
         </button>
-        <button id="tabBtn-admin" type="button" onclick="switchTab('admin')" class="tab-btn flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+        <button id="tabBtn-admin" type="button" onclick="switchTab('admin')" class="tab-btn hidden flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
@@ -220,9 +216,7 @@
                 <label class="block text-xs font-semibold text-slate-300">Pilih Cabang IRJ</label>
                 <span id="selectedCabangLabel" class="text-xs font-bold text-volt">Kansai</span>
               </div>
-              <div id="cabangSelector" class="flex flex-wrap gap-1.5">
-                <!-- Diisi oleh JS -->
-              </div>
+              <div id="cabangSelector" class="flex flex-wrap gap-1.5"></div>
             </div>
           </div>
 
@@ -235,7 +229,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <span id="selectedCountBadge" class="inline-flex items-center gap-1.5 bg-volt text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full">
-                  0 medali
+                  0 race finished
                 </span>
                 <button id="clearSelectionBtn" type="button" onclick="clearSelectedRaces()" class="hidden text-xs font-semibold text-slate-400 hover:text-crimson transition px-1.5 py-1">
                   Reset
@@ -262,9 +256,7 @@
             </div>
 
             <!-- Grid Pill Race -->
-            <div id="raceChipsContainer" class="flex flex-wrap gap-2 max-h-72 overflow-y-auto dark-scroll pr-1 py-1">
-              <!-- Diisi oleh JS -->
-            </div>
+            <div id="raceChipsContainer" class="flex flex-wrap gap-2 max-h-72 overflow-y-auto dark-scroll pr-1 py-1"></div>
 
             <!-- Tambah Race 2026 Lainnya (Inline) -->
             <div class="mt-4 pt-4 border-t border-white/10">
@@ -294,7 +286,6 @@
 
           <!-- Langkah 3: Target 2027 & Review -->
           <div class="bg-[#111625] rounded-2xl border border-white/10 p-4 sm:p-6 shadow-lg space-y-5">
-            <!-- Target Race 2027 -->
             <div>
               <div class="flex items-center gap-2.5 mb-3">
                 <span class="w-6 h-6 rounded-lg bg-crimson text-white font-display font-bold text-xs flex items-center justify-center shadow">3</span>
@@ -370,7 +361,6 @@
     <!-- TAB 2: REKAP KOMUNITAS (Sponsor-Ready Hub)                 -->
     <!-- ========================================================== -->
     <section id="panel-hub" class="tab-panel hidden space-y-6">
-      <!-- Header Hub & Tombol Sinkronkan -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#111625] rounded-2xl border border-white/10 p-5 shadow-lg">
         <div>
           <div class="flex flex-wrap items-center gap-2">
@@ -393,18 +383,16 @@
         </button>
       </div>
 
-      <!-- Info Halus Data Demo -->
       <div id="demoNoticeBanner" class="hidden flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs text-amber-200">
-        <span>Menampilkan 6 profil demo IRJ agar tampilan statistik terlihat. Kamu bisa menghapusnya kapan saja di tab <strong>Admin &amp; Sync</strong>.</span>
-        <button type="button" onclick="switchTab('admin')" class="font-bold text-amber-300 hover:underline shrink-0">Buka Admin →</button>
+        <span>Menampilkan 6 profil demo IRJ sementara menunggu sinkronisasi data Google Sheets.</span>
       </div>
 
       <!-- 4 Kartu KPI Siap Sponsor -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div class="bg-gradient-to-br from-crimson/30 via-[#111625] to-[#111625] rounded-2xl p-4 sm:p-5 border border-crimson/40 shadow-lg">
-          <p class="text-[11px] font-bold uppercase tracking-widest text-rose-300">Total Races Finished 2026</p>
+          <p class="text-[11px] font-bold uppercase tracking-widest text-rose-300">Total Race Finished</p>
           <p id="kpiTotalMedals" class="font-display font-bold text-3xl sm:text-4xl text-white mt-1.5">0</p>
-          <p class="text-xs text-slate-400 mt-1">Finis resmi tercatat</p>
+          <p class="text-xs text-slate-400 mt-1">Finis resmi tercatat di 2026</p>
         </div>
         <div class="bg-[#111625] rounded-2xl p-4 sm:p-5 border border-white/10 shadow-lg">
           <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Pelari Aktif</p>
@@ -425,28 +413,22 @@
 
       <!-- Klasemen Cabang & Race Terpopuler -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <!-- Klasemen Cabang IRJ 2026 -->
         <div class="lg:col-span-6 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
           <div class="flex items-center justify-between mb-1">
             <h3 class="font-display font-bold text-lg text-white">Klasemen Cabang IRJ 2026</h3>
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Tap untuk filter</span>
           </div>
-          <p class="text-xs text-slate-400 mb-5">Urutan cabang berdasarkan total koleksi finish 2026.</p>
-          <div id="cabangLeaderboard" class="space-y-3">
-            <!-- Diisi oleh JS -->
-          </div>
+          <p class="text-xs text-slate-400 mb-5">Urutan cabang berdasarkan total race finished sepanjang 2026.</p>
+          <div id="cabangLeaderboard" class="space-y-3"></div>
         </div>
 
-        <!-- Race Terpopuler 2026 -->
         <div class="lg:col-span-6 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
           <div class="flex items-center justify-between mb-1">
             <h3 class="font-display font-bold text-lg text-white">Race Terpopuler 2026</h3>
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Klik untuk lihat finisher</span>
           </div>
           <p class="text-xs text-slate-400 mb-5">Event dengan jumlah peserta IRJ terbanyak sepanjang 2026.</p>
-          <div id="raceLeaderboard" class="space-y-2.5">
-            <!-- Diisi oleh JS -->
-          </div>
+          <div id="raceLeaderboard" class="space-y-2.5"></div>
         </div>
       </div>
 
@@ -462,7 +444,6 @@
           </span>
         </div>
 
-        <!-- Filter Bar -->
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 mb-4">
           <div class="sm:col-span-6 relative">
             <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -479,7 +460,6 @@
           </div>
         </div>
 
-        <!-- Active Filter Chip Bar -->
         <div id="activeFiltersBar" class="hidden flex flex-wrap items-center gap-2 mb-4">
           <span class="text-xs text-slate-400">Filter aktif:</span>
           <span id="activeRaceChip" class="hidden inline-flex items-center gap-1.5 text-xs font-bold bg-crimson/20 text-rose-200 border border-crimson/40 px-3 py-1 rounded-full"></span>
@@ -489,15 +469,12 @@
           </button>
         </div>
 
-        <!-- Daftar Pelari -->
-        <div id="reviewDirectoryList" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[620px] overflow-y-auto dark-scroll pr-1">
-          <!-- Diisi oleh JS -->
-        </div>
+        <div id="reviewDirectoryList" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[620px] overflow-y-auto dark-scroll pr-1"></div>
       </div>
     </section>
 
     <!-- ========================================================== -->
-    <!-- TAB 3: ADMIN & SYNC GOOGLE SHEETS                          -->
+    <!-- TAB 3: ADMIN & SYNC GOOGLE SHEETS (Khusus Admin)           -->
     <!-- ========================================================== -->
     <section id="panel-admin" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -522,7 +499,6 @@
                 Hapus Data Demo
               </button>
 
-              <!-- Konfirmasi 2-Langkah Reset Lokal -->
               <div>
                 <button id="resetAllInitialBtn" type="button" onclick="toggleResetConfirm(true)"
                   class="w-full py-2.5 px-4 rounded-xl border border-rose-500/30 text-rose-400 hover:bg-rose-500/10 text-xs font-bold transition">
@@ -539,22 +515,18 @@
             </div>
           </div>
 
-          <!-- Ringkasan Deployment GitHub Pages -->
           <div class="bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
-            <h3 class="font-display font-bold text-base text-white mb-2">Cara Pasang di Website IRJ</h3>
-            <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside leading-relaxed">
-              <li>Buat Google Sheet baru &amp; pasang Apps Script di sebelah kanan, lalu klik <strong>Deploy → Web app</strong> (akses: <strong>Anyone</strong>).</li>
-              <li>Salin URL Web App tersebut ke konstanta <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">APPS_SCRIPT_URL</code> di dalam file HTML ini.</li>
-              <li>Simpan file ini sebagai <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">wrapped/index.html</code> atau <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">passport/index.html</code> di repo GitHub IRJ.</li>
-              <li>Bagikan link-nya di grup WhatsApp &amp; bio Instagram IRJ!</li>
-            </ol>
+            <h3 class="font-display font-bold text-base text-white mb-2">Akses Khusus Admin</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Tab ini disembunyikan dari member biasa. Untuk membukanya kapan saja, tambahkan <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">?admin=1</code> di ujung URL atau tap logo IRJ di pojok kiri atas sebanyak <strong>5 kali</strong>.
+            </p>
           </div>
         </div>
 
         <!-- Kanan: Koneksi & Kode Google Apps Script -->
         <div class="lg:col-span-7 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-            <h2 class="font-display font-bold text-lg text-white">Sinkronisasi Google Sheets (`Wrapped2026`)</h2>
+            <h2 class="font-display font-bold text-lg text-white">Sinkronisasi Google Sheets (Wrapped2026)</h2>
             <span id="adminSyncStatusBadge" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
               <span class="w-2 h-2 rounded-full bg-amber-400"></span>
               Mode Demo Lokal
@@ -564,12 +536,8 @@
             Setiap pelari yang menekan tombol unduh otomatis masuk ke tab sheet <code class="font-mono text-volt">Wrapped2026</code> dan langsung tampil di Rekap Komunitas.
           </p>
 
-          <!-- Status Konstanta APPS_SCRIPT_URL -->
-          <div id="hardcodeStatusBox" class="mb-4 p-3.5 rounded-xl bg-[#090D16] border border-white/10 text-xs text-slate-300">
-            <!-- Diisi oleh JS -->
-          </div>
+          <div id="hardcodeStatusBox" class="mb-4 p-3.5 rounded-xl bg-[#090D16] border border-white/10 text-xs text-slate-300"></div>
 
-          <!-- Input Uji Coba Sementara di localStorage -->
           <div class="space-y-2 mb-5">
             <label for="webhookUrlInput" class="block text-xs font-semibold text-slate-300">
               Uji Coba URL Apps Script Sementara <span class="text-slate-500 font-normal">(disimpan di browser ini)</span>
@@ -584,7 +552,6 @@
             </div>
           </div>
 
-          <!-- Blok Kode Google Apps Script -->
           <div class="relative rounded-2xl bg-[#05070C] text-slate-100 overflow-hidden border border-white/15">
             <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/10">
               <span class="text-xs font-mono text-slate-400">Code.gs — Sheet "Wrapped2026" (doPost &amp; doGet)</span>
@@ -690,234 +657,255 @@ function doGet(e) {
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1afLOY9SzzrD_6hdEFOmYFL7k7qC78-U2l4aooENGDfDIa58nohkTUiNYNBzRqklF1Q/exec";
 
     // =========================================================================
-    // 1. KONSTANTA, DAFTAR CABANG, 80 RACE 2026 & DATA DEMO
+    // 1. KONSTANTA, LOGO FALLBACK, CABANG, 80 RACE 2026 & DATA DEMO
     // =========================================================================
-    const REPO_LOGO_LOCAL = '../images/IRJLOGONEW.png';
-    const REPO_LOGO_GITHUB = 'https://raw.githubusercontent.com/ichirun955/indonesianrunnersjapan/main/images/IRJLOGONEW.png';
+    const LOGO_SOURCES = [
+      '../images/LOGOIRJNEW.png',
+      '../LOGOIRJNEW.png',
+      'https://raw.githubusercontent.com/ichirun955/indonesianrunnersjapan/main/images/LOGOIRJNEW.png',
+      'https://raw.githubusercontent.com/ichirun955/indonesianrunnersjapan/main/LOGOIRJNEW.png',
+      '../images/IRJ-logo.jpeg',
+      'https://raw.githubusercontent.com/ichirun955/indonesianrunnersjapan/main/images/IRJ-logo.jpeg'
+    ];
 
-    function handleHeaderLogoError(imgEl) {
-      if (!imgEl.dataset.triedGithub) {
-        imgEl.dataset.triedGithub = '1';
-        imgEl.src = REPO_LOGO_GITHUB;
+    // Akses Admin Rahasia: buka ?admin=1 atau tap logo IRJ di header 5x
+    let adminTapCount = 0;
+    let adminTapTimer = null;
+
+    function unlockAdminTab(autoSwitch = false) {
+      const adminBtn = document.getElementById('tabBtn-admin');
+      if (adminBtn) adminBtn.classList.remove('hidden');
+      if (autoSwitch) {
+        switchTab('admin');
+        showToast('Mode Admin terbuka.', 'info');
+      }
+    }
+
+    function handleSecretAdminTap() {
+      adminTapCount++;
+      clearTimeout(adminTapTimer);
+      if (adminTapCount >= 5) {
+        adminTapCount = 0;
+        unlockAdminTab(true);
       } else {
-        imgEl.classList.add('hidden');
-        document.getElementById('headerLogoFallback').classList.remove('hidden');
+        adminTapTimer = setTimeout(() => { adminTapCount = 0; }, 2500);
       }
     }
 
     const STORAGE_KEYS = {
-      LOCAL_ENTRIES: 'irj_2026_wrapped_entries_v1',
-      CUSTOM_RACES: 'irj_2026_wrapped_custom_races_v1',
-      TEMP_URL: 'irj_2026_wrapped_temp_script_url_v1'
+      ENTRIES: 'irj_wrapped_2026_entries_v2',
+      CUSTOM_RACES: 'irj_wrapped_2026_custom_races_v2',
+      TEMP_URL: 'irj_wrapped_2026_temp_url_v2'
     };
 
     const CABANG_LIST = [
       'Kanto', 'Kansai', 'Chubu', 'Kyushu', 'Hokkaido', 'Tohoku',
-      'Chugoku', 'Shikoku', 'Okinawa', 'Trail IRJ', 'She Runs', 'Alumni / Ex-Japan'
+      'Chugoku', 'Shikoku', 'Okinawa', 'Trail IRJ', 'She Runs', 'Alumni / Ex-IRJ'
     ];
 
     const CATEGORY_META = {
-      'Full': { label: 'Full (42K)', short: '42.2K' },
-      'Half': { label: 'Half (21K)', short: '21.1K' },
-      'Trail/Ultra': { label: 'Trail & Ultra', short: 'TRAIL' },
-      '10K/5K': { label: '10K / 5K', short: '10K/5K' }
+      'Full': { label: 'Full (42K)', short: '42K', km: 42.2 },
+      'Half': { label: 'Half (21K)', short: '21K', km: 21.1 },
+      'Trail/Ultra': { label: 'Trail & Ultra', short: 'TRAIL', km: 35.0 },
+      '10K/5K': { label: '10K / 5K', short: '10K', km: 10.0 }
     };
 
+    // 80 Race Populer 2026 (Jepang & Indonesia — Full, Half, Trail/Ultra, 10K/5K)
     const DEFAULT_RACES_2026 = [
-      // ==================== FULL MARATHON (32) ====================
+      // --- FULL MARATHON (32) ---
       { id: 'tokyo-marathon', name: 'Tokyo Marathon', category: 'Full', km: 42.2 },
       { id: 'osaka-marathon', name: 'Osaka Marathon', category: 'Full', km: 42.2 },
       { id: 'kyoto-marathon', name: 'Kyoto Marathon', category: 'Full', km: 42.2 },
       { id: 'kobe-marathon', name: 'Kobe Marathon', category: 'Full', km: 42.2 },
-      { id: 'yokohama-marathon', name: 'Yokohama Marathon', category: 'Full', km: 42.2 },
-      { id: 'shizuoka-marathon', name: 'Shizuoka Marathon', category: 'Full', km: 42.2 },
       { id: 'nagoya-womens', name: "Nagoya Women's Marathon", category: 'Full', km: 42.2 },
+      { id: 'nagoya-city', name: 'Nagoya City Marathon', category: 'Full', km: 42.2 },
       { id: 'fukuoka-marathon', name: 'Fukuoka Marathon', category: 'Full', km: 42.2 },
       { id: 'hokkaido-marathon', name: 'Hokkaido Marathon', category: 'Full', km: 42.2 },
-      { id: 'naha-marathon', name: 'NAHA Marathon', category: 'Full', km: 42.2 },
-      { id: 'kanazawa-marathon', name: 'Kanazawa Marathon', category: 'Full', km: 42.2 },
       { id: 'nara-marathon', name: 'Nara Marathon', category: 'Full', km: 42.2 },
+      { id: 'kanazawa-marathon', name: 'Kanazawa Marathon', category: 'Full', km: 42.2 },
+      { id: 'yokohama-marathon', name: 'Yokohama Marathon', category: 'Full', km: 42.2 },
+      { id: 'shizuoka-marathon', name: 'Shizuoka Marathon', category: 'Full', km: 42.2 },
       { id: 'biwako-marathon', name: 'Biwako Marathon', category: 'Full', km: 42.2 },
+      { id: 'mt-fuji-marathon', name: 'Mt. Fuji Marathon', category: 'Full', km: 42.2 },
       { id: 'chiba-aqualine', name: 'Chiba Aqualine Marathon', category: 'Full', km: 42.2 },
-      { id: 'shonan-international', name: 'Shonan International Marathon', category: 'Full', km: 42.2 },
+      { id: 'shonan-intl', name: 'Shonan International Marathon', category: 'Full', km: 42.2 },
       { id: 'tsukuba-marathon', name: 'Tsukuba Marathon', category: 'Full', km: 42.2 },
-      { id: 'mito-komon', name: 'Mito Komon Manyu Marathon', category: 'Full', km: 42.2 },
-      { id: 'kasumigaura-marathon', name: 'Kasumigaura Marathon', category: 'Full', km: 42.2 },
+      { id: 'saitama-marathon', name: 'Saitama Marathon', category: 'Full', km: 42.2 },
       { id: 'nagano-marathon', name: 'Nagano Marathon', category: 'Full', km: 42.2 },
-      { id: 'matsumoto-marathon', name: 'Matsumoto Marathon', category: 'Full', km: 42.2 },
-      { id: 'mt-fuji-international', name: 'Mt. Fuji International Marathon', category: 'Full', km: 42.2 },
-      { id: 'toyama-marathon', name: 'Toyama Marathon', category: 'Full', km: 42.2 },
+      { id: 'tohoku-miyagi', name: 'Tohoku Miyagi Fukko Marathon', category: 'Full', km: 42.2 },
       { id: 'ehime-marathon', name: 'Ehime Marathon', category: 'Full', km: 42.2 },
-      { id: 'kochi-ryoma', name: 'Kochi Ryoma Marathon', category: 'Full', km: 42.2 },
+      { id: 'okayama-marathon', name: 'Okayama Marathon', category: 'Full', km: 42.2 },
       { id: 'kumamoto-castle', name: 'Kumamoto Castle Marathon', category: 'Full', km: 42.2 },
-      { id: 'kagoshima-marathon', name: 'Kagoshima Marathon', category: 'Full', km: 42.2 },
       { id: 'kitakyushu-marathon', name: 'Kitakyushu Marathon', category: 'Full', km: 42.2 },
-      { id: 'beppu-oita', name: 'Beppu-Oita Mainichi Marathon', category: 'Full', km: 42.2 },
-      { id: 'tohoku-miyagi', name: 'Tohoku Miyagi Revive Marathon', category: 'Full', km: 42.2 },
+      { id: 'naha-marathon', name: 'NAHA Marathon', category: 'Full', km: 42.2 },
+      { id: 'okinawa-marathon', name: 'Okinawa Marathon', category: 'Full', km: 42.2 },
+      { id: 'toyama-marathon', name: 'Toyama Marathon', category: 'Full', km: 42.2 },
+      { id: 'niigata-city', name: 'Niigata City Marathon', category: 'Full', km: 42.2 },
+      { id: 'matsumoto-marathon', name: 'Matsumoto Marathon', category: 'Full', km: 42.2 },
       { id: 'borobudur-marathon', name: 'Borobudur Marathon', category: 'Full', km: 42.2 },
       { id: 'jakarta-marathon', name: 'Jakarta Marathon', category: 'Full', km: 42.2 },
       { id: 'maybank-bali', name: 'Maybank Marathon Bali', category: 'Full', km: 42.2 },
 
-      // ==================== HALF MARATHON (20) ====================
-      { id: 'tokyo-legacy-half', name: 'Tokyo Legacy Half Marathon', category: 'Half', km: 21.1 },
+      // --- HALF MARATHON (20) ---
+      { id: 'tokyo-legacy-half', name: 'Tokyo Legacy Half', category: 'Half', km: 21.1 },
       { id: 'osaka-half', name: 'Osaka Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'sendai-half', name: 'Sendai International Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'gifu-seiryu-half', name: 'Gifu Seiryu Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'kagawa-marugame-half', name: 'Kagawa Marugame Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'sapporo-half', name: 'Sapporo Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'shinjuku-city-half', name: 'Shinjuku City Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'setagaya-246-half', name: 'Setagaya 246 Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'tachikawa-city-half', name: 'Tachikawa City Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'minato-city-half', name: 'Minato City Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'ageo-city-half', name: 'Ageo City Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'kawagoe-half', name: 'Kawagoe Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'marugame-half', name: 'Kagawa Marugame Half', category: 'Half', km: 21.1 },
+      { id: 'sendai-half', name: 'Sendai International Half', category: 'Half', km: 21.1 },
+      { id: 'gifu-half', name: 'Gifu Seiryu Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'sapporo-half', name: 'Sapporo Marathon (Half)', category: 'Half', km: 21.1 },
+      { id: 'shinjuku-half', name: 'Shinjuku City Half', category: 'Half', km: 21.1 },
+      { id: 'setagaya-half', name: 'Setagaya 246 Half', category: 'Half', km: 21.1 },
+      { id: 'tachikawa-half', name: 'Tachikawa City Half', category: 'Half', km: 21.1 },
+      { id: 'kawasaki-half', name: 'Kawasaki Tamagawa Half', category: 'Half', km: 21.1 },
+      { id: 'chiba-marine-half', name: 'Chiba Marine Half', category: 'Half', km: 21.1 },
+      { id: 'yodogawa-half', name: 'Yodogawa Kanpei Half', category: 'Half', km: 21.1 },
+      { id: 'kyoto-kizugawa-half', name: 'Kyoto Kizugawa Half', category: 'Half', km: 21.1 },
+      { id: 'uji-river-half', name: 'Uji River Half', category: 'Half', km: 21.1 },
+      { id: 'kobe-bay-half', name: 'Kobe Bay Half', category: 'Half', km: 21.1 },
+      { id: 'nagoya-city-half', name: 'Nagoya City Half', category: 'Half', km: 21.1 },
+      { id: 'karuizawa-half', name: 'Karuizawa Half Marathon', category: 'Half', km: 21.1 },
       { id: 'hakodate-half', name: 'Hakodate Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'kyoto-kizugawa-half', name: 'Kyoto Kizugawa Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'yodogawa-kanpei-half', name: 'Yodogawa Kanpei Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'yokohama-sea-breeze-half', name: 'Yokohama Sea Breeze Half', category: 'Half', km: 21.1 },
-      { id: 'chiba-marine-half', name: 'Chiba Marine Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'okinawa-half', name: 'Okinawa Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'borobudur-half', name: 'Borobudur Half Marathon', category: 'Half', km: 21.1 },
-      { id: 'maybank-bali-half', name: 'Maybank Bali Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'jakarta-intl-half', name: 'Jakarta International Half', category: 'Half', km: 21.1 },
+      { id: 'pocari-sweat-half', name: 'Pocari Sweat Run (Half)', category: 'Half', km: 21.1 },
 
-      // ==================== TRAIL & ULTRA (18) ====================
-      { id: 'mt-fuji-100', name: 'Mt. Fuji 100 / UTMF', category: 'Trail/Ultra', km: 168, customKmLabel: '168K' },
-      { id: 'mt-fuji-kai-70', name: 'Mt. Fuji KAI 70K', category: 'Trail/Ultra', km: 70, customKmLabel: '70K' },
-      { id: 'shinetsu-five', name: 'Shinetsu Five Mountains Trail', category: 'Trail/Ultra', km: 110, customKmLabel: '110K' },
-      { id: 'hasetsune-cup', name: 'Hasetsune Cup', category: 'Trail/Ultra', km: 71.5, customKmLabel: '71.5K' },
-      { id: 'izu-trail-journey', name: 'Izu Trail Journey / ITJ', category: 'Trail/Ultra', km: 70, customKmLabel: '70K' },
-      { id: 'trail-yorosan', name: 'Trail Yorosan', category: 'Trail/Ultra', km: 25, customKmLabel: '25K' },
-      { id: 'kyoto-grand-trail', name: 'Kyoto Grand Trail', category: 'Trail/Ultra', km: 40, customKmLabel: '40K' },
-      { id: 'rokko-mountain-trail', name: 'Rokko Mountain Trail', category: 'Trail/Ultra', km: 35, customKmLabel: '35K' },
-      { id: 'hakuba-international-trail', name: 'Hakuba International Trail', category: 'Trail/Ultra', km: 50, customKmLabel: '50K' },
-      { id: 'shiga-kogen-extreme', name: 'Shiga Kogen Extreme Trail', category: 'Trail/Ultra', km: 55, customKmLabel: '55K' },
-      { id: 'ontake-100', name: 'Ontake 100', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
-      { id: 'lake-biwa-100', name: 'Lake Biwa 100', category: 'Trail/Ultra', km: 169, customKmLabel: '169K' },
-      { id: 'challenge-fuji-5-lakes', name: 'Challenge Fuji 5 Lakes Ultra', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
-      { id: 'saroma-lake-100', name: 'Saroma Lake 100km Ultra', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
-      { id: 'hida-takayama-ultra', name: 'Hida Takayama Ultramarathon', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
-      { id: 'tango-100-ultra', name: 'Tango 100km Ultramarathon', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
-      { id: 'takao-mountain-trail', name: 'Takao Mountain Trail', category: 'Trail/Ultra', km: 20, customKmLabel: '20K' },
-      { id: 'minoo-forest-trail', name: 'Minoo Forest Trail', category: 'Trail/Ultra', km: 20, customKmLabel: '20K' },
+      // --- TRAIL & ULTRA (18) ---
+      { id: 'mt-fuji-100', name: 'Mt. Fuji 100 (UTMF)', category: 'Trail/Ultra', km: 166.0 },
+      { id: 'kai-70k', name: 'Mt. Fuji 100 KAI 70K', category: 'Trail/Ultra', km: 70.0 },
+      { id: 'shinetsu-five', name: 'Shinetsu Five Mountains Trail', category: 'Trail/Ultra', km: 110.0 },
+      { id: 'hasetsune-cup', name: 'Hasetsune Cup (71.5K)', category: 'Trail/Ultra', km: 71.5 },
+      { id: 'izu-trail-journey', name: 'Izu Trail Journey (ITJ 70K)', category: 'Trail/Ultra', km: 70.0 },
+      { id: 'lake-biwa-100', name: 'Lake Biwa 100', category: 'Trail/Ultra', km: 169.0 },
+      { id: 'ontake-100', name: 'OSJ Ontake 100', category: 'Trail/Ultra', km: 100.0 },
+      { id: 'saroma-100', name: 'Lake Saroma 100km Ultra', category: 'Trail/Ultra', km: 100.0 },
+      { id: 'nobeyama-ultra', name: 'Nobeyama Highland 100K Ultra', category: 'Trail/Ultra', km: 100.0 },
+      { id: 'fuji-five-lakes', name: 'Challenge Fuji 5 Lakes Ultra', category: 'Trail/Ultra', km: 100.0 },
+      { id: 'trail-yorosan', name: 'Trail Yorosan', category: 'Trail/Ultra', km: 25.0 },
+      { id: 'kyoto-trail', name: 'Kyoto Trail Race', category: 'Trail/Ultra', km: 30.0 },
+      { id: 'rokko-cannonball', name: 'Rokko Mountain Trail / Cannonball', category: 'Trail/Ultra', km: 45.0 },
+      { id: 'hakuba-intl-trail', name: 'Hakuba International Trail', category: 'Trail/Ultra', km: 50.0 },
+      { id: 'takao-mountain-trail', name: 'Mt. Takao Trail Race', category: 'Trail/Ultra', km: 25.0 },
+      { id: 'fujisan-climbing', name: 'Fuji Mountain Race (Climbing)', category: 'Trail/Ultra', km: 21.0 },
+      { id: 'deep-japan-ultra', name: 'Deep Japan Ultra', category: 'Trail/Ultra', km: 160.0 },
+      { id: 'rinjani-100', name: 'Rinjani 100 / Trail Indonesia', category: 'Trail/Ultra', km: 60.0 },
 
-      // ==================== 10K / 5K / FUN RUN (10) ====================
-      { id: 'higashiyodogawa-world', name: 'Higashiyodogawa World Marathon', category: '10K/5K', km: 5, customKmLabel: '5K' },
-      { id: 'yodogawa-eco', name: 'Yodogawa Eco Marathon', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'miki-disaster', name: 'Miki Disaster Management Marathon', category: '10K/5K', km: 5, customKmLabel: '5K' },
-      { id: 'kanto-night-run', name: 'Kanto Night Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'imperial-palace-run', name: 'Imperial Palace / Kokyo Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'osaka-castle-park-run', name: 'Osaka Castle Park Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'showa-kinen-park-run', name: 'Showa Kinen Park Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'shibuya-omotesando-run', name: 'Shibuya Omotesando Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'yokohama-ekiden', name: 'Yokohama Ekiden', category: '10K/5K', km: 10, customKmLabel: '10K' },
-      { id: 'tokyo-ekiden', name: 'Tokyo Ekiden', category: '10K/5K', km: 10, customKmLabel: '10K' }
+      // --- 10K / 5K / EKIDEN / FUN RUN (10) ---
+      { id: 'kanto-night-run', name: 'Kanto Night Run IRJ', category: '10K/5K', km: 10.0 },
+      { id: 'higashiyodogawa-10k', name: 'Higashiyodogawa World 10K', category: '10K/5K', km: 10.0 },
+      { id: 'imperial-palace-10k', name: 'Tokyo Imperial Palace 10K', category: '10K/5K', km: 10.0 },
+      { id: 'osaka-castle-10k', name: 'Osaka Castle Park 10K', category: '10K/5K', km: 10.0 },
+      { id: 'yodogawa-eco-10k', name: 'Yodogawa Eco 10K', category: '10K/5K', km: 10.0 },
+      { id: 'nagoya-dome-ekiden', name: 'Relay / Ekiden Komunitas', category: '10K/5K', km: 10.0 },
+      { id: 'local-10k-jp', name: 'Local 10K Race Jepang', category: '10K/5K', km: 10.0 },
+      { id: 'local-5k-jp', name: 'Local 5K / Parkrun Jepang', category: '10K/5K', km: 5.0 },
+      { id: 'fun-run-irj', name: 'Fun Run / Bareng Cabang IRJ', category: '10K/5K', km: 5.0 },
+      { id: 'virtual-run-2026', name: 'Virtual Run Challenge 2026', category: '10K/5K', km: 10.0 }
     ];
 
-    // 6 Profil Demo Realistis IRJ 2026
+    // 6 Profil Demo IRJ 2026
     const DEMO_ENTRIES = [
       {
         id: 'demo-1',
-        name: 'Dimas Pratama',
-        instagram: 'dimas.lari',
+        name: 'Raka Pratama',
+        instagram: 'rakapratama.run',
         cabang: 'Kansai',
-        races: ['Kyoto Marathon', 'Osaka Marathon', 'Kobe Marathon', 'Higashiyodogawa World Marathon'],
+        races: ['Kyoto Marathon', 'Osaka Marathon', 'Kobe Marathon', 'Uji River Half'],
         medalCount: 4,
-        totalKm: 136.6,
+        totalKm: 147.7,
         persona: 'Marathon Machine',
-        target2027: 'Sub-3:45 Tokyo Marathon',
+        target2027: 'Sub-3:30 Tokyo Marathon',
         openToReview: true,
-        timestamp: '2026-11-12T08:15:00Z',
+        timestamp: '2026-11-12T08:30:00Z',
         isDemo: true
       },
       {
         id: 'demo-2',
-        name: 'Nadia Kusuma',
-        instagram: 'nadiarunsjp',
+        name: 'Nadia Putri',
+        instagram: 'nadiaputri_runs',
         cabang: 'Kanto',
-        races: ['Tokyo Marathon', 'Yokohama Marathon', 'Tokyo Legacy Half', 'Mt. Fuji Marathon', 'Borobudur Marathon'],
-        medalCount: 5,
-        totalKm: 189.9,
+        races: ['Tokyo Marathon', 'Yokohama Marathon', 'Tokyo Legacy Half', 'Kanto Night Run IRJ'],
+        medalCount: 4,
+        totalKm: 115.5,
         persona: 'Marathon Machine',
-        target2027: 'PB Half & Berlin Marathon',
+        target2027: 'Nagoya Women\'s Marathon',
         openToReview: true,
-        timestamp: '2026-11-14T11:30:00Z',
+        timestamp: '2026-11-13T10:15:00Z',
         isDemo: true
       },
       {
         id: 'demo-3',
-        name: 'Ayu Lestari',
-        instagram: 'ayu.sheruns',
-        cabang: 'She Runs',
-        races: ["Nagoya Women's Marathon", 'Shizuoka Marathon', 'Kanazawa Marathon'],
-        medalCount: 3,
-        totalKm: 126.6,
-        persona: 'Marathon Machine',
-        target2027: 'Sub-4:15 Osaka Marathon',
+        name: 'Dimas Wibowo',
+        instagram: 'dimas.trailjp',
+        cabang: 'Trail IRJ',
+        races: ['Mt. Fuji 100 KAI 70K', 'Trail Yorosan', 'Kyoto Trail Race', 'Rokko Mountain Trail / Cannonball'],
+        medalCount: 4,
+        totalKm: 170.0,
+        persona: 'Trail Beast',
+        target2027: 'Finish Mt. Fuji 100 (UTMF)',
         openToReview: true,
-        timestamp: '2026-11-15T06:45:00Z',
+        timestamp: '2026-11-14T14:20:00Z',
         isDemo: true
       },
       {
         id: 'demo-4',
-        name: 'Rizky Hidayat',
-        instagram: 'rizky.trailirj',
-        cabang: 'Trail IRJ',
-        races: ['Mt. Fuji 100 / Trail', 'Yoro Trail Run', 'Kyoto Marathon'],
+        name: 'Siti Rahmawati',
+        instagram: 'sitirahma.irj',
+        cabang: 'She Runs',
+        races: ["Nagoya Women's Marathon", 'Gifu Seiryu Half Marathon', 'Borobudur Marathon'],
         medalCount: 3,
-        totalKm: 102.2,
-        persona: 'Trail Beast',
-        target2027: 'Finish 100K Ultra Trail',
+        totalKm: 105.5,
+        persona: 'Marathon Machine',
+        target2027: 'Maybank Marathon Bali',
         openToReview: true,
-        timestamp: '2026-11-16T15:20:00Z',
+        timestamp: '2026-11-15T16:40:00Z',
         isDemo: true
       },
       {
         id: 'demo-5',
-        name: 'Fajar Nugroho',
-        instagram: 'fajar_kyushu',
-        cabang: 'Kyushu',
-        races: ['Fukuoka Marathon', 'Chiba Aqualine Marathon', 'Maybank Marathon Bali'],
+        name: 'Andi Saputra',
+        instagram: 'andisaputra_chubu',
+        cabang: 'Chubu',
+        races: ['Nagoya City Half', 'Shizuoka Marathon', 'Kagawa Marugame Half'],
         medalCount: 3,
-        totalKm: 126.6,
-        persona: 'Marathon Machine',
-        target2027: 'Hokkaido Marathon 2027',
-        openToReview: false,
-        timestamp: '2026-11-17T09:10:00Z',
+        totalKm: 84.4,
+        persona: 'Half-Marathon Hunter',
+        target2027: 'Sub-1:40 Half Marathon',
+        openToReview: true,
+        timestamp: '2026-11-16T09:05:00Z',
         isDemo: true
       },
       {
         id: 'demo-6',
-        name: 'Siti Rahma',
-        instagram: 'sitirahma.run',
-        cabang: 'Kansai',
-        races: ['Osaka Half Marathon', 'Kyoto Kamo River Half', 'Sendai International Half', 'Miki Disaster Management Marathon'],
-        medalCount: 4,
-        totalKm: 73.3,
-        persona: 'Half-Marathon Hunter',
-        target2027: 'Debut Full Marathon di Nara',
-        openToReview: true,
-        timestamp: '2026-11-18T18:05:00Z',
+        name: 'Fajar Hidayat',
+        instagram: 'fajar_kyushu',
+        cabang: 'Kyushu',
+        races: ['Fukuoka Marathon', 'Kumamoto Castle Marathon', 'Local 10K Race Jepang'],
+        medalCount: 3,
+        totalKm: 94.4,
+        persona: 'Marathon Machine',
+        target2027: 'NAHA Marathon 2027',
+        openToReview: false,
+        timestamp: '2026-11-18T12:10:00Z',
         isDemo: true
       }
     ];
 
-    // Tema Resmi Kartu Story IG: Merah Putih IRJ (1080x1920)
+    // Tema Terkunci: Merah Putih IRJ
     const CARD_THEME_MERAH_PUTIH = {
-      bgStart: '#BE123C',
-      bgEnd: '#6B0F26',
-      glowTop: 'rgba(255, 255, 255, 0.22)',
-      glowBottom: 'rgba(15, 23, 42, 0.45)',
-      accent: '#FFFFFF',
-      accentText: '#BE123C',
-      secondaryAccent: '#FFE4E6',
+      bgStart: '#1A070D',
+      bgEnd: '#07090F',
+      glowTop: 'rgba(225, 29, 72, 0.36)',
+      glowBottom: 'rgba(255, 255, 255, 0.08)',
+      accent: '#E11D48',
+      accentText: '#FFFFFF',
+      secondaryAccent: '#FDE047',
       textPrimary: '#FFFFFF',
-      textMuted: '#FECDD3',
-      cardSurface: 'rgba(15, 23, 42, 0.42)',
-      cardBorder: 'rgba(255, 255, 255, 0.30)',
-      pillBg: 'rgba(255, 255, 255, 0.14)',
-      pillBorder: 'rgba(255, 255, 255, 0.35)',
-      pillText: '#FFFFFF',
-      trackLine: 'rgba(255, 255, 255, 0.06)'
+      textMuted: '#CBD5E1',
+      cardSurface: 'rgba(255, 255, 255, 0.07)',
+      cardBorder: 'rgba(255, 255, 255, 0.16)',
+      pillBg: 'rgba(225, 29, 72, 0.22)',
+      pillBorder: 'rgba(251, 113, 133, 0.55)',
+      pillText: '#FFF1F2',
+      trackLine: 'rgba(255, 255, 255, 0.04)'
     };
 
     // =========================================================================
@@ -925,43 +913,41 @@ function doGet(e) {
     // =========================================================================
     let state = {
       activeTab: 'create',
-      selectedCabang: '',
+      selectedCabang: 'Kansai',
       categoryFilter: 'All',
       searchQuery: '',
-      selectedRaceIds: new Set([]),
+      selectedRaceIds: new Set(['kyoto-marathon', 'osaka-marathon']),
       races: [],
       localEntries: [],
       liveEntries: null,
       tempScriptUrl: '',
+      isSyncing: false,
       directoryRaceFilter: 'ALL',
       logoImage: null,
       logoLoaded: false,
-      logoSafeForExport: true
+      logoSafeForExport: false
     };
 
-    function getActiveScriptUrl() {
-      return (state.tempScriptUrl || APPS_SCRIPT_URL || '').trim();
-    }
-
-    function getDisplayedEntries() {
-      return Array.isArray(state.liveEntries) ? state.liveEntries : state.localEntries;
-    }
-
     // =========================================================================
-    // 3. INISIALISASI, PRELOAD LOGO & STORAGE
+    // 3. INISIALISASI & PENYIMPANAN
     // =========================================================================
     function initApp() {
-      loadStorageData();
-      preloadCanvasLogo();
+      loadLocalData();
       bindInputListeners();
+      loadHeaderAndCanvasLogo();
       renderCabangSelector();
       setCategoryFilter('All');
       renderRaceChips();
-      updatePersonaBadge();
       updateSyncIndicators();
       updateCommunityHeaderCount();
       switchTab('create');
       renderWrappedCanvas();
+
+      // Buka tab Admin otomatis jika URL memakai ?admin=1 atau #admin
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('admin') === '1' || window.location.hash === '#admin') {
+        unlockAdminTab(false);
+      }
 
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => renderWrappedCanvas());
@@ -972,35 +958,41 @@ function doGet(e) {
       }
     }
 
-    function preloadCanvasLogo() {
-      const tryLoad = (src, onFail) => {
+    function loadHeaderAndCanvasLogo() {
+      const headerImg = document.getElementById('headerLogoImg');
+      const headerFallback = document.getElementById('headerLogoFallback');
+
+      const tryIndex = (idx) => {
+        if (idx >= LOGO_SOURCES.length) {
+          state.logoImage = null;
+          state.logoLoaded = false;
+          state.logoSafeForExport = false;
+          if (headerImg) headerImg.classList.add('hidden');
+          if (headerFallback) headerFallback.classList.remove('hidden');
+          renderWrappedCanvas();
+          return;
+        }
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => {
           state.logoImage = img;
           state.logoLoaded = true;
           state.logoSafeForExport = true;
+          if (headerImg) {
+            headerImg.src = LOGO_SOURCES[idx];
+            headerImg.classList.remove('hidden');
+          }
+          if (headerFallback) headerFallback.classList.add('hidden');
           renderWrappedCanvas();
         };
-        img.onerror = onFail;
-        img.src = src;
+        img.onerror = () => tryIndex(idx + 1);
+        img.src = LOGO_SOURCES[idx];
       };
 
-      // Coba path lokal repo dulu (../images/IRJ-logo.jpeg), lalu fallback ke raw GitHub repo
-      tryLoad(REPO_LOGO_LOCAL, () => {
-        tryLoad(REPO_LOGO_GITHUB, () => {
-          state.logoImage = null;
-          state.logoLoaded = false;
-          renderWrappedCanvas();
-        });
-      });
+      tryIndex(0);
     }
 
-    function loadStorageData() {
-      try {
-        state.tempScriptUrl = localStorage.getItem(STORAGE_KEYS.TEMP_URL) || '';
-      } catch (e) { state.tempScriptUrl = ''; }
-
+    function loadLocalData() {
       let customRaces = [];
       try {
         customRaces = JSON.parse(localStorage.getItem(STORAGE_KEYS.CUSTOM_RACES)) || [];
@@ -1008,12 +1000,16 @@ function doGet(e) {
       state.races = [...DEFAULT_RACES_2026, ...customRaces];
 
       try {
-        const rawLocal = localStorage.getItem(STORAGE_KEYS.LOCAL_ENTRIES);
-        if (rawLocal === null) {
+        state.tempScriptUrl = localStorage.getItem(STORAGE_KEYS.TEMP_URL) || '';
+      } catch (e) { state.tempScriptUrl = ''; }
+
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.ENTRIES);
+        if (raw === null) {
           state.localEntries = [...DEMO_ENTRIES];
-          localStorage.setItem(STORAGE_KEYS.LOCAL_ENTRIES, JSON.stringify(state.localEntries));
+          localStorage.setItem(STORAGE_KEYS.ENTRIES, JSON.stringify(state.localEntries));
         } else {
-          state.localEntries = JSON.parse(rawLocal) || [];
+          state.localEntries = JSON.parse(raw) || [];
         }
       } catch (e) {
         state.localEntries = [...DEMO_ENTRIES];
@@ -1022,8 +1018,19 @@ function doGet(e) {
 
     function saveLocalEntries() {
       try {
-        localStorage.setItem(STORAGE_KEYS.LOCAL_ENTRIES, JSON.stringify(state.localEntries));
+        localStorage.setItem(STORAGE_KEYS.ENTRIES, JSON.stringify(state.localEntries));
       } catch (e) { /* abaikan */ }
+    }
+
+    function getActiveScriptUrl() {
+      return (APPS_SCRIPT_URL && APPS_SCRIPT_URL.trim()) || (state.tempScriptUrl && state.tempScriptUrl.trim()) || '';
+    }
+
+    function getDisplayedEntries() {
+      if (Array.isArray(state.liveEntries) && state.liveEntries.length > 0) {
+        return state.liveEntries;
+      }
+      return state.localEntries;
     }
 
     function bindInputListeners() {
@@ -1048,21 +1055,23 @@ function doGet(e) {
     function switchTab(tabId) {
       state.activeTab = tabId;
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+      const panel = document.getElementById(`panel-${tabId}`);
+      if (panel) panel.classList.remove('hidden');
 
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-crimson', 'text-white', 'shadow-md');
-        btn.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/5');
+        btn.classList.remove('bg-crimson', 'text-white', 'shadow-lg', 'shadow-crimson/25');
+        btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-white/10');
       });
 
       const activeBtn = document.getElementById(`tabBtn-${tabId}`);
-      activeBtn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/5');
-      activeBtn.classList.add('bg-crimson', 'text-white', 'shadow-md');
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-white/10');
+        activeBtn.classList.add('bg-crimson', 'text-white', 'shadow-lg', 'shadow-crimson/25');
+      }
 
       if (tabId === 'hub') {
         renderCommunityHub();
       } else if (tabId === 'admin') {
-        document.getElementById('webhookUrlInput').value = state.tempScriptUrl || APPS_SCRIPT_URL || '';
         updateSyncIndicators();
       } else if (tabId === 'create') {
         renderWrappedCanvas();
@@ -1070,62 +1079,18 @@ function doGet(e) {
     }
 
     // =========================================================================
-    // 5. PERSONA / GELAR PELARI 2026 OTOMATIS
-    // =========================================================================
-    function computeRunnerPersona(selectedRaces) {
-      if (!selectedRaces || selectedRaces.length === 0) return 'IRJ Finisher 2026';
-
-      let full = 0, half = 0, shortDist = 0, trail = 0;
-      let totalKm = 0;
-
-      selectedRaces.forEach(r => {
-        totalKm += Number(r.km || 0);
-        if (r.category === 'Full') full++;
-        else if (r.category === 'Half') half++;
-        else if (r.category === 'Trail/Ultra') trail++;
-        else shortDist++;
-      });
-
-      const distinctCategories = [full > 0, half > 0, shortDist > 0, trail > 0].filter(Boolean).length;
-
-      if (trail >= 2 || (trail >= 1 && trail >= full && trail >= half)) {
-        return 'Trail Beast';
-      }
-      if (full >= 2 || (full >= 1 && totalKm >= 80 && distinctCategories <= 2)) {
-        return 'Marathon Machine';
-      }
-      if (half >= 2 && full === 0) {
-        return 'Half-Marathon Hunter';
-      }
-      if (shortDist >= 1 && full === 0 && half === 0 && trail === 0) {
-        return 'Speedster';
-      }
-      if (distinctCategories >= 3) {
-        return 'All-Rounder 2026';
-      }
-      if (full === 1) return 'Marathon Machine';
-      if (half === 1) return 'Half-Marathon Hunter';
-      return 'All-Rounder 2026';
-    }
-
-    function updatePersonaBadge() {
-      const persona = computeRunnerPersona(getSelectedRaceObjects());
-      document.getElementById('livePersonaPreview').textContent = persona;
-    }
-
-    // =========================================================================
-    // 6. INTERAKSI FORM BUAT KARTU 2026
+    // 5. FORM BUAT KARTU (CABANG, RACE, CUSTOM KM, GELAR OTOMATIS)
     // =========================================================================
     function renderCabangSelector() {
       const container = document.getElementById('cabangSelector');
       container.innerHTML = CABANG_LIST.map(cabang => {
         const isActive = state.selectedCabang === cabang;
-        const cls = isActive
-          ? 'bg-crimson text-white border-crimson shadow-md shadow-crimson/20'
-          : 'bg-[#090D16] text-slate-300 border-white/10 hover:border-white/30 hover:text-white';
+        const classes = isActive
+          ? 'bg-crimson text-white border-crimson shadow-md shadow-crimson/25'
+          : 'bg-[#090D16] text-slate-300 border-white/15 hover:border-white/35 hover:text-white';
         return `
           <button type="button" onclick="selectCabang('${escapeAttr(cabang)}')"
-            class="px-3 py-1.5 rounded-xl border text-xs font-bold transition active:scale-95 ${cls}">
+            class="px-3 py-1.5 rounded-xl border text-xs font-bold transition active:scale-95 ${classes}">
             ${escapeHtml(cabang)}
           </button>
         `;
@@ -1144,8 +1109,8 @@ function doGet(e) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
         const isActive = btn.dataset.cat === cat;
         btn.className = isActive
-          ? 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap border border-volt bg-volt text-slate-950 transition'
-          : 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-white/15 bg-[#090D16] text-slate-300 hover:border-white/30 transition';
+          ? 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border border-volt bg-volt text-slate-950 transition'
+          : 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border border-white/15 bg-[#090D16] text-slate-300 hover:border-white/30 transition';
       });
       renderRaceChips();
     }
@@ -1159,14 +1124,14 @@ function doGet(e) {
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-400 py-4 text-center w-full">Race tidak ditemukan. Langsung tambahkan di kolom "+ Tambah Race 2026 Lainnya" di bawah!</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-400 py-5 text-center w-full">Race tidak ditemukan. Tambahkan langsung di kolom "+ Tambah Race 2026 Lainnya" di bawah!</p>`;
       } else {
         container.innerHTML = filtered.map(race => {
           const isSelected = state.selectedRaceIds.has(race.id);
-          const shortTag = race.customKmLabel || (CATEGORY_META[race.category]?.short || `${race.km}K`);
+          const shortTag = CATEGORY_META[race.category]?.short || `${race.km}K`;
           const classes = isSelected
             ? 'bg-crimson text-white border-crimson shadow-md shadow-crimson/20'
-            : 'bg-[#090D16] text-slate-200 border-white/15 hover:border-white/35';
+            : 'bg-[#090D16] text-slate-200 border-white/15 hover:border-volt/60';
           const badgeClasses = isSelected
             ? 'bg-black/30 text-volt'
             : 'bg-white/10 text-slate-400';
@@ -1179,15 +1144,16 @@ function doGet(e) {
               class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs sm:text-[13px] font-semibold transition-all active:scale-95 ${classes}">
               ${checkIcon}
               <span>${escapeHtml(race.name)}</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md ${badgeClasses}">${escapeHtml(shortTag)}</span>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md ${badgeClasses}">${escapeHtml(shortTag)}</span>
             </button>
           `;
         }).join('');
       }
 
       const count = state.selectedRaceIds.size;
-      document.getElementById('selectedCountBadge').textContent = `${count} medali`;
+      document.getElementById('selectedCountBadge').textContent = `${count} race finished`;
       document.getElementById('clearSelectionBtn').classList.toggle('hidden', count === 0);
+      updateLivePersonaPreview();
     }
 
     function toggleRace(raceId) {
@@ -1197,72 +1163,60 @@ function doGet(e) {
         state.selectedRaceIds.add(raceId);
       }
       renderRaceChips();
-      updatePersonaBadge();
       renderWrappedCanvas();
     }
 
     function clearSelectedRaces() {
       state.selectedRaceIds.clear();
       renderRaceChips();
-      updatePersonaBadge();
       renderWrappedCanvas();
     }
 
     function handleCustomKmSelectChange() {
-      const sel = document.getElementById('customRaceKmSelect').value;
-      const kmInput = document.getElementById('customRaceKmInput');
-      if (sel === 'custom') {
-        kmInput.classList.remove('hidden');
-        kmInput.focus();
-      } else {
-        kmInput.classList.add('hidden');
-      }
+      const sel = document.getElementById('customRaceKmSelect');
+      const customInput = document.getElementById('customRaceKmInput');
+      const isCustom = sel.value === 'custom';
+      customInput.classList.toggle('hidden', !isCustom);
+      if (isCustom) customInput.focus();
     }
 
     function addCustomRace() {
       const nameInput = document.getElementById('customRaceName');
-      const kmSelect = document.getElementById('customRaceKmSelect').value;
-      const kmCustomInput = document.getElementById('customRaceKmInput');
+      const kmSelect = document.getElementById('customRaceKmSelect');
+      const customKmInput = document.getElementById('customRaceKmInput');
       const rawName = nameInput.value.trim();
 
       if (!rawName) {
-        showToast('Tulis nama race 2026 dulu ya!', 'info');
+        showToast('Isi nama race 2026 terlebih dahulu.', 'info');
         nameInput.focus();
         return;
       }
 
-      let km = 10;
-      if (kmSelect === 'custom') {
-        const parsed = parseFloat(kmCustomInput.value);
+      let km = 42.2;
+      if (kmSelect.value === 'custom') {
+        const parsed = parseFloat(customKmInput.value);
         if (isNaN(parsed) || parsed <= 0) {
-          showToast('Masukkan jarak KM yang valid (mis. 15 atau 50).', 'error');
-          kmCustomInput.focus();
+          showToast('Masukkan jarak KM yang valid.', 'error');
+          customKmInput.focus();
           return;
         }
         km = Math.round(parsed * 10) / 10;
       } else {
-        km = parseFloat(kmSelect);
+        km = parseFloat(kmSelect.value);
       }
 
-      // Tentukan kategori otomatis berdasarkan jarak / nama
-      const lower = rawName.toLowerCase();
       let category = '10K/5K';
-      if (lower.includes('trail') || lower.includes('ultra') || km > 43) {
-        category = 'Trail/Ultra';
-      } else if (km >= 40) {
-        category = 'Full';
-      } else if (km >= 20) {
-        category = 'Half';
-      }
+      if (km >= 50) category = 'Trail/Ultra';
+      else if (km >= 40) category = 'Full';
+      else if (km >= 20) category = 'Half';
 
       const existing = state.races.find(r => r.name.toLowerCase() === rawName.toLowerCase());
       if (existing) {
         state.selectedRaceIds.add(existing.id);
         nameInput.value = '';
         renderRaceChips();
-        updatePersonaBadge();
         renderWrappedCanvas();
-        showToast(`"${existing.name}" berhasil dipilih!`, 'success');
+        showToast(`"${existing.name}" langsung dipilih!`, 'success');
         return;
       }
 
@@ -1270,8 +1224,7 @@ function doGet(e) {
         id: 'custom-' + Date.now(),
         name: rawName,
         category,
-        km,
-        customKmLabel: `${km}K`
+        km
       };
 
       state.races.push(newRace);
@@ -1283,9 +1236,8 @@ function doGet(e) {
       } catch (e) { /* abaikan */ }
 
       nameInput.value = '';
-      kmCustomInput.value = '';
+      customKmInput.value = '';
       renderRaceChips();
-      updatePersonaBadge();
       renderWrappedCanvas();
       showToast(`"${rawName}" (${km} KM) ditambahkan & dipilih!`, 'success');
     }
@@ -1295,32 +1247,56 @@ function doGet(e) {
     }
 
     function cleanIgUsername(raw) {
-      return (raw || '').trim().replace(/^@+/, '').replace(/\s+/g, '');
+      return String(raw || '').trim().replace(/^@+/, '').replace(/\s+/g, '');
+    }
+
+    function getRunnerPersona(selectedRaces) {
+      if (!selectedRaces || selectedRaces.length === 0) return '2026 Starter';
+      let full = 0, half = 0, trail = 0, shortRun = 0;
+      selectedRaces.forEach(r => {
+        if (r.category === 'Full') full++;
+        else if (r.category === 'Half') half++;
+        else if (r.category === 'Trail/Ultra') trail++;
+        else shortRun++;
+      });
+
+      if (trail >= 2 || (trail >= 1 && trail >= full && trail >= half)) return 'Trail Beast';
+      if (full >= 2 || (full >= 1 && full >= half)) return 'Marathon Machine';
+      if (half >= 2 || (half >= 1 && full === 0 && trail === 0)) return 'Half-Marathon Hunter';
+      if (shortRun > 0 && full === 0 && half === 0 && trail === 0) return 'Speedster 2026';
+      return 'All-Rounder 2026';
+    }
+
+    function updateLivePersonaPreview() {
+      const el = document.getElementById('livePersonaPreview');
+      if (el) {
+        el.textContent = getRunnerPersona(getSelectedRaceObjects());
+      }
     }
 
     // =========================================================================
-    // 7. SIMPAN, UNDUH PNG & SINKRONISASI GOOGLE SHEETS
+    // 6. SIMPAN KE GOOGLE SHEETS & UNDUH KARTU PNG
     // =========================================================================
     async function handleSaveAndDownload() {
       const nameInput = document.getElementById('runnerNameInput');
       const name = nameInput.value.trim();
       const instagram = cleanIgUsername(document.getElementById('runnerIgInput').value);
-      const selectedRaces = getSelectedRaceObjects();
       const target2027 = document.getElementById('target2027Input').value.trim();
+      const selectedRaces = getSelectedRaceObjects();
       const openToReview = document.getElementById('openToReviewToggle').checked;
 
       if (!name) {
-        showToast('Isi Nama / Panggilan dulu ya!', 'error');
+        showToast('Isi Nama / Panggilan kamu dulu ya!', 'error');
         nameInput.focus();
         return;
       }
       if (selectedRaces.length === 0) {
-        showToast('Tap minimal 1 race 2026 yang kamu ikuti!', 'error');
+        showToast('Pilih minimal 1 race yang kamu selesaikan di 2026!', 'error');
         return;
       }
 
       const totalKm = Math.round(selectedRaces.reduce((sum, r) => sum + (Number(r.km) || 10), 0) * 10) / 10;
-      const persona = computeRunnerPersona(selectedRaces);
+      const persona = getRunnerPersona(selectedRaces);
 
       const entry = {
         id: 'local-' + Date.now(),
@@ -1328,10 +1304,10 @@ function doGet(e) {
         name,
         instagram,
         cabang: state.selectedCabang,
-        races: selectedRaces.map(r => r.name),
         medalCount: selectedRaces.length,
         totalKm,
         persona,
+        races: selectedRaces.map(r => r.name),
         target2027,
         openToReview,
         isDemo: false
@@ -1340,122 +1316,147 @@ function doGet(e) {
       const btn = document.getElementById('saveDownloadBtn');
       const btnText = document.getElementById('saveDownloadBtnText');
       btn.disabled = true;
-      btnText.textContent = 'Menyimpan & Menyiapkan PNG...';
+      btnText.textContent = 'Menyimpan & Menyiapkan Kartu...';
 
-      // Simpan ke local state
+      // Simpan ke localStorage
       state.localEntries.unshift(entry);
       saveLocalEntries();
 
-      // Render & Unduh PNG 1080x1920
-      renderWrappedCanvas();
-      downloadWrappedPNG(false);
+      if (Array.isArray(state.liveEntries)) {
+        state.liveEntries.unshift(entry);
+      }
 
-      // Kirim ke Google Apps Script jika URL tersedia
+      updateCommunityHeaderCount();
+      renderWrappedCanvas();
+
+      // Kirim ke Google Sheets jika URL aktif
       const scriptUrl = getActiveScriptUrl();
       if (scriptUrl) {
         try {
-          const res = await fetch(scriptUrl, {
+          await fetch(scriptUrl, {
             method: 'POST',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(entry)
           });
-          if (res.ok) {
-            if (Array.isArray(state.liveEntries)) {
-              state.liveEntries.unshift(entry);
-            }
-            fetchLiveSheetData(false);
-          }
         } catch (err) {
-          console.warn('POST ke Google Sheets gagal:', err);
+          // Tetap lanjut unduh kartu meskipun jaringan bermasalah
         }
       }
+
+      // Unduh PNG Story Card
+      downloadWrappedPNG();
 
       btn.disabled = false;
       btnText.textContent = 'Simpan & Unduh Kartu Wrapped (PNG)';
 
-      updateCommunityHeaderCount();
-      if (state.activeTab === 'hub') renderCommunityHub();
-
       const totalCommunityMedals = getDisplayedEntries().reduce((s, e) => s + (Number(e.medalCount) || 0), 0);
-      showToast(`Mantap! Total koleksi IRJ 2026 sekarang tembus ${totalCommunityMedals.toLocaleString('id-ID')} medali!`, 'success');
+      showToast(`Mantap! Total IRJ 2026 sekarang tembus ${totalCommunityMedals.toLocaleString('id-ID')} race finished!`, 'success');
 
       if (window.innerWidth < 1024) {
         document.getElementById('previewColumn').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
-    async function fetchLiveSheetData(showFeedback = false) {
-      const scriptUrl = getActiveScriptUrl();
-      if (!scriptUrl) {
-        state.liveEntries = null;
+    // =========================================================================
+    // 7. SINKRONISASI DUA ARAH GOOGLE SHEETS (doGet)
+    // =========================================================================
+    async function fetchLiveSheetData(manualTrigger = false) {
+      const url = getActiveScriptUrl();
+      if (!url) {
+        if (manualTrigger) {
+          showToast('URL Google Apps Script belum diatur.', 'info');
+        }
         updateSyncIndicators();
-        if (showFeedback) showToast('URL Google Apps Script belum dipasang. Cek tab Admin & Sync.', 'info');
         return;
       }
 
       const spinner = document.getElementById('refreshSpinner');
       if (spinner) spinner.classList.add('animate-spin');
+      state.isSyncing = true;
 
       try {
-        const res = await fetch(scriptUrl);
-        const data = await res.json();
-        if (data && data.status === 'ok' && Array.isArray(data.entries)) {
-          state.liveEntries = data.entries;
+        const res = await fetch(url, { method: 'GET' });
+        const json = await res.json();
+        if (json && json.status === 'ok' && Array.isArray(json.entries)) {
+          state.liveEntries = json.entries;
           updateSyncIndicators();
           updateCommunityHeaderCount();
-          renderCommunityHub();
-          if (showFeedback) showToast(`Sinkronisasi berhasil! ${data.entries.length} pelari IRJ 2026 dimuat.`, 'success');
-        } else {
-          throw new Error('Format JSON tidak valid');
+          if (state.activeTab === 'hub') {
+            renderCommunityHub();
+          }
+          if (manualTrigger) {
+            showToast(`Berhasil sinkronkan ${json.entries.length} data pelari dari Google Sheets!`, 'success');
+          }
+        } else if (manualTrigger) {
+          showToast('Respons Google Sheets tidak dikenali. Cek deployment Apps Script.', 'error');
         }
       } catch (err) {
-        console.warn('GET dari Google Sheets gagal:', err);
-        if (showFeedback) showToast('Gagal menarik data Google Sheets. Pastikan akses Web App "Anyone".', 'error');
+        if (manualTrigger) {
+          showToast('Gagal mengambil data dari Google Sheets. Pastikan akses Web App = Anyone.', 'error');
+        }
       } finally {
+        state.isSyncing = false;
         if (spinner) spinner.classList.remove('animate-spin');
       }
     }
 
     function updateSyncIndicators() {
-      const isLive = Array.isArray(state.liveEntries);
-      const hasDemo = !isLive && state.localEntries.some(e => e.isDemo);
-
+      const url = getActiveScriptUrl();
+      const isLive = Array.isArray(state.liveEntries) && state.liveEntries.length > 0;
       const hubBadge = document.getElementById('hubSyncBadge');
       const adminBadge = document.getElementById('adminSyncStatusBadge');
       const demoBanner = document.getElementById('demoNoticeBanner');
       const hardcodeBox = document.getElementById('hardcodeStatusBox');
+      const urlInput = document.getElementById('webhookUrlInput');
+
+      if (urlInput && !urlInput.value && state.tempScriptUrl) {
+        urlInput.value = state.tempScriptUrl;
+      }
 
       if (isLive) {
-        const cls = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
-        const html = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live Google Sheets';
-        hubBadge.className = cls;
-        hubBadge.innerHTML = html;
-        adminBadge.className = cls;
-        adminBadge.innerHTML = html;
-        demoBanner.classList.add('hidden');
+        if (hubBadge) {
+          hubBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          hubBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live Google Sheets';
+        }
+        if (adminBadge) {
+          adminBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          adminBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Terhubung Live';
+        }
+        if (demoBanner) demoBanner.classList.add('hidden');
+      } else if (url) {
+        if (hubBadge) {
+          hubBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/30';
+          hubBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Siap Sinkron (Sheet Kosong / Demo)';
+        }
+        if (adminBadge) {
+          adminBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/30';
+          adminBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-sky-400"></span> URL Aktif';
+        }
+        if (demoBanner) demoBanner.classList.remove('hidden');
       } else {
-        const cls = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30';
-        const html = hasDemo
-          ? '<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Data Demo Aktif'
-          : '<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Penyimpanan Lokal';
-        hubBadge.className = cls;
-        hubBadge.innerHTML = html;
-        adminBadge.className = cls;
-        adminBadge.innerHTML = html;
-        demoBanner.classList.toggle('hidden', !hasDemo);
+        if (hubBadge) {
+          hubBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30';
+          hubBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Data Demo Aktif';
+        }
+        if (adminBadge) {
+          adminBadge.className = 'inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30';
+          adminBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Mode Demo Lokal';
+        }
+        if (demoBanner) demoBanner.classList.remove('hidden');
       }
 
       if (hardcodeBox) {
-        if (APPS_SCRIPT_URL.trim()) {
-          hardcodeBox.innerHTML = `<span class="font-bold text-emerald-400">✓ APPS_SCRIPT_URL aktif di kode:</span> <span class="font-mono break-all text-slate-300">${escapeHtml(APPS_SCRIPT_URL.trim())}</span>`;
+        if (APPS_SCRIPT_URL && APPS_SCRIPT_URL.trim()) {
+          hardcodeBox.innerHTML = `<span class="text-emerald-400 font-bold">✓ URL Google Apps Script sudah tertanam di file HTML.</span><br/><span class="text-slate-400 break-all">${escapeHtml(APPS_SCRIPT_URL)}</span>`;
         } else {
-          hardcodeBox.innerHTML = `<span class="font-bold text-volt">Info Deploy:</span> Konstanta <code class="font-mono bg-white/10 px-1.5 py-0.5 rounded text-white">const APPS_SCRIPT_URL = "";</code> masih kosong. Isi sebelum upload ke GitHub Pages agar semua member IRJ tersinkron otomatis ke satu Google Sheet.`;
+          hardcodeBox.innerHTML = `<span class="text-amber-300 font-bold">⚠ Konstanta APPS_SCRIPT_URL masih kosong.</span> Tempel URL Web App kamu di kode HTML agar aktif untuk semua member.`;
         }
       }
     }
 
     // =========================================================================
-    // 8. RENDER CANVAS KARTU WRAPPED 2026 (1080x1920 PNG)
+    // 8. RENDERER KARTU STORY IG 1080×1920 (HTML5 CANVAS)
     // =========================================================================
     function renderWrappedCanvas() {
       const canvas = document.getElementById('wrappedCanvas');
@@ -1466,33 +1467,36 @@ function doGet(e) {
 
       const theme = CARD_THEME_MERAH_PUTIH;
       const runnerName = document.getElementById('runnerNameInput').value.trim() || 'NAMA PELARI';
-      const igClean = cleanIgUsername(document.getElementById('runnerIgInput').value);
-      const runnerIg = igClean ? '@' + igClean : '';
+      const runnerIg = cleanIgUsername(document.getElementById('runnerIgInput').value);
       const target2027 = document.getElementById('target2027Input').value.trim();
-      const cabang = state.selectedCabang.toUpperCase();
       const selectedRaces = getSelectedRaceObjects();
       const medalCount = selectedRaces.length;
       const totalKm = Math.round(selectedRaces.reduce((sum, r) => sum + (Number(r.km) || 10), 0) * 10) / 10;
-      const persona = computeRunnerPersona(selectedRaces).toUpperCase();
+      const persona = getRunnerPersona(selectedRaces);
 
-      // --- 1. Background Gradien ---
+      const counts = { Full: 0, Half: 0, 'Trail/Ultra': 0, '10K/5K': 0 };
+      selectedRaces.forEach(r => {
+        if (counts[r.category] !== undefined) counts[r.category]++;
+      });
+
+      // --- 1. Gradien Latar Belakang ---
       const bgGrad = ctx.createLinearGradient(0, 0, W, H);
       bgGrad.addColorStop(0, theme.bgStart);
       bgGrad.addColorStop(1, theme.bgEnd);
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, W, H);
 
-      // --- 2. Ambient Glow ---
-      const g1 = ctx.createRadialGradient(W * 0.85, H * 0.14, 20, W * 0.85, H * 0.14, 720);
-      g1.addColorStop(0, theme.glowTop);
-      g1.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g1;
+      // --- 2. Efek Cahaya Atletik ---
+      const radTop = ctx.createRadialGradient(W * 0.85, H * 0.14, 40, W * 0.85, H * 0.14, 780);
+      radTop.addColorStop(0, theme.glowTop);
+      radTop.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = radTop;
       ctx.fillRect(0, 0, W, H);
 
-      const g2 = ctx.createRadialGradient(W * 0.12, H * 0.86, 20, W * 0.12, H * 0.86, 650);
-      g2.addColorStop(0, theme.glowBottom);
-      g2.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g2;
+      const radBottom = ctx.createRadialGradient(W * 0.15, H * 0.86, 40, W * 0.15, H * 0.86, 680);
+      radBottom.addColorStop(0, theme.glowBottom);
+      radBottom.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = radBottom;
       ctx.fillRect(0, 0, W, H);
 
       // --- 3. Garis Lintasan Lari Diagonal ---
@@ -1507,6 +1511,15 @@ function doGet(e) {
       }
       ctx.restore();
 
+      // --- 3B. Watermark Latar Belakang Raksasa (LOGOIRJNEW.png) ---
+      if (state.logoLoaded && state.logoImage && state.logoSafeForExport) {
+        ctx.save();
+        ctx.globalAlpha = 0.16;
+        const wmSize = 860;
+        drawImageContain(ctx, state.logoImage, (W - wmSize) / 2, H * 0.28, wmSize, wmSize);
+        ctx.restore();
+      }
+
       // --- 4. Bingkai Luar ---
       ctx.save();
       roundRectPath(ctx, 48, 48, W - 96, H - 96, 48);
@@ -1516,85 +1529,84 @@ function doGet(e) {
       ctx.restore();
 
       const padX = 96;
-      let cursorY = 92;
+      let cursorY = 86;
 
-      // --- 5. Top Bar: Logo IRJ Ekstra Besar (220x220) + Badge "2026 WRAPPED" ---
-      const logoSize = 330;
+      // --- 5. Top Bar: Logo IRJ Ekstra Besar (260x260) + Badge "2026 WRAPPED" ---
+      const logoSize = 260;
       drawCanvasLogo(ctx, padX, cursorY, logoSize, theme);
 
-      const badgeX = padX + logoSize + 36;
+      const badgeX = padX + logoSize + 30;
       ctx.save();
       const wrappedLabel = '2026 WRAPPED';
-      ctx.font = '700 40px "Space Grotesk", sans-serif';
-      const wrappedW = ctx.measureText(wrappedLabel).width + 60;
-      roundRectPath(ctx, badgeX, cursorY + 34, wrappedW, 68, 34);
+      ctx.font = '700 38px "Space Grotesk", sans-serif';
+      const wrappedW = ctx.measureText(wrappedLabel).width + 54;
+      roundRectPath(ctx, badgeX, cursorY + 48, wrappedW, 66, 33);
       ctx.fillStyle = theme.accent;
       ctx.fill();
       ctx.fillStyle = theme.accentText;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(wrappedLabel, badgeX + 30, cursorY + 69);
+      ctx.fillText(wrappedLabel, badgeX + 27, cursorY + 82);
       ctx.restore();
 
       ctx.fillStyle = theme.textPrimary;
-      ctx.font = '700 32px "Space Grotesk", sans-serif';
+      ctx.font = '700 30px "Space Grotesk", sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText('INDONESIAN RUNNERS', badgeX + 4, cursorY + 122);
+      ctx.fillText('INDONESIAN RUNNERS', badgeX + 4, cursorY + 134);
 
       ctx.fillStyle = theme.textMuted;
-      ctx.font = '700 23px "Inter", sans-serif';
-      ctx.fillText('JAPAN • OFFICIAL RECAP', badgeX + 4, cursorY + 162);
+      ctx.font = '700 22px "Inter", sans-serif';
+      ctx.fillText('JAPAN • OFFICIAL RECAP', badgeX + 4, cursorY + 174);
 
-      cursorY += logoSize + 34;
+      cursorY += logoSize + 24;
 
-      // --- 6. Nama Pelari, Cabang & @Instagram ---
+      // --- 6. Identitas Pelari + Cabang + IG + Gelar ---
       ctx.fillStyle = theme.textPrimary;
-      ctx.font = '700 68px "Space Grotesk", sans-serif';
+      ctx.font = '700 72px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
       ctx.fillText(truncateText(ctx, runnerName.toUpperCase(), W - padX * 2), padX, cursorY);
-      cursorY += 76;
+      cursorY += 86;
 
-      const subline = runnerIg ? `CABANG ${cabang}  •  ${runnerIg}` : `CABANG ${cabang}`;
+      const subLine = runnerIg
+        ? `CABANG ${state.selectedCabang.toUpperCase()}  •  @${runnerIg}`
+        : `CABANG ${state.selectedCabang.toUpperCase()}`;
       ctx.fillStyle = theme.textMuted;
       ctx.font = '700 26px "Inter", sans-serif';
-      ctx.fillText(truncateText(ctx, subline, W - padX * 2), padX, cursorY);
-      cursorY += 48;
+      ctx.fillText(truncateText(ctx, subLine, W - padX * 2), padX, cursorY);
+      cursorY += 46;
 
-      // --- 7. Gelar Pelari 2026 Banner ---
-      const personaH = 88;
+      // Pill Gelar Pelari 2026
       ctx.save();
-      roundRectPath(ctx, padX, cursorY, W - padX * 2, personaH, 26);
-      ctx.fillStyle = theme.cardSurface;
+      const personaText = `★  ${persona.toUpperCase()}`;
+      ctx.font = '700 24px "Space Grotesk", sans-serif';
+      const personaW = ctx.measureText(personaText).width + 48;
+      roundRectPath(ctx, padX, cursorY, personaW, 50, 25);
+      ctx.fillStyle = theme.pillBg;
       ctx.fill();
-      ctx.strokeStyle = theme.accent;
-      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = theme.pillBorder;
+      ctx.lineWidth = 2;
       ctx.stroke();
-
+      ctx.fillStyle = theme.secondaryAccent;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = theme.textMuted;
-      ctx.font = '700 21px "Inter", sans-serif';
-      ctx.fillText('GELAR 2026', padX + 34, cursorY + personaH / 2);
-
-      ctx.fillStyle = theme.accent;
-      ctx.font = '700 38px "Space Grotesk", sans-serif';
-      ctx.textAlign = 'right';
-      ctx.fillText(truncateText(ctx, persona, W - padX * 2 - 220), W - padX - 34, cursorY + personaH / 2 + 1);
+      ctx.fillText(personaText, padX + 24, cursorY + 26);
       ctx.restore();
 
-      cursorY += personaH + 26;
+      cursorY += 76;
 
-      // --- 8. Hero Stats Card: Total Medali 2026 & Total KM ---
-      const heroH = 296;
+      // --- 7. Kotak Hero Stats (Race Finished + Total KM) ---
+      const heroH = 290;
       ctx.save();
-      roundRectPath(ctx, padX, cursorY, W - padX * 2, heroH, 34);
+      roundRectPath(ctx, padX, cursorY, W - padX * 2, heroH, 36);
       ctx.fillStyle = theme.cardSurface;
       ctx.fill();
       ctx.strokeStyle = theme.cardBorder;
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      const midX = W / 2 + 8;
+      const midX = W / 2 + 12;
       ctx.beginPath();
       ctx.moveTo(midX, cursorY + 42);
       ctx.lineTo(midX, cursorY + heroH - 42);
@@ -1602,50 +1614,78 @@ function doGet(e) {
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Kiri: Total Medali 2026
+      // Kiri: Total Race Finished 2026
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillStyle = theme.textMuted;
       ctx.font = '700 22px "Inter", sans-serif';
-      ctx.fillText('TOTAL MEDALI 2026', padX + 40, cursorY + 38);
+      ctx.fillText('RACE FINISHED 2026', padX + 40, cursorY + 38);
 
       ctx.fillStyle = theme.accent;
-      ctx.font = '700 164px "Space Grotesk", sans-serif';
+      ctx.font = '700 156px "Space Grotesk", sans-serif';
       ctx.fillText(String(medalCount), padX + 36, cursorY + 80);
 
-      // Kanan: Total Jarak Race Resmi (KM)
+      // Kanan: Total KM Resmi
       ctx.fillStyle = theme.textMuted;
       ctx.font = '700 22px "Inter", sans-serif';
-      ctx.fillText('JARAK RACE RESMI', midX + 40, cursorY + 38);
+      ctx.fillText('TOTAL KM RESMI', midX + 40, cursorY + 38);
 
       ctx.fillStyle = theme.textPrimary;
-      ctx.font = '700 92px "Space Grotesk", sans-serif';
+      ctx.font = '700 94px "Space Grotesk", sans-serif';
       const kmStr = totalKm % 1 === 0 ? String(totalKm) : totalKm.toFixed(1);
-      ctx.fillText(kmStr, midX + 40, cursorY + 100);
+      ctx.fillText(kmStr, midX + 40, cursorY + 98);
 
-      ctx.fillStyle = theme.secondaryAccent || theme.accent;
+      ctx.fillStyle = theme.secondaryAccent;
       ctx.font = '700 28px "Space Grotesk", sans-serif';
-      ctx.fillText('KILOMETER', midX + 40, cursorY + 210);
+      ctx.fillText('KILOMETER', midX + 40, cursorY + 206);
       ctx.restore();
 
-      cursorY += heroH + 38;
+      cursorY += heroH + 30;
 
-      // --- 9. Daftar Race 2026 (Auto-Fit) ---
-      const footerTopY = H - 170;
-      const targetBoxH = target2027 ? 124 : 0;
-      const targetBoxY = target2027 ? (footerTopY - targetBoxH - 26) : footerTopY;
-      const racesMaxBottom = targetBoxY - 26;
+      // --- 8. Ringkasan Kategori ---
+      const breakdownItems = [
+        { label: `${counts.Full} FULL`, active: counts.Full > 0 },
+        { label: `${counts.Half} HALF`, active: counts.Half > 0 },
+        { label: `${counts['Trail/Ultra']} TRAIL`, active: counts['Trail/Ultra'] > 0 },
+        { label: `${counts['10K/5K']} 10K/5K`, active: counts['10K/5K'] > 0 }
+      ];
 
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
+      let pillX = padX;
+      const pillGap = 14;
+      const pillW = (W - padX * 2 - pillGap * 3) / 4;
+      breakdownItems.forEach(item => {
+        ctx.save();
+        roundRectPath(ctx, pillX, cursorY, pillW, 56, 16);
+        ctx.fillStyle = item.active ? theme.pillBg : 'transparent';
+        ctx.fill();
+        ctx.strokeStyle = item.active ? theme.pillBorder : theme.cardBorder;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = item.active ? theme.textPrimary : theme.textMuted;
+        ctx.font = '700 22px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(item.label, pillX + pillW / 2, cursorY + 29);
+        ctx.restore();
+        pillX += pillW + pillGap;
+      });
+
+      cursorY += 86;
+
+      // --- 9. Daftar Race 2026 ---
       ctx.fillStyle = theme.textMuted;
       ctx.font = '700 22px "Inter", sans-serif';
-      ctx.fillText('KOLEKSI RACE 2026', padX, cursorY);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('DAFTAR RACE FINISHED 2026', padX, cursorY);
       cursorY += 42;
+
+      const footerStart = target2027 ? H - 280 : H - 196;
 
       if (selectedRaces.length === 0) {
         ctx.save();
-        roundRectPath(ctx, padX, cursorY, W - padX * 2, 118, 22);
+        roundRectPath(ctx, padX, cursorY, W - padX * 2, 110, 22);
         ctx.fillStyle = theme.cardSurface;
         ctx.fill();
         ctx.strokeStyle = theme.cardBorder;
@@ -1655,102 +1695,128 @@ function doGet(e) {
         ctx.font = '600 28px "Inter", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('Tap race 2026 kamu di formulir', W / 2, cursorY + 59);
+        ctx.fillText('Tap race 2026 di form untuk mengisi kartu', W / 2, cursorY + 55);
         ctx.restore();
       } else {
-        const isDense = selectedRaces.length > 8 || Boolean(target2027);
-        const fontSize = isDense ? 24 : 27;
-        const rowH = isDense ? 60 : 70;
-        const gapX = isDense ? 14 : 16;
-        const gapY = isDense ? 14 : 16;
-        const padPillX = isDense ? 22 : 26;
-
         const maxRight = W - padX;
+        const maxBottom = footerStart - 24;
         let rx = padX;
         let ry = cursorY;
-        ctx.font = `600 ${fontSize}px "Inter", sans-serif`;
+        const rowH = 66;
+        const gapX = 16;
+        const gapY = 16;
 
+        ctx.font = '600 26px "Inter", sans-serif';
         let renderedCount = 0;
+
         for (let i = 0; i < selectedRaces.length; i++) {
           const race = selectedRaces[i];
           const remaining = selectedRaces.length - i;
-          const label = truncateText(ctx, race.name, W - padX * 2 - padPillX * 2 - 20);
-          const chipW = Math.min(ctx.measureText(label).width + padPillX * 2, W - padX * 2);
+          const label = truncateText(ctx, race.name, W - padX * 2 - 64);
+          const chipW = Math.min(ctx.measureText(label).width + 56, W - padX * 2);
 
           if (rx + chipW > maxRight && rx > padX) {
             rx = padX;
             ry += rowH + gapY;
           }
 
-          if (ry + rowH > racesMaxBottom) break;
+          if (ry + rowH > maxBottom) break;
 
-          const isLastRow = (ry + rowH + gapY + rowH) > racesMaxBottom;
+          const isLastRow = (ry + rowH + gapY + rowH) > maxBottom;
           if (isLastRow && remaining > 1) {
-            const moreText = `+${remaining} LAINNYA`;
-            const moreW = ctx.measureText(moreText).width + padPillX * 2 + 8;
+            const moreText = `+${remaining} RACE LAINNYA`;
+            const moreW = ctx.measureText(moreText).width + 52;
             if (rx + chipW + gapX + moreW > maxRight) {
-              drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true, fontSize, padPillX);
+              drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true);
               renderedCount = selectedRaces.length;
               break;
             }
           }
 
-          drawRacePill(ctx, rx, ry, chipW, rowH, label, theme, false, fontSize, padPillX);
+          drawRacePill(ctx, rx, ry, chipW, rowH, label, theme, false);
           rx += chipW + gapX;
           renderedCount++;
         }
 
-        if (renderedCount < selectedRaces.length && ry + rowH <= racesMaxBottom) {
+        if (renderedCount < selectedRaces.length && ry + rowH <= maxBottom) {
           const rem = selectedRaces.length - renderedCount;
           const moreText = `+${rem} LAINNYA`;
-          const moreW = ctx.measureText(moreText).width + padPillX * 2 + 8;
-          drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true, fontSize, padPillX);
+          const moreW = ctx.measureText(moreText).width + 52;
+          drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true);
         }
       }
 
-      // --- 10. Kotak Target 2027 (Jika Diisi) ---
+      // --- 10. Target 2027 (Opsional) ---
       if (target2027) {
+        const targetY = H - 274;
         ctx.save();
-        roundRectPath(ctx, padX, targetBoxY, W - padX * 2, targetBoxH, 24);
+        roundRectPath(ctx, padX, targetY, W - padX * 2, 74, 20);
         ctx.fillStyle = theme.cardSurface;
         ctx.fill();
-        ctx.strokeStyle = theme.cardBorder;
+        ctx.strokeStyle = theme.pillBorder;
         ctx.lineWidth = 2;
         ctx.stroke();
 
+        ctx.fillStyle = theme.secondaryAccent;
+        ctx.font = '700 22px "Space Grotesk", sans-serif';
         ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillStyle = theme.accent;
-        ctx.font = '700 20px "Inter", sans-serif';
-        ctx.fillText('TARGET RACE 2027', padX + 30, targetBoxY + 24);
+        ctx.textBaseline = 'middle';
+        ctx.fillText('TARGET 2027:', padX + 26, targetY + 38);
 
         ctx.fillStyle = theme.textPrimary;
-        ctx.font = '700 32px "Space Grotesk", sans-serif';
-        ctx.fillText(truncateText(ctx, target2027, W - padX * 2 - 60), padX + 30, targetBoxY + 60);
+        ctx.font = '600 25px "Inter", sans-serif';
+        const targetLabel = truncateText(ctx, target2027, W - padX * 2 - 210);
+        ctx.fillText(targetLabel, padX + 188, targetY + 38);
         ctx.restore();
       }
 
-      // --- 11. Footer Branding ---
+      // --- 11. Footer Komunitas ---
+      const footerY = H - 178;
       ctx.beginPath();
-      ctx.moveTo(padX, footerTopY);
-      ctx.lineTo(W - padX, footerTopY);
+      ctx.moveTo(padX, footerY);
+      ctx.lineTo(W - padX, footerY);
       ctx.strokeStyle = theme.cardBorder;
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
       ctx.fillStyle = theme.textPrimary;
       ctx.font = '700 28px "Space Grotesk", sans-serif';
-      ctx.fillText('Indonesian Runners Japan • #IRJ2026Wrapped', W / 2, footerTopY + 56);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('INDONESIAN RUNNERS JAPAN', padX, footerY + 28);
+
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '600 22px "Inter", sans-serif';
+      ctx.fillText('#IRJ2026WRAPPED  •  #LARIBARENGIRJ', padX, footerY + 68);
+
+      ctx.save();
+      roundRectPath(ctx, W - padX - 180, footerY + 32, 180, 56, 28);
+      ctx.fillStyle = theme.accent;
+      ctx.fill();
+      ctx.fillStyle = theme.accentText;
+      ctx.font = '700 24px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('2026', W - padX - 90, footerY + 61);
+      ctx.restore();
+    }
+
+    function drawImageContain(ctx, img, x, y, maxW, maxH) {
+      const iw = img.naturalWidth || img.width || maxW;
+      const ih = img.naturalHeight || img.height || maxH;
+      const scale = Math.min(maxW / iw, maxH / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      const dx = x + (maxW - dw) / 2;
+      const dy = y + (maxH - dh) / 2;
+      ctx.drawImage(img, dx, dy, dw, dh);
     }
 
     function drawCanvasLogo(ctx, x, y, size, theme) {
-      // Subtle glow behind the enlarged IRJ logo
       ctx.save();
       const logoGlow = ctx.createRadialGradient(
-        x + size / 2, y + size / 2, size * 0.2,
-        x + size / 2, y + size / 2, size * 0.78
+        x + size / 2, y + size / 2, size * 0.15,
+        x + size / 2, y + size / 2, size * 0.72
       );
       logoGlow.addColorStop(0, theme.glowTop);
       logoGlow.addColorStop(1, 'rgba(0,0,0,0)');
@@ -1758,19 +1824,24 @@ function doGet(e) {
       ctx.fillRect(x - 40, y - 40, size + 80, size + 80);
       ctx.restore();
 
+      if (state.logoLoaded && state.logoImage && state.logoSafeForExport) {
+        try {
+          ctx.save();
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+          ctx.shadowBlur = 24;
+          ctx.shadowOffsetY = 8;
+          drawImageContain(ctx, state.logoImage, x, y, size, size);
+          ctx.restore();
+          return;
+        } catch (e) {
+          // Fallback ke emblem vektor jika gagal
+        }
+      }
+
       ctx.save();
       roundRectPath(ctx, x, y, size, size, 36);
       ctx.clip();
-
-      if (state.logoLoaded && state.logoImage && state.logoSafeForExport) {
-        try {
-          ctx.drawImage(state.logoImage, x, y, size, size);
-        } catch (e) {
-          drawVectorIRJBadge(ctx, x, y, size);
-        }
-      } else {
-        drawVectorIRJBadge(ctx, x, y, size);
-      }
+      drawVectorIRJBadge(ctx, x, y, size);
       ctx.restore();
 
       ctx.save();
@@ -1783,22 +1854,22 @@ function doGet(e) {
 
     function drawVectorIRJBadge(ctx, x, y, size) {
       ctx.fillStyle = '#E11D48';
-      ctx.fillRect(x, y, size, size * 0.56);
+      ctx.fillRect(x, y, size, size / 2);
       ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(x, y + size * 0.56, size, size * 0.44);
+      ctx.fillRect(x, y + size / 2, size, size / 2);
 
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = `700 ${Math.round(size * 0.36)}px "Space Grotesk", sans-serif`;
+      ctx.font = `700 ${Math.round(size * 0.34)}px "Space Grotesk", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('IRJ', x + size / 2, y + size * 0.30);
+      ctx.fillText('IRJ', x + size / 2, y + size * 0.28);
 
       ctx.fillStyle = '#E11D48';
-      ctx.font = `700 ${Math.round(size * 0.16)}px "Inter", sans-serif`;
-      ctx.fillText('JAPAN', x + size / 2, y + size * 0.78);
+      ctx.font = `700 ${Math.round(size * 0.14)}px "Inter", sans-serif`;
+      ctx.fillText('JAPAN', x + size / 2, y + size * 0.74);
     }
 
-    function drawRacePill(ctx, x, y, w, h, text, theme, isHighlight, fontSize, padX) {
+    function drawRacePill(ctx, x, y, w, h, text, theme, isHighlight) {
       ctx.save();
       roundRectPath(ctx, x, y, w, h, 18);
       ctx.fillStyle = isHighlight ? theme.accent : theme.pillBg;
@@ -1808,12 +1879,10 @@ function doGet(e) {
       ctx.stroke();
 
       ctx.fillStyle = isHighlight ? theme.accentText : theme.pillText;
-      ctx.font = isHighlight
-        ? `700 ${Math.max(21, fontSize - 2)}px "Space Grotesk", sans-serif`
-        : `600 ${fontSize}px "Inter", sans-serif`;
+      ctx.font = isHighlight ? '700 24px "Space Grotesk", sans-serif' : '600 26px "Inter", sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text, x + padX, y + h / 2 + 1);
+      ctx.fillText(text, x + 26, y + h / 2 + 1);
       ctx.restore();
     }
 
@@ -1840,29 +1909,25 @@ function doGet(e) {
     // =========================================================================
     // 9. UNDUH PNG & WEB SHARE API
     // =========================================================================
-    function downloadWrappedPNG(withToast = true) {
+    function downloadWrappedPNG() {
       const canvas = document.getElementById('wrappedCanvas');
-      const slug = (document.getElementById('runnerNameInput').value.trim() || 'pelari-irj')
+      const runnerName = (document.getElementById('runnerNameInput').value.trim() || 'pelari-irj')
         .toLowerCase().replace(/[^a-z0-9]+/g, '-');
       try {
         const dataUrl = canvas.toDataURL('image/png', 1.0);
-        triggerDownload(dataUrl, `irj-2026-wrapped-${slug}.png`);
-        if (withToast) showToast('Kartu IRJ 2026 Wrapped (PNG) berhasil diunduh!', 'success');
-      } catch (err) {
-        // Jika gambar logo cross-origin men-taint canvas, render ulang dengan emblem vektor IRJ yang aman
+        const link = document.createElement('a');
+        link.download = `IRJ-2026-Wrapped-${runnerName}.png`;
+        link.href = dataUrl;
+        link.click();
+      } catch (e) {
+        // Jika canvas tainted karena CORS gambar, render ulang dengan emblem vektor lalu unduh
         state.logoSafeForExport = false;
         renderWrappedCanvas();
-        const dataUrl = canvas.toDataURL('image/png', 1.0);
-        triggerDownload(dataUrl, `irj-2026-wrapped-${slug}.png`);
-        if (withToast) showToast('Kartu IRJ 2026 Wrapped (PNG) berhasil diunduh!', 'success');
+        const link = document.createElement('a');
+        link.download = `IRJ-2026-Wrapped-${runnerName}.png`;
+        link.href = canvas.toDataURL('image/png', 1.0);
+        link.click();
       }
-    }
-
-    function triggerDownload(dataUrl, filename) {
-      const link = document.createElement('a');
-      link.download = filename;
-      link.href = dataUrl;
-      link.click();
     }
 
     async function shareWrappedCard() {
@@ -1871,11 +1936,11 @@ function doGet(e) {
         try {
           const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
           if (blob) {
-            const file = new File([blob], 'irj-2026-wrapped.png', { type: 'image/png' });
+            const file = new File([blob], 'IRJ-2026-Wrapped.png', { type: 'image/png' });
             if (navigator.canShare({ files: [file] })) {
               await navigator.share({
                 title: 'IRJ 2026 Wrapped',
-                text: `Rekap race 2026 aku bersama Indonesian Runners Japan (${state.selectedCabang})! #IRJ2026Wrapped`,
+                text: 'Rekap Race Finished 2026 bersama Indonesian Runners Japan! #IRJ2026Wrapped',
                 files: [file]
               });
               return;
@@ -1885,15 +1950,18 @@ function doGet(e) {
           if (err.name === 'AbortError') return;
         }
       }
-      downloadWrappedPNG(true);
+      downloadWrappedPNG();
+      showToast('Kartu PNG diunduh! Siap di-upload ke Instagram Story.', 'success');
     }
 
     // =========================================================================
-    // 10. REKAP KOMUNITAS (KPI, KLASEMEN CABANG, RACE TERPOPULER & DIREKTORI)
+    // 10. REKAP KOMUNITAS (KPI, KLASEMEN CABANG, RACE TERPOPULER, DIREKTORI)
     // =========================================================================
     function updateCommunityHeaderCount() {
-      const totalMedals = getDisplayedEntries().reduce((sum, e) => sum + (Number(e.medalCount) || 0), 0);
-      document.getElementById('headerMedalTotal').textContent = totalMedals.toLocaleString('id-ID');
+      const entries = getDisplayedEntries();
+      const totalMedals = entries.reduce((sum, e) => sum + (Number(e.medalCount) || 0), 0);
+      const el = document.getElementById('headerMedalTotal');
+      if (el) el.textContent = totalMedals.toLocaleString('id-ID');
     }
 
     function renderCommunityHub() {
@@ -1905,13 +1973,13 @@ function doGet(e) {
       const raceCounts = {};
 
       entries.forEach(entry => {
-        const cab = entry.cabang || 'Umum / Ex-Japan';
+        const cab = entry.cabang || 'Lainnya';
         if (!cabangStats[cab]) cabangStats[cab] = { medals: 0, runners: 0 };
-        cabangStats[cab].medals += Number(entry.medalCount) || (entry.races ? entry.races.length : 0);
+        cabangStats[cab].medals += Number(entry.medalCount) || 0;
         cabangStats[cab].runners += 1;
 
-        (entry.races || []).forEach(raceName => {
-          raceCounts[raceName] = (raceCounts[raceName] || 0) + 1;
+        (entry.races || []).forEach(r => {
+          raceCounts[r] = (raceCounts[r] || 0) + 1;
         });
       });
 
@@ -1924,26 +1992,26 @@ function doGet(e) {
       document.getElementById('kpiTotalKm').textContent = totalKm.toLocaleString('id-ID');
       document.getElementById('kpiUniqueRaces').textContent = sortedRaces.length.toLocaleString('id-ID');
 
-      // Klasemen Cabang IRJ 2026
+      // Klasemen Cabang
       const cabContainer = document.getElementById('cabangLeaderboard');
       if (sortedCabang.length === 0) {
-        cabContainer.innerHTML = `<p class="text-xs text-slate-500 py-6 text-center">Belum ada data pelari tercatat di 2026.</p>`;
+        cabContainer.innerHTML = `<p class="text-xs text-slate-500 py-6 text-center">Belum ada data cabang di 2026.</p>`;
       } else {
         const maxMedals = cabangStats[sortedCabang[0]].medals || 1;
         cabContainer.innerHTML = sortedCabang.map((cab, idx) => {
           const stat = cabangStats[cab];
-          const pct = Math.max(12, Math.round((stat.medals / maxMedals) * 100));
-          const barColor = idx === 0 ? 'bg-gradient-to-r from-crimson to-rose-500' : idx === 1 ? 'bg-volt' : 'bg-slate-500';
+          const pct = Math.max(10, Math.round((stat.medals / maxMedals) * 100));
+          const barColor = idx === 0 ? 'bg-gradient-to-r from-crimson to-rose-400' : idx === 1 ? 'bg-volt' : 'bg-sky-400';
           return `
             <button type="button" onclick="filterDirectoryByCabang('${escapeAttr(cab)}')"
               class="w-full text-left group p-2.5 -mx-2.5 rounded-xl hover:bg-white/5 transition">
               <div class="flex items-center justify-between text-xs sm:text-sm mb-1.5 gap-2">
                 <span class="font-bold text-white group-hover:text-volt truncate">
-                  <span class="font-display text-slate-500 mr-1.5">#${idx + 1}</span>
+                  <span class="font-display text-slate-400 mr-1.5">#${idx + 1}</span>
                   ${escapeHtml(cab)}
                 </span>
                 <span class="text-xs text-slate-400 shrink-0">
-                  <strong class="font-display text-white text-sm">${stat.medals}</strong> medali • ${stat.runners} pelari
+                  <strong class="font-display text-white text-sm">${stat.medals}</strong> race finished • ${stat.runners} pelari
                 </span>
               </div>
               <div class="w-full h-2.5 bg-white/10 rounded-full overflow-hidden">
@@ -2098,7 +2166,7 @@ function doGet(e) {
                   </div>
                   <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
                     <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson/20 text-rose-300 border border-crimson/30">${escapeHtml(entry.cabang || 'IRJ')}</span>
-                    <span class="text-xs font-semibold text-slate-300">${entry.medalCount} Medali • ${entry.totalKm} KM</span>
+                    <span class="text-xs font-semibold text-slate-300">${entry.medalCount} Race Finished • ${entry.totalKm} KM</span>
                   </div>
                 </div>
                 ${reviewBadge}
@@ -2155,7 +2223,7 @@ function doGet(e) {
         showToast('Belum ada data untuk diekspor.', 'info');
         return;
       }
-      const headers = ['Timestamp', 'Nama', 'Instagram', 'Cabang', 'TotalMedali', 'TotalKM', 'Gelar', 'DaftarRace', 'Target2027', 'SiapReview'];
+      const headers = ['Timestamp', 'Nama', 'Instagram', 'Cabang', 'TotalRaceFinished', 'TotalKM', 'Gelar', 'DaftarRace', 'Target2027', 'SiapReview'];
       const rows = entries.map(e => [
         e.timestamp || '',
         e.name || '',

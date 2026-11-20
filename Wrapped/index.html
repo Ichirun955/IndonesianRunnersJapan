@@ -171,7 +171,7 @@
         <div class="flex items-center gap-2 shrink-0">
           <div class="px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-center">
             <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gelar Kamu</p>
-            <p id="livePersonaPreview" class="font-display font-bold text-xs sm:text-sm text-volt mt-0.5">Marathon Machine</p>
+            <p id="livePersonaPreview" class="font-display font-bold text-xs sm:text-sm text-volt mt-0.5">2026 Starter</p>
           </div>
         </div>
       </div>
@@ -213,8 +213,8 @@
             <!-- Selector 12 Cabang IRJ -->
             <div>
               <div class="flex items-center justify-between mb-2">
-                <label class="block text-xs font-semibold text-slate-300">Pilih Cabang IRJ</label>
-                <span id="selectedCabangLabel" class="text-xs font-bold text-volt">Kansai</span>
+                <label class="block text-xs font-semibold text-slate-300">Pilih Cabang IRJ <span class="text-crimson">*</span></label>
+                <span id="selectedCabangLabel" class="text-xs font-bold text-slate-400">Belum dipilih</span>
               </div>
               <div id="cabangSelector" class="flex flex-wrap gap-1.5"></div>
             </div>
@@ -248,7 +248,7 @@
 
             <!-- Filter Kategori -->
             <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-2 mb-3" id="categoryFilterBar">
-              <button type="button" data-cat="All" onclick="setCategoryFilter('All')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Semua (80)</button>
+              <button id="catAllBtn" type="button" data-cat="All" onclick="setCategoryFilter('All')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Semua</button>
               <button type="button" data-cat="Full" onclick="setCategoryFilter('Full')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Full (42K)</button>
               <button type="button" data-cat="Half" onclick="setCategoryFilter('Half')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Half (21K)</button>
               <button type="button" data-cat="Trail/Ultra" onclick="setCategoryFilter('Trail/Ultra')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Trail &amp; Ultra</button>
@@ -790,6 +790,7 @@ function doGet(e) {
 
       // --- 10K / 5K / EKIDEN / FUN RUN (10) ---
       { id: 'kanto-night-run', name: 'Kanto Night Run IRJ', category: '10K/5K', km: 10.0 },
+      // --- 10K / 5K / EKIDEN ---
       { id: 'higashiyodogawa-10k', name: 'Higashiyodogawa World 10K', category: '10K/5K', km: 10.0 },
       { id: 'imperial-palace-10k', name: 'Tokyo Imperial Palace 10K', category: '10K/5K', km: 10.0 },
       { id: 'osaka-castle-10k', name: 'Osaka Castle Park 10K', category: '10K/5K', km: 10.0 },
@@ -797,7 +798,6 @@ function doGet(e) {
       { id: 'nagoya-dome-ekiden', name: 'Relay / Ekiden Komunitas', category: '10K/5K', km: 10.0 },
       { id: 'local-10k-jp', name: 'Local 10K Race Jepang', category: '10K/5K', km: 10.0 },
       { id: 'local-5k-jp', name: 'Local 5K / Parkrun Jepang', category: '10K/5K', km: 5.0 },
-      { id: 'fun-run-irj', name: 'Fun Run / Bareng Cabang IRJ', category: '10K/5K', km: 5.0 },
       { id: 'virtual-run-2026', name: 'Virtual Run Challenge 2026', category: '10K/5K', km: 10.0 }
     ];
 
@@ -822,7 +822,7 @@ function doGet(e) {
         name: 'Nadia Putri',
         instagram: 'nadiaputri_runs',
         cabang: 'Kanto',
-        races: ['Tokyo Marathon', 'Yokohama Marathon', 'Tokyo Legacy Half', 'Kanto Night Run IRJ'],
+        races: ['Tokyo Marathon', 'Yokohama Marathon', 'Tokyo Legacy Half', 'Tokyo Imperial Palace 10K'],
         medalCount: 4,
         totalKm: 115.5,
         persona: 'Marathon Machine',
@@ -913,10 +913,10 @@ function doGet(e) {
     // =========================================================================
     let state = {
       activeTab: 'create',
-      selectedCabang: 'Kansai',
+      selectedCabang: '',
       categoryFilter: 'All',
       searchQuery: '',
-      selectedRaceIds: new Set(['kyoto-marathon', 'osaka-marathon']),
+      selectedRaceIds: new Set(),
       races: [],
       localEntries: [],
       liveEntries: null,
@@ -1014,6 +1014,53 @@ function doGet(e) {
       } catch (e) {
         state.localEntries = [...DEMO_ENTRIES];
       }
+
+      // Gabungkan race baru dari data lokal agar otomatis muncul sebagai opsi
+      mergeCommunityRacesFromEntries(state.localEntries);
+    }
+
+    function inferRaceMetaFromName(raceName) {
+      const lower = String(raceName || '').toLowerCase();
+      if (/(trail|ultra|utmf|utmb|100k|100m|70k|60k|50k|mountain|cannonball)/.test(lower)) {
+        return { category: 'Trail/Ultra', km: 35.0 };
+      }
+      if (/(half|21\.1|21k)/.test(lower)) {
+        return { category: 'Half', km: 21.1 };
+      }
+      if (/(5k|parkrun)/.test(lower)) {
+        return { category: '10K/5K', km: 5.0 };
+      }
+      if (/(10k|ekiden|relay)/.test(lower)) {
+        return { category: '10K/5K', km: 10.0 };
+      }
+      return { category: 'Full', km: 42.2 };
+    }
+
+    function mergeCommunityRacesFromEntries(entries) {
+      if (!Array.isArray(entries) || entries.length === 0) return false;
+      const existingNames = new Set(state.races.map(r => r.name.trim().toLowerCase()));
+      let added = false;
+
+      entries.forEach(entry => {
+        (entry.races || []).forEach(rawName => {
+          const cleanName = String(rawName || '').trim();
+          if (!cleanName) return;
+          const key = cleanName.toLowerCase();
+          if (existingNames.has(key)) return;
+
+          const meta = inferRaceMetaFromName(cleanName);
+          state.races.push({
+            id: 'community-' + key.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+            name: cleanName,
+            category: meta.category,
+            km: meta.km
+          });
+          existingNames.add(key);
+          added = true;
+        });
+      });
+
+      return added;
     }
 
     function saveLocalEntries() {
@@ -1095,7 +1142,9 @@ function doGet(e) {
           </button>
         `;
       }).join('');
-      document.getElementById('selectedCabangLabel').textContent = state.selectedCabang;
+      const labelEl = document.getElementById('selectedCabangLabel');
+      labelEl.textContent = state.selectedCabang || 'Belum dipilih';
+      labelEl.className = state.selectedCabang ? 'text-xs font-bold text-volt' : 'text-xs font-bold text-slate-400';
     }
 
     function selectCabang(cabang) {
@@ -1153,6 +1202,8 @@ function doGet(e) {
       const count = state.selectedRaceIds.size;
       document.getElementById('selectedCountBadge').textContent = `${count} race finished`;
       document.getElementById('clearSelectionBtn').classList.toggle('hidden', count === 0);
+      const allBtn = document.getElementById('catAllBtn');
+      if (allBtn) allBtn.textContent = `Semua (${state.races.length})`;
       updateLivePersonaPreview();
     }
 
@@ -1290,6 +1341,11 @@ function doGet(e) {
         nameInput.focus();
         return;
       }
+      if (!state.selectedCabang) {
+        showToast('Pilih Cabang IRJ kamu dulu ya!', 'error');
+        document.getElementById('cabangSelector').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
       if (selectedRaces.length === 0) {
         showToast('Pilih minimal 1 race yang kamu selesaikan di 2026!', 'error');
         return;
@@ -1380,6 +1436,9 @@ function doGet(e) {
         const json = await res.json();
         if (json && json.status === 'ok' && Array.isArray(json.entries)) {
           state.liveEntries = json.entries;
+          if (mergeCommunityRacesFromEntries(json.entries)) {
+            renderRaceChips();
+          }
           updateSyncIndicators();
           updateCommunityHeaderCount();
           if (state.activeTab === 'hub') {
@@ -1566,12 +1625,12 @@ function doGet(e) {
       ctx.font = '700 72px "Space Grotesk", sans-serif';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText(truncateText(ctx, runnerName.toUpperCase(), W - padX * 2), padX, cursorY);
-      cursorY += 86;
-
+      const cabangText = state.selectedCabang
+        ? `CABANG ${state.selectedCabang.toUpperCase()}`
+        : 'INDONESIAN RUNNERS JAPAN';
       const subLine = runnerIg
-        ? `CABANG ${state.selectedCabang.toUpperCase()}  •  @${runnerIg}`
-        : `CABANG ${state.selectedCabang.toUpperCase()}`;
+        ? `${cabangText}  •  @${runnerIg}`
+        : cabangText;
       ctx.fillStyle = theme.textMuted;
       ctx.font = '700 26px "Inter", sans-serif';
       ctx.fillText(truncateText(ctx, subLine, W - padX * 2), padX, cursorY);

@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRJ 2026 Wrapped — Rekap Race &amp; Medali Indonesian Runners Japan</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            crimson: '#E11D48',
+            volt: '#CCFF00',
+            surface: '#111625',
+            canvasbg: '#07090F',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #07090F;
+      color: #F8FAFC;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.96) translateY(6px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    /* Custom subtle scrollbar for dark containers */
+    .dark-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .dark-scroll::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 9999px;
+    }
+    .dark-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 9999px;
+    }
+    .dark-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(225, 29, 72, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-[#07090F] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-crimson selection:text-white">
+
+  <!-- ==================== STICKY HEADER & NAVIGASI ==================== -->
+  <header class="sticky top-0 z-40 bg-[#07090F]/90 backdrop-blur-xl border-b border-white/10 shadow-xl">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Baris Atas: Kembali ke Web IRJ + Logo + Judul + Live Counter -->
+      <div class="flex items-center justify-between h-16 gap-3">
+        <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+          <!-- Link Kembali ke Web IRJ -->
+          <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-xl transition shrink-0">
+            <span aria-hidden="true">←</span>
+            <span class="hidden sm:inline">Kembali ke Web IRJ</span>
+            <span class="sm:hidden">Web IRJ</span>
+          </a>
+
+          <!-- Logo IRJ + Judul -->
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 ring-2 ring-white/25 bg-slate-900 shadow-lg">
+              <img id="headerLogoImg" src="../images/IRJ-logo.jpeg" alt="Logo IRJ"
+                class="w-full h-full object-cover"
+                onerror="handleHeaderLogoError(this)" />
+              <div id="headerLogoFallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-crimson via-crimson to-white">
+                <span class="font-display font-bold text-xs tracking-tighter text-white leading-none">IRJ</span>
+                <span class="w-5 h-0.5 bg-crimson mt-0.5 rounded-full"></span>
+              </div>
+            </div>
+            <div class="truncate">
+              <div class="flex items-center gap-1.5">
+                <h1 class="font-display font-bold text-sm sm:text-base tracking-tight text-white leading-none truncate">
+                  IRJ 2026 WRAPPED
+                </h1>
+                <span class="hidden md:inline-block text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-volt/15 text-volt border border-volt/30">
+                  OFFICIAL
+                </span>
+              </div>
+              <p class="text-[10px] sm:text-[11px] font-medium text-slate-400 mt-0.5 truncate">
+                Indonesian Runners Japan • Rekap Race &amp; Medali
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pill Counter Medali Komunitas -->
+        <button type="button" onclick="switchTab('hub')" class="hidden md:flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-3.5 py-1.5 text-xs font-semibold transition shrink-0">
+          <span id="headerSyncDot" class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
+          <span class="text-slate-400">Koleksi 2026:</span>
+          <span id="headerMedalTotal" class="font-display font-bold text-volt text-sm">0</span>
+          <span class="text-slate-400">Medali</span>
+        </button>
+      </div>
+
+      <!-- 3 Tab Navigasi -->
+      <nav class="flex gap-1.5 pb-2.5 overflow-x-auto no-scrollbar" aria-label="Navigasi Utama">
+        <button id="tabBtn-create" type="button" onclick="switchTab('create')" class="tab-btn flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          Buat Kartu 2026
+        </button>
+        <button id="tabBtn-hub" type="button" onclick="switchTab('hub')" class="tab-btn flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          Rekap Komunitas
+        </button>
+        <button id="tabBtn-admin" type="button" onclick="switchTab('admin')" class="tab-btn flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Admin &amp; Sync
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toastContainer" class="fixed bottom-5 right-4 left-4 sm:left-auto sm:w-[400px] z-50 pointer-events-none flex flex-col gap-2"></div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- ========================================================== -->
+    <!-- TAB 1: BUAT KARTU 2026 (<30 Detik, Tap-Only Flow)          -->
+    <!-- ========================================================== -->
+    <section id="panel-create" class="tab-panel">
+      <!-- Hero Mini Banner -->
+      <div class="mb-6 rounded-2xl bg-gradient-to-r from-crimson/20 via-[#111625] to-volt/10 border border-white/10 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-volt mb-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-volt"></span>
+            Edisi Akhir Tahun 2026
+          </span>
+          <h2 class="font-display font-bold text-lg sm:text-xl text-white leading-snug">
+            Bikin Kartu <span class="text-crimson">IRJ 2026 Wrapped</span> Kamu dalam 20 Detik!
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+            Tap race yang kamu selesaikan di 2026, dapatkan gelar pelarimu, lalu bagikan ke Instagram Story.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-center">
+            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gelar Kamu</p>
+            <p id="livePersonaPreview" class="font-display font-bold text-xs sm:text-sm text-volt mt-0.5">Marathon Machine</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <!-- KOLOM KIRI: FORMULIR CEPAT -->
+        <div class="lg:col-span-7 space-y-5">
+
+          <!-- Langkah 1: Identitas & Cabang -->
+          <div class="bg-[#111625] rounded-2xl border border-white/10 p-4 sm:p-6 shadow-lg">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-lg bg-crimson text-white font-display font-bold text-xs flex items-center justify-center shadow">1</span>
+                <h3 class="font-display font-bold text-base sm:text-lg text-white">Profil Pelari &amp; Cabang IRJ</h3>
+              </div>
+              <span class="text-[11px] font-semibold text-slate-400">Wajib isi nama</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
+              <div>
+                <label for="runnerNameInput" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Nama / Panggilan <span class="text-crimson">*</span>
+                </label>
+                <input id="runnerNameInput" type="text" placeholder="cth: Budi Santoso" autocomplete="name"
+                  class="w-full rounded-xl border border-white/15 bg-[#090D16] px-3.5 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-crimson focus:ring-2 focus:ring-crimson/25 outline-none transition" />
+              </div>
+              <div>
+                <label for="runnerIgInput" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Username Instagram <span class="text-slate-500 font-normal">(opsional, tanpa @)</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold">@</span>
+                  <input id="runnerIgInput" type="text" placeholder="pelari_irj" autocomplete="off"
+                    class="w-full rounded-xl border border-white/15 bg-[#090D16] pl-8 pr-3.5 py-2.5 text-sm font-medium text-white placeholder:text-slate-500 focus:border-crimson focus:ring-2 focus:ring-crimson/25 outline-none transition" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Selector 12 Cabang IRJ -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-semibold text-slate-300">Pilih Cabang IRJ</label>
+                <span id="selectedCabangLabel" class="text-xs font-bold text-volt">Kansai</span>
+              </div>
+              <div id="cabangSelector" class="flex flex-wrap gap-1.5">
+                <!-- Diisi oleh JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Langkah 2: Tap Race 2026 -->
+          <div class="bg-[#111625] rounded-2xl border border-white/10 p-4 sm:p-6 shadow-lg">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-lg bg-crimson text-white font-display font-bold text-xs flex items-center justify-center shadow">2</span>
+                <h3 class="font-display font-bold text-base sm:text-lg text-white">Tap Race 2026 Kamu</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <span id="selectedCountBadge" class="inline-flex items-center gap-1.5 bg-volt text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full">
+                  0 medali
+                </span>
+                <button id="clearSelectionBtn" type="button" onclick="clearSelectedRaces()" class="hidden text-xs font-semibold text-slate-400 hover:text-crimson transition px-1.5 py-1">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Pencarian -->
+            <div class="relative mb-3">
+              <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+              </svg>
+              <input id="raceSearchInput" type="text" placeholder="Cari race 2026 (cth: Kyoto, Tokyo, Borobudur, Trail)..."
+                class="w-full rounded-xl border border-white/15 bg-[#090D16] pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-volt outline-none transition" />
+            </div>
+
+            <!-- Filter Kategori -->
+            <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-2 mb-3" id="categoryFilterBar">
+              <button type="button" data-cat="All" onclick="setCategoryFilter('All')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Semua (80)</button>
+              <button type="button" data-cat="Full" onclick="setCategoryFilter('Full')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Full (42K)</button>
+              <button type="button" data-cat="Half" onclick="setCategoryFilter('Half')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Half (21K)</button>
+              <button type="button" data-cat="Trail/Ultra" onclick="setCategoryFilter('Trail/Ultra')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">Trail &amp; Ultra</button>
+              <button type="button" data-cat="10K/5K" onclick="setCategoryFilter('10K/5K')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition">10K / 5K</button>
+            </div>
+
+            <!-- Grid Pill Race -->
+            <div id="raceChipsContainer" class="flex flex-wrap gap-2 max-h-72 overflow-y-auto dark-scroll pr-1 py-1">
+              <!-- Diisi oleh JS -->
+            </div>
+
+            <!-- Tambah Race 2026 Lainnya (Inline) -->
+            <div class="mt-4 pt-4 border-t border-white/10">
+              <label class="block text-xs font-semibold text-slate-300 mb-2">+ Tambah Race 2026 Lainnya</label>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input id="customRaceName" type="text" placeholder="Nama Race (cth: Berlin Marathon / Biwako)"
+                  class="flex-1 rounded-xl border border-white/15 bg-[#090D16] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-volt outline-none transition" />
+                <div class="flex flex-wrap sm:flex-nowrap gap-2">
+                  <select id="customRaceKmSelect" onchange="handleCustomKmSelectChange()"
+                    class="rounded-xl border border-white/15 bg-[#090D16] px-3 py-2.5 text-xs font-bold text-slate-200 focus:border-volt outline-none">
+                    <option value="42.2">42.2 KM (Full)</option>
+                    <option value="21.1">21.1 KM (Half)</option>
+                    <option value="10">10 KM</option>
+                    <option value="5">5 KM</option>
+                    <option value="custom">Custom KM...</option>
+                  </select>
+                  <input id="customRaceKmInput" type="number" step="0.1" min="1" max="500" placeholder="KM"
+                    class="hidden w-20 rounded-xl border border-volt/50 bg-[#090D16] px-2.5 py-2.5 text-xs font-bold text-volt placeholder:text-slate-500 outline-none" />
+                  <button type="button" onclick="addCustomRace()"
+                    class="px-4 py-2.5 rounded-xl bg-white hover:bg-volt text-slate-950 text-xs font-extrabold transition active:scale-95 whitespace-nowrap">
+                    + Tambah
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Langkah 3: Target 2027 & Review -->
+          <div class="bg-[#111625] rounded-2xl border border-white/10 p-4 sm:p-6 shadow-lg space-y-5">
+            <!-- Target Race 2027 -->
+            <div>
+              <div class="flex items-center gap-2.5 mb-3">
+                <span class="w-6 h-6 rounded-lg bg-crimson text-white font-display font-bold text-xs flex items-center justify-center shadow">3</span>
+                <h3 class="font-display font-bold text-base sm:text-lg text-white">Target 2027 &amp; Review</h3>
+              </div>
+
+              <label for="target2027Input" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                Target Race 2027 <span class="text-slate-500 font-normal">(opsional — tampil di bagian bawah kartu)</span>
+              </label>
+              <input id="target2027Input" type="text" maxlength="65" placeholder="cth: Sub-4 Kyoto Marathon / Tokyo Marathon"
+                class="w-full rounded-xl border border-white/15 bg-[#090D16] px-3.5 py-2.5 text-sm font-medium text-white placeholder:text-slate-500 focus:border-volt outline-none transition" />
+            </div>
+
+            <!-- Toggle Siap Review -->
+            <label for="openToReviewToggle" class="flex items-center justify-between gap-4 p-3.5 rounded-xl bg-[#090D16] border border-white/10 cursor-pointer hover:border-white/20 transition">
+              <div>
+                <p class="text-sm font-semibold text-white">Boleh di-DM / ditag buat tanya review race?</p>
+                <p class="text-xs text-slate-400 mt-0.5">Bantu teman IRJ lain yang cari tips rute, cut-off time, atau logistik race 2027.</p>
+              </div>
+              <div class="relative inline-flex items-center shrink-0">
+                <input id="openToReviewToggle" type="checkbox" checked class="sr-only peer" />
+                <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+              </div>
+            </label>
+
+            <!-- Tombol Utama CTA -->
+            <button id="saveDownloadBtn" type="button" onclick="handleSaveAndDownload()"
+              class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-crimson to-rose-600 hover:from-rose-500 hover:to-crimson active:scale-[0.99] text-white font-display font-bold text-base sm:text-lg tracking-tight shadow-xl shadow-crimson/25 flex items-center justify-center gap-2.5 transition">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              <span id="saveDownloadBtnText">Simpan &amp; Unduh Kartu Wrapped (PNG)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: PRATINJAU LIVE 9:16 CANVAS -->
+        <div id="previewColumn" class="lg:col-span-5 lg:sticky lg:top-32 flex flex-col items-center">
+          <div class="w-full max-w-[368px] bg-[#111625] rounded-3xl border border-white/10 shadow-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-3 px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Pratinjau Story IG</span>
+              <span class="text-[11px] font-bold text-volt bg-volt/10 border border-volt/25 px-2.5 py-0.5 rounded-full">1080 × 1920 PNG</span>
+            </div>
+
+            <!-- Canvas Resolusi Penuh 1080x1920 -->
+            <div class="relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl bg-black ring-1 ring-white/15">
+              <canvas id="wrappedCanvas" width="1080" height="1920" class="w-full h-full block"></canvas>
+            </div>
+
+            <!-- Aksi Cepat Unduh / Bagikan -->
+            <div class="grid grid-cols-5 gap-2.5 mt-4">
+              <button type="button" onclick="downloadWrappedPNG()"
+                class="col-span-3 py-3 px-3 rounded-xl bg-white hover:bg-volt active:scale-95 text-slate-950 text-xs sm:text-sm font-extrabold flex items-center justify-center gap-1.5 transition shadow">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                Unduh PNG Saja
+              </button>
+              <button type="button" onclick="shareWrappedCard()"
+                class="col-span-2 py-3 px-3 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition border border-white/10">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                Bagikan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- TAB 2: REKAP KOMUNITAS (Sponsor-Ready Hub)                 -->
+    <!-- ========================================================== -->
+    <section id="panel-hub" class="tab-panel hidden space-y-6">
+      <!-- Header Hub & Tombol Sinkronkan -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#111625] rounded-2xl border border-white/10 p-5 shadow-lg">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h2 class="font-display font-bold text-xl sm:text-2xl text-white">Statistik Resmi IRJ 2026</h2>
+            <span id="hubSyncBadge" class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              Data Demo Aktif
+            </span>
+          </div>
+          <p id="hubSubtitle" class="text-xs sm:text-sm text-slate-400 mt-1">
+            Rekap keaktifan pelari, klasemen cabang, dan direktori review race sepanjang 2026.
+          </p>
+        </div>
+        <button id="refreshLiveBtn" type="button" onclick="fetchLiveSheetData(true)"
+          class="self-start sm:self-center inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-volt hover:bg-lime-300 text-slate-950 text-xs sm:text-sm font-extrabold transition active:scale-95 shrink-0">
+          <svg id="refreshSpinner" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Sinkronkan Data
+        </button>
+      </div>
+
+      <!-- Info Halus Data Demo -->
+      <div id="demoNoticeBanner" class="hidden flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs text-amber-200">
+        <span>Menampilkan 6 profil demo IRJ agar tampilan statistik terlihat. Kamu bisa menghapusnya kapan saja di tab <strong>Admin &amp; Sync</strong>.</span>
+        <button type="button" onclick="switchTab('admin')" class="font-bold text-amber-300 hover:underline shrink-0">Buka Admin →</button>
+      </div>
+
+      <!-- 4 Kartu KPI Siap Sponsor -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-gradient-to-br from-crimson/30 via-[#111625] to-[#111625] rounded-2xl p-4 sm:p-5 border border-crimson/40 shadow-lg">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-rose-300">Total Medali 2026</p>
+          <p id="kpiTotalMedals" class="font-display font-bold text-3xl sm:text-4xl text-white mt-1.5">0</p>
+          <p class="text-xs text-slate-400 mt-1">Finis resmi tercatat</p>
+        </div>
+        <div class="bg-[#111625] rounded-2xl p-4 sm:p-5 border border-white/10 shadow-lg">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Pelari Aktif</p>
+          <p id="kpiActiveRacers" class="font-display font-bold text-3xl sm:text-4xl text-volt mt-1.5">0</p>
+          <p class="text-xs text-slate-400 mt-1">Member IRJ berpartisipasi</p>
+        </div>
+        <div class="bg-[#111625] rounded-2xl p-4 sm:p-5 border border-white/10 shadow-lg">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Total KM Race Resmi</p>
+          <p id="kpiTotalKm" class="font-display font-bold text-3xl sm:text-4xl text-white mt-1.5">0</p>
+          <p class="text-xs text-slate-400 mt-1">Akumulasi jarak 2026</p>
+        </div>
+        <div class="bg-[#111625] rounded-2xl p-4 sm:p-5 border border-white/10 shadow-lg">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Event Race Unik</p>
+          <p id="kpiUniqueRaces" class="font-display font-bold text-3xl sm:text-4xl text-white mt-1.5">0</p>
+          <p class="text-xs text-slate-400 mt-1">Race diikuti komunitas</p>
+        </div>
+      </div>
+
+      <!-- Klasemen Cabang & Race Terpopuler -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Klasemen Cabang IRJ 2026 -->
+        <div class="lg:col-span-6 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="font-display font-bold text-lg text-white">Klasemen Cabang IRJ 2026</h3>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Tap untuk filter</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-5">Urutan cabang berdasarkan total koleksi medali 2026.</p>
+          <div id="cabangLeaderboard" class="space-y-3">
+            <!-- Diisi oleh JS -->
+          </div>
+        </div>
+
+        <!-- Race Terpopuler 2026 -->
+        <div class="lg:col-span-6 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="font-display font-bold text-lg text-white">Race Terpopuler 2026</h3>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Klik untuk lihat finisher</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-5">Event dengan jumlah peserta IRJ terbanyak sepanjang 2026.</p>
+          <div id="raceLeaderboard" class="space-y-2.5">
+            <!-- Diisi oleh JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Direktori Review Race 2026 -->
+      <div id="reviewDirectorySection" class="bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="font-display font-bold text-lg text-white">Direktori Review Race 2026</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Cari siapa saja yang ikut race tertentu di 2026 untuk tanya pengalaman &amp; tips.</p>
+          </div>
+          <span id="directoryMatchCount" class="self-start sm:self-center text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">
+            0 pelari
+          </span>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 mb-4">
+          <div class="sm:col-span-6 relative">
+            <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+            </svg>
+            <input id="directorySearchInput" type="text" oninput="renderReviewDirectory()" placeholder="Cari nama pelari, @ig, race, atau target 2027..."
+              class="w-full rounded-xl border border-white/15 bg-[#090D16] pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-volt outline-none" />
+          </div>
+          <div class="sm:col-span-6">
+            <select id="directoryCabangSelect" onchange="renderReviewDirectory()"
+              class="w-full rounded-xl border border-white/15 bg-[#090D16] px-3.5 py-2.5 text-sm font-semibold text-slate-200 focus:border-volt outline-none">
+              <option value="ALL">Semua Cabang IRJ</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Active Filter Chip Bar -->
+        <div id="activeFiltersBar" class="hidden flex flex-wrap items-center gap-2 mb-4">
+          <span class="text-xs text-slate-400">Filter aktif:</span>
+          <span id="activeRaceChip" class="hidden inline-flex items-center gap-1.5 text-xs font-bold bg-crimson/20 text-rose-200 border border-crimson/40 px-3 py-1 rounded-full"></span>
+          <button type="button" onclick="resetDirectoryFilters()"
+            class="inline-flex items-center gap-1 text-xs font-bold bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-full transition">
+            ✕ Hapus Filter
+          </button>
+        </div>
+
+        <!-- Daftar Pelari -->
+        <div id="reviewDirectoryList" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[620px] overflow-y-auto dark-scroll pr-1">
+          <!-- Diisi oleh JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- TAB 3: ADMIN & SYNC GOOGLE SHEETS                          -->
+    <!-- ========================================================== -->
+    <section id="panel-admin" class="tab-panel hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Kiri: Ekspor Sponsor & Hapus Data Demo -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+            <h2 class="font-display font-bold text-lg text-white mb-1">Kelola Data &amp; Sponsor</h2>
+            <p class="text-xs text-slate-400 mb-5">Unduh seluruh rekap 2026 ke format CSV untuk laporan keaktifan atau proposal sponsor IRJ.</p>
+
+            <div class="space-y-3">
+              <button type="button" onclick="exportCSV()"
+                class="w-full py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-sm font-extrabold flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/15">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                Ekspor CSV (Data Sponsor)
+              </button>
+
+              <button type="button" onclick="clearDemoData()"
+                class="w-full py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-bold border border-white/10 transition">
+                Hapus Data Demo
+              </button>
+
+              <!-- Konfirmasi 2-Langkah Reset Lokal -->
+              <div>
+                <button id="resetAllInitialBtn" type="button" onclick="toggleResetConfirm(true)"
+                  class="w-full py-2.5 px-4 rounded-xl border border-rose-500/30 text-rose-400 hover:bg-rose-500/10 text-xs font-bold transition">
+                  Kosongkan Semua Data Lokal Browser
+                </button>
+                <div id="resetAllConfirmBox" class="hidden p-3.5 rounded-xl bg-rose-950/60 border border-rose-500/40 space-y-2.5">
+                  <p class="text-xs font-semibold text-rose-200 text-center">Yakin hapus semua data lokal? (Data di Google Sheets tidak ikut terhapus)</p>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="toggleResetConfirm(false)" class="py-2 rounded-lg bg-white/10 text-xs font-bold text-white">Batal</button>
+                    <button type="button" onclick="resetLocalData()" class="py-2 rounded-lg bg-crimson text-white text-xs font-bold">Ya, Hapus</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ringkasan Deployment GitHub Pages -->
+          <div class="bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+            <h3 class="font-display font-bold text-base text-white mb-2">Cara Pasang di Website IRJ</h3>
+            <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside leading-relaxed">
+              <li>Buat Google Sheet baru &amp; pasang Apps Script di sebelah kanan, lalu klik <strong>Deploy → Web app</strong> (akses: <strong>Anyone</strong>).</li>
+              <li>Salin URL Web App tersebut ke konstanta <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">APPS_SCRIPT_URL</code> di dalam file HTML ini.</li>
+              <li>Simpan file ini sebagai <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">wrapped/index.html</code> atau <code class="font-mono text-volt bg-black/50 px-1.5 py-0.5 rounded">passport/index.html</code> di repo GitHub IRJ.</li>
+              <li>Bagikan link-nya di grup WhatsApp &amp; bio Instagram IRJ!</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Kanan: Koneksi & Kode Google Apps Script -->
+        <div class="lg:col-span-7 bg-[#111625] rounded-2xl border border-white/10 p-5 sm:p-6 shadow-lg">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <h2 class="font-display font-bold text-lg text-white">Sinkronisasi Google Sheets (`Wrapped2026`)</h2>
+            <span id="adminSyncStatusBadge" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              Mode Demo Lokal
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mb-4">
+            Setiap pelari yang menekan tombol unduh otomatis masuk ke tab sheet <code class="font-mono text-volt">Wrapped2026</code> dan langsung tampil di Rekap Komunitas.
+          </p>
+
+          <!-- Status Konstanta APPS_SCRIPT_URL -->
+          <div id="hardcodeStatusBox" class="mb-4 p-3.5 rounded-xl bg-[#090D16] border border-white/10 text-xs text-slate-300">
+            <!-- Diisi oleh JS -->
+          </div>
+
+          <!-- Input Uji Coba Sementara di localStorage -->
+          <div class="space-y-2 mb-5">
+            <label for="webhookUrlInput" class="block text-xs font-semibold text-slate-300">
+              Uji Coba URL Apps Script Sementara <span class="text-slate-500 font-normal">(disimpan di browser ini)</span>
+            </label>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input id="webhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec"
+                class="flex-1 rounded-xl border border-white/15 bg-[#090D16] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-volt outline-none" />
+              <button type="button" onclick="saveTempWebhookUrl()"
+                class="px-5 py-2.5 rounded-xl bg-volt hover:bg-lime-300 text-slate-950 text-sm font-extrabold transition whitespace-nowrap">
+                Simpan &amp; Uji
+              </button>
+            </div>
+          </div>
+
+          <!-- Blok Kode Google Apps Script -->
+          <div class="relative rounded-2xl bg-[#05070C] text-slate-100 overflow-hidden border border-white/15">
+            <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/10">
+              <span class="text-xs font-mono text-slate-400">Code.gs — Sheet "Wrapped2026" (doPost &amp; doGet)</span>
+              <button type="button" onclick="copyAppsScript()"
+                class="px-3.5 py-1.5 rounded-lg bg-crimson hover:bg-rose-500 text-white text-xs font-bold transition flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                Salin Script
+              </button>
+            </div>
+            <pre id="appsScriptCode" class="p-4 text-xs font-mono text-emerald-300 overflow-x-auto dark-scroll leading-relaxed">function getOrCreateSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Wrapped2026");
+  if (!sheet) {
+    sheet = ss.insertSheet("Wrapped2026");
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      "Timestamp", "Nama", "Instagram", "Cabang",
+      "TotalMedali", "TotalKM", "Gelar",
+      "DaftarRace", "Target2027", "SiapReview"
+    ]);
+  }
+  return sheet;
+}
+
+function doPost(e) {
+  try {
+    var sheet = getOrCreateSheet_();
+    var data = JSON.parse(e.postData.contents);
+    sheet.appendRow([
+      new Date().toISOString(),
+      data.name || "",
+      data.instagram || "",
+      data.cabang || "Kansai",
+      Number(data.medalCount || 0),
+      Number(data.totalKm || 0),
+      data.persona || "",
+      JSON.stringify(data.races || []),
+      data.target2027 || "",
+      data.openToReview ? "Ya" : "Tidak"
+    ]);
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "ok" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  try {
+    var sheet = getOrCreateSheet_();
+    var values = sheet.getDataRange().getValues();
+    var entries = [];
+    for (var i = 1; i &lt; values.length; i++) {
+      var row = values[i];
+      if (!row[1]) continue;
+      var parsedRaces = [];
+      try {
+        parsedRaces = JSON.parse(row[7] || "[]");
+      } catch (err) {
+        parsedRaces = String(row[7] || "").split(";").map(function(s) { return s.trim(); }).filter(Boolean);
+      }
+      entries.push({
+        id: "sheet-" + i,
+        timestamp: row[0] ? String(row[0]) : "",
+        name: String(row[1] || ""),
+        instagram: String(row[2] || ""),
+        cabang: String(row[3] || "Kansai"),
+        medalCount: Number(row[4] || parsedRaces.length || 0),
+        totalKm: Number(row[5] || 0),
+        persona: String(row[6] || "All-Rounder 2026"),
+        races: Array.isArray(parsedRaces) ? parsedRaces : [],
+        target2027: String(row[8] || ""),
+        openToReview: String(row[9]).toLowerCase() === "ya" || row[9] === true
+      });
+    }
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "ok", entries: entries.reverse() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== JAVASCRIPT APLIKASI ==================== -->
+  <script>
+    // =========================================================================
+    // KONFIGURASI GOOGLE SHEETS — SUDAH TERPASANG URL WEB APP IRJ
+    // =========================================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1afLOY9SzzrD_6hdEFOmYFL7k7qC78-U2l4aooENGDfDIa58nohkTUiNYNBzRqklF1Q/exec";
+
+    // =========================================================================
+    // 1. KONSTANTA, DAFTAR CABANG, 80 RACE 2026 & DATA DEMO
+    // =========================================================================
+    const REPO_LOGO_LOCAL = '../images/IRJLOGONEW.png';
+    const REPO_LOGO_GITHUB = 'https://raw.githubusercontent.com/ichirun955/indonesianrunnersjapan/main/images/IRJ-logo.jpeg';
+
+    function handleHeaderLogoError(imgEl) {
+      if (!imgEl.dataset.triedGithub) {
+        imgEl.dataset.triedGithub = '1';
+        imgEl.src = REPO_LOGO_GITHUB;
+      } else {
+        imgEl.classList.add('hidden');
+        document.getElementById('headerLogoFallback').classList.remove('hidden');
+      }
+    }
+
+    const STORAGE_KEYS = {
+      LOCAL_ENTRIES: 'irj_2026_wrapped_entries_v1',
+      CUSTOM_RACES: 'irj_2026_wrapped_custom_races_v1',
+      TEMP_URL: 'irj_2026_wrapped_temp_script_url_v1'
+    };
+
+    const CABANG_LIST = [
+      'Kanto', 'Kansai', 'Chubu', 'Kyushu', 'Hokkaido', 'Tohoku',
+      'Chugoku', 'Shikoku', 'Okinawa', 'Trail IRJ', 'She Runs', 'Alumni / Ex-Japan'
+    ];
+
+    const CATEGORY_META = {
+      'Full': { label: 'Full (42K)', short: '42.2K' },
+      'Half': { label: 'Half (21K)', short: '21.1K' },
+      'Trail/Ultra': { label: 'Trail & Ultra', short: 'TRAIL' },
+      '10K/5K': { label: '10K / 5K', short: '10K/5K' }
+    };
+
+    const DEFAULT_RACES_2026 = [
+      // ==================== FULL MARATHON (32) ====================
+      { id: 'tokyo-marathon', name: 'Tokyo Marathon', category: 'Full', km: 42.2 },
+      { id: 'osaka-marathon', name: 'Osaka Marathon', category: 'Full', km: 42.2 },
+      { id: 'kyoto-marathon', name: 'Kyoto Marathon', category: 'Full', km: 42.2 },
+      { id: 'kobe-marathon', name: 'Kobe Marathon', category: 'Full', km: 42.2 },
+      { id: 'yokohama-marathon', name: 'Yokohama Marathon', category: 'Full', km: 42.2 },
+      { id: 'shizuoka-marathon', name: 'Shizuoka Marathon', category: 'Full', km: 42.2 },
+      { id: 'nagoya-womens', name: "Nagoya Women's Marathon", category: 'Full', km: 42.2 },
+      { id: 'fukuoka-marathon', name: 'Fukuoka Marathon', category: 'Full', km: 42.2 },
+      { id: 'hokkaido-marathon', name: 'Hokkaido Marathon', category: 'Full', km: 42.2 },
+      { id: 'naha-marathon', name: 'NAHA Marathon', category: 'Full', km: 42.2 },
+      { id: 'kanazawa-marathon', name: 'Kanazawa Marathon', category: 'Full', km: 42.2 },
+      { id: 'nara-marathon', name: 'Nara Marathon', category: 'Full', km: 42.2 },
+      { id: 'biwako-marathon', name: 'Biwako Marathon', category: 'Full', km: 42.2 },
+      { id: 'chiba-aqualine', name: 'Chiba Aqualine Marathon', category: 'Full', km: 42.2 },
+      { id: 'shonan-international', name: 'Shonan International Marathon', category: 'Full', km: 42.2 },
+      { id: 'tsukuba-marathon', name: 'Tsukuba Marathon', category: 'Full', km: 42.2 },
+      { id: 'mito-komon', name: 'Mito Komon Manyu Marathon', category: 'Full', km: 42.2 },
+      { id: 'kasumigaura-marathon', name: 'Kasumigaura Marathon', category: 'Full', km: 42.2 },
+      { id: 'nagano-marathon', name: 'Nagano Marathon', category: 'Full', km: 42.2 },
+      { id: 'matsumoto-marathon', name: 'Matsumoto Marathon', category: 'Full', km: 42.2 },
+      { id: 'mt-fuji-international', name: 'Mt. Fuji International Marathon', category: 'Full', km: 42.2 },
+      { id: 'toyama-marathon', name: 'Toyama Marathon', category: 'Full', km: 42.2 },
+      { id: 'ehime-marathon', name: 'Ehime Marathon', category: 'Full', km: 42.2 },
+      { id: 'kochi-ryoma', name: 'Kochi Ryoma Marathon', category: 'Full', km: 42.2 },
+      { id: 'kumamoto-castle', name: 'Kumamoto Castle Marathon', category: 'Full', km: 42.2 },
+      { id: 'kagoshima-marathon', name: 'Kagoshima Marathon', category: 'Full', km: 42.2 },
+      { id: 'kitakyushu-marathon', name: 'Kitakyushu Marathon', category: 'Full', km: 42.2 },
+      { id: 'beppu-oita', name: 'Beppu-Oita Mainichi Marathon', category: 'Full', km: 42.2 },
+      { id: 'tohoku-miyagi', name: 'Tohoku Miyagi Revive Marathon', category: 'Full', km: 42.2 },
+      { id: 'borobudur-marathon', name: 'Borobudur Marathon', category: 'Full', km: 42.2 },
+      { id: 'jakarta-marathon', name: 'Jakarta Marathon', category: 'Full', km: 42.2 },
+      { id: 'maybank-bali', name: 'Maybank Marathon Bali', category: 'Full', km: 42.2 },
+
+      // ==================== HALF MARATHON (20) ====================
+      { id: 'tokyo-legacy-half', name: 'Tokyo Legacy Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'osaka-half', name: 'Osaka Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'sendai-half', name: 'Sendai International Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'gifu-seiryu-half', name: 'Gifu Seiryu Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'kagawa-marugame-half', name: 'Kagawa Marugame Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'sapporo-half', name: 'Sapporo Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'shinjuku-city-half', name: 'Shinjuku City Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'setagaya-246-half', name: 'Setagaya 246 Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'tachikawa-city-half', name: 'Tachikawa City Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'minato-city-half', name: 'Minato City Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'ageo-city-half', name: 'Ageo City Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'kawagoe-half', name: 'Kawagoe Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'hakodate-half', name: 'Hakodate Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'kyoto-kizugawa-half', name: 'Kyoto Kizugawa Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'yodogawa-kanpei-half', name: 'Yodogawa Kanpei Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'yokohama-sea-breeze-half', name: 'Yokohama Sea Breeze Half', category: 'Half', km: 21.1 },
+      { id: 'chiba-marine-half', name: 'Chiba Marine Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'okinawa-half', name: 'Okinawa Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'borobudur-half', name: 'Borobudur Half Marathon', category: 'Half', km: 21.1 },
+      { id: 'maybank-bali-half', name: 'Maybank Bali Half Marathon', category: 'Half', km: 21.1 },
+
+      // ==================== TRAIL & ULTRA (18) ====================
+      { id: 'mt-fuji-100', name: 'Mt. Fuji 100 / UTMF', category: 'Trail/Ultra', km: 168, customKmLabel: '168K' },
+      { id: 'mt-fuji-kai-70', name: 'Mt. Fuji KAI 70K', category: 'Trail/Ultra', km: 70, customKmLabel: '70K' },
+      { id: 'shinetsu-five', name: 'Shinetsu Five Mountains Trail', category: 'Trail/Ultra', km: 110, customKmLabel: '110K' },
+      { id: 'hasetsune-cup', name: 'Hasetsune Cup', category: 'Trail/Ultra', km: 71.5, customKmLabel: '71.5K' },
+      { id: 'izu-trail-journey', name: 'Izu Trail Journey / ITJ', category: 'Trail/Ultra', km: 70, customKmLabel: '70K' },
+      { id: 'trail-yorosan', name: 'Trail Yorosan', category: 'Trail/Ultra', km: 25, customKmLabel: '25K' },
+      { id: 'kyoto-grand-trail', name: 'Kyoto Grand Trail', category: 'Trail/Ultra', km: 40, customKmLabel: '40K' },
+      { id: 'rokko-mountain-trail', name: 'Rokko Mountain Trail', category: 'Trail/Ultra', km: 35, customKmLabel: '35K' },
+      { id: 'hakuba-international-trail', name: 'Hakuba International Trail', category: 'Trail/Ultra', km: 50, customKmLabel: '50K' },
+      { id: 'shiga-kogen-extreme', name: 'Shiga Kogen Extreme Trail', category: 'Trail/Ultra', km: 55, customKmLabel: '55K' },
+      { id: 'ontake-100', name: 'Ontake 100', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
+      { id: 'lake-biwa-100', name: 'Lake Biwa 100', category: 'Trail/Ultra', km: 169, customKmLabel: '169K' },
+      { id: 'challenge-fuji-5-lakes', name: 'Challenge Fuji 5 Lakes Ultra', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
+      { id: 'saroma-lake-100', name: 'Saroma Lake 100km Ultra', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
+      { id: 'hida-takayama-ultra', name: 'Hida Takayama Ultramarathon', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
+      { id: 'tango-100-ultra', name: 'Tango 100km Ultramarathon', category: 'Trail/Ultra', km: 100, customKmLabel: '100K' },
+      { id: 'takao-mountain-trail', name: 'Takao Mountain Trail', category: 'Trail/Ultra', km: 20, customKmLabel: '20K' },
+      { id: 'minoo-forest-trail', name: 'Minoo Forest Trail', category: 'Trail/Ultra', km: 20, customKmLabel: '20K' },
+
+      // ==================== 10K / 5K / FUN RUN (10) ====================
+      { id: 'higashiyodogawa-world', name: 'Higashiyodogawa World Marathon', category: '10K/5K', km: 5, customKmLabel: '5K' },
+      { id: 'yodogawa-eco', name: 'Yodogawa Eco Marathon', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'miki-disaster', name: 'Miki Disaster Management Marathon', category: '10K/5K', km: 5, customKmLabel: '5K' },
+      { id: 'kanto-night-run', name: 'Kanto Night Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'imperial-palace-run', name: 'Imperial Palace / Kokyo Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'osaka-castle-park-run', name: 'Osaka Castle Park Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'showa-kinen-park-run', name: 'Showa Kinen Park Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'shibuya-omotesando-run', name: 'Shibuya Omotesando Run', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'yokohama-ekiden', name: 'Yokohama Ekiden', category: '10K/5K', km: 10, customKmLabel: '10K' },
+      { id: 'tokyo-ekiden', name: 'Tokyo Ekiden', category: '10K/5K', km: 10, customKmLabel: '10K' }
+    ];
+
+    // 6 Profil Demo Realistis IRJ 2026
+    const DEMO_ENTRIES = [
+      {
+        id: 'demo-1',
+        name: 'Dimas Pratama',
+        instagram: 'dimas.lari',
+        cabang: 'Kansai',
+        races: ['Kyoto Marathon', 'Osaka Marathon', 'Kobe Marathon', 'Higashiyodogawa World Marathon'],
+        medalCount: 4,
+        totalKm: 136.6,
+        persona: 'Marathon Machine',
+        target2027: 'Sub-3:45 Tokyo Marathon',
+        openToReview: true,
+        timestamp: '2026-11-12T08:15:00Z',
+        isDemo: true
+      },
+      {
+        id: 'demo-2',
+        name: 'Nadia Kusuma',
+        instagram: 'nadiarunsjp',
+        cabang: 'Kanto',
+        races: ['Tokyo Marathon', 'Yokohama Marathon', 'Tokyo Legacy Half', 'Mt. Fuji Marathon', 'Borobudur Marathon'],
+        medalCount: 5,
+        totalKm: 189.9,
+        persona: 'Marathon Machine',
+        target2027: 'PB Half & Berlin Marathon',
+        openToReview: true,
+        timestamp: '2026-11-14T11:30:00Z',
+        isDemo: true
+      },
+      {
+        id: 'demo-3',
+        name: 'Ayu Lestari',
+        instagram: 'ayu.sheruns',
+        cabang: 'She Runs',
+        races: ["Nagoya Women's Marathon", 'Shizuoka Marathon', 'Kanazawa Marathon'],
+        medalCount: 3,
+        totalKm: 126.6,
+        persona: 'Marathon Machine',
+        target2027: 'Sub-4:15 Osaka Marathon',
+        openToReview: true,
+        timestamp: '2026-11-15T06:45:00Z',
+        isDemo: true
+      },
+      {
+        id: 'demo-4',
+        name: 'Rizky Hidayat',
+        instagram: 'rizky.trailirj',
+        cabang: 'Trail IRJ',
+        races: ['Mt. Fuji 100 / Trail', 'Yoro Trail Run', 'Kyoto Marathon'],
+        medalCount: 3,
+        totalKm: 102.2,
+        persona: 'Trail Beast',
+        target2027: 'Finish 100K Ultra Trail',
+        openToReview: true,
+        timestamp: '2026-11-16T15:20:00Z',
+        isDemo: true
+      },
+      {
+        id: 'demo-5',
+        name: 'Fajar Nugroho',
+        instagram: 'fajar_kyushu',
+        cabang: 'Kyushu',
+        races: ['Fukuoka Marathon', 'Chiba Aqualine Marathon', 'Maybank Marathon Bali'],
+        medalCount: 3,
+        totalKm: 126.6,
+        persona: 'Marathon Machine',
+        target2027: 'Hokkaido Marathon 2027',
+        openToReview: false,
+        timestamp: '2026-11-17T09:10:00Z',
+        isDemo: true
+      },
+      {
+        id: 'demo-6',
+        name: 'Siti Rahma',
+        instagram: 'sitirahma.run',
+        cabang: 'Kansai',
+        races: ['Osaka Half Marathon', 'Kyoto Kamo River Half', 'Sendai International Half', 'Miki Disaster Management Marathon'],
+        medalCount: 4,
+        totalKm: 73.3,
+        persona: 'Half-Marathon Hunter',
+        target2027: 'Debut Full Marathon di Nara',
+        openToReview: true,
+        timestamp: '2026-11-18T18:05:00Z',
+        isDemo: true
+      }
+    ];
+
+    // Tema Resmi Kartu Story IG: Merah Putih IRJ (1080x1920)
+    const CARD_THEME_MERAH_PUTIH = {
+      bgStart: '#BE123C',
+      bgEnd: '#6B0F26',
+      glowTop: 'rgba(255, 255, 255, 0.22)',
+      glowBottom: 'rgba(15, 23, 42, 0.45)',
+      accent: '#FFFFFF',
+      accentText: '#BE123C',
+      secondaryAccent: '#FFE4E6',
+      textPrimary: '#FFFFFF',
+      textMuted: '#FECDD3',
+      cardSurface: 'rgba(15, 23, 42, 0.42)',
+      cardBorder: 'rgba(255, 255, 255, 0.30)',
+      pillBg: 'rgba(255, 255, 255, 0.14)',
+      pillBorder: 'rgba(255, 255, 255, 0.35)',
+      pillText: '#FFFFFF',
+      trackLine: 'rgba(255, 255, 255, 0.06)'
+    };
+
+    // =========================================================================
+    // 2. STATE APLIKASI
+    // =========================================================================
+    let state = {
+      activeTab: 'create',
+      selectedCabang: 'Kanto',
+      categoryFilter: 'All',
+      searchQuery: '',
+      selectedRaceIds: new Set([]),
+      races: [],
+      localEntries: [],
+      liveEntries: null,
+      tempScriptUrl: '',
+      directoryRaceFilter: 'ALL',
+      logoImage: null,
+      logoLoaded: false,
+      logoSafeForExport: true
+    };
+
+    function getActiveScriptUrl() {
+      return (state.tempScriptUrl || APPS_SCRIPT_URL || '').trim();
+    }
+
+    function getDisplayedEntries() {
+      return Array.isArray(state.liveEntries) ? state.liveEntries : state.localEntries;
+    }
+
+    // =========================================================================
+    // 3. INISIALISASI, PRELOAD LOGO & STORAGE
+    // =========================================================================
+    function initApp() {
+      loadStorageData();
+      preloadCanvasLogo();
+      bindInputListeners();
+      renderCabangSelector();
+      setCategoryFilter('All');
+      renderRaceChips();
+      updatePersonaBadge();
+      updateSyncIndicators();
+      updateCommunityHeaderCount();
+      switchTab('create');
+      renderWrappedCanvas();
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => renderWrappedCanvas());
+      }
+
+      if (getActiveScriptUrl()) {
+        fetchLiveSheetData(false);
+      }
+    }
+
+    function preloadCanvasLogo() {
+      const tryLoad = (src, onFail) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          state.logoImage = img;
+          state.logoLoaded = true;
+          state.logoSafeForExport = true;
+          renderWrappedCanvas();
+        };
+        img.onerror = onFail;
+        img.src = src;
+      };
+
+      // Coba path lokal repo dulu (../images/IRJ-logo.jpeg), lalu fallback ke raw GitHub repo
+      tryLoad(REPO_LOGO_LOCAL, () => {
+        tryLoad(REPO_LOGO_GITHUB, () => {
+          state.logoImage = null;
+          state.logoLoaded = false;
+          renderWrappedCanvas();
+        });
+      });
+    }
+
+    function loadStorageData() {
+      try {
+        state.tempScriptUrl = localStorage.getItem(STORAGE_KEYS.TEMP_URL) || '';
+      } catch (e) { state.tempScriptUrl = ''; }
+
+      let customRaces = [];
+      try {
+        customRaces = JSON.parse(localStorage.getItem(STORAGE_KEYS.CUSTOM_RACES)) || [];
+      } catch (e) { customRaces = []; }
+      state.races = [...DEFAULT_RACES_2026, ...customRaces];
+
+      try {
+        const rawLocal = localStorage.getItem(STORAGE_KEYS.LOCAL_ENTRIES);
+        if (rawLocal === null) {
+          state.localEntries = [...DEMO_ENTRIES];
+          localStorage.setItem(STORAGE_KEYS.LOCAL_ENTRIES, JSON.stringify(state.localEntries));
+        } else {
+          state.localEntries = JSON.parse(rawLocal) || [];
+        }
+      } catch (e) {
+        state.localEntries = [...DEMO_ENTRIES];
+      }
+    }
+
+    function saveLocalEntries() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.LOCAL_ENTRIES, JSON.stringify(state.localEntries));
+      } catch (e) { /* abaikan */ }
+    }
+
+    function bindInputListeners() {
+      document.getElementById('runnerNameInput').addEventListener('input', renderWrappedCanvas);
+      document.getElementById('runnerIgInput').addEventListener('input', renderWrappedCanvas);
+      document.getElementById('target2027Input').addEventListener('input', renderWrappedCanvas);
+      document.getElementById('raceSearchInput').addEventListener('input', (e) => {
+        state.searchQuery = e.target.value.trim().toLowerCase();
+        renderRaceChips();
+      });
+      document.getElementById('customRaceName').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addCustomRace();
+        }
+      });
+    }
+
+    // =========================================================================
+    // 4. NAVIGASI TAB
+    // =========================================================================
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-crimson', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/5');
+      });
+
+      const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+      activeBtn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/5');
+      activeBtn.classList.add('bg-crimson', 'text-white', 'shadow-md');
+
+      if (tabId === 'hub') {
+        renderCommunityHub();
+      } else if (tabId === 'admin') {
+        document.getElementById('webhookUrlInput').value = state.tempScriptUrl || APPS_SCRIPT_URL || '';
+        updateSyncIndicators();
+      } else if (tabId === 'create') {
+        renderWrappedCanvas();
+      }
+    }
+
+    // =========================================================================
+    // 5. PERSONA / GELAR PELARI 2026 OTOMATIS
+    // =========================================================================
+    function computeRunnerPersona(selectedRaces) {
+      if (!selectedRaces || selectedRaces.length === 0) return 'IRJ Finisher 2026';
+
+      let full = 0, half = 0, shortDist = 0, trail = 0;
+      let totalKm = 0;
+
+      selectedRaces.forEach(r => {
+        totalKm += Number(r.km || 0);
+        if (r.category === 'Full') full++;
+        else if (r.category === 'Half') half++;
+        else if (r.category === 'Trail/Ultra') trail++;
+        else shortDist++;
+      });
+
+      const distinctCategories = [full > 0, half > 0, shortDist > 0, trail > 0].filter(Boolean).length;
+
+      if (trail >= 2 || (trail >= 1 && trail >= full && trail >= half)) {
+        return 'Trail Beast';
+      }
+      if (full >= 2 || (full >= 1 && totalKm >= 80 && distinctCategories <= 2)) {
+        return 'Marathon Machine';
+      }
+      if (half >= 2 && full === 0) {
+        return 'Half-Marathon Hunter';
+      }
+      if (shortDist >= 1 && full === 0 && half === 0 && trail === 0) {
+        return 'Speedster';
+      }
+      if (distinctCategories >= 3) {
+        return 'All-Rounder 2026';
+      }
+      if (full === 1) return 'Marathon Machine';
+      if (half === 1) return 'Half-Marathon Hunter';
+      return 'All-Rounder 2026';
+    }
+
+    function updatePersonaBadge() {
+      const persona = computeRunnerPersona(getSelectedRaceObjects());
+      document.getElementById('livePersonaPreview').textContent = persona;
+    }
+
+    // =========================================================================
+    // 6. INTERAKSI FORM BUAT KARTU 2026
+    // =========================================================================
+    function renderCabangSelector() {
+      const container = document.getElementById('cabangSelector');
+      container.innerHTML = CABANG_LIST.map(cabang => {
+        const isActive = state.selectedCabang === cabang;
+        const cls = isActive
+          ? 'bg-crimson text-white border-crimson shadow-md shadow-crimson/20'
+          : 'bg-[#090D16] text-slate-300 border-white/10 hover:border-white/30 hover:text-white';
+        return `
+          <button type="button" onclick="selectCabang('${escapeAttr(cabang)}')"
+            class="px-3 py-1.5 rounded-xl border text-xs font-bold transition active:scale-95 ${cls}">
+            ${escapeHtml(cabang)}
+          </button>
+        `;
+      }).join('');
+      document.getElementById('selectedCabangLabel').textContent = state.selectedCabang;
+    }
+
+    function selectCabang(cabang) {
+      state.selectedCabang = cabang;
+      renderCabangSelector();
+      renderWrappedCanvas();
+    }
+
+    function setCategoryFilter(cat) {
+      state.categoryFilter = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        const isActive = btn.dataset.cat === cat;
+        btn.className = isActive
+          ? 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap border border-volt bg-volt text-slate-950 transition'
+          : 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border border-white/15 bg-[#090D16] text-slate-300 hover:border-white/30 transition';
+      });
+      renderRaceChips();
+    }
+
+    function renderRaceChips() {
+      const container = document.getElementById('raceChipsContainer');
+      const filtered = state.races.filter(race => {
+        const matchesCat = state.categoryFilter === 'All' || race.category === state.categoryFilter;
+        const matchesSearch = !state.searchQuery || race.name.toLowerCase().includes(state.searchQuery);
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 py-4 text-center w-full">Race tidak ditemukan. Langsung tambahkan di kolom "+ Tambah Race 2026 Lainnya" di bawah!</p>`;
+      } else {
+        container.innerHTML = filtered.map(race => {
+          const isSelected = state.selectedRaceIds.has(race.id);
+          const shortTag = race.customKmLabel || (CATEGORY_META[race.category]?.short || `${race.km}K`);
+          const classes = isSelected
+            ? 'bg-crimson text-white border-crimson shadow-md shadow-crimson/20'
+            : 'bg-[#090D16] text-slate-200 border-white/15 hover:border-white/35';
+          const badgeClasses = isSelected
+            ? 'bg-black/30 text-volt'
+            : 'bg-white/10 text-slate-400';
+          const checkIcon = isSelected
+            ? `<svg class="w-3.5 h-3.5 text-volt shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`
+            : '';
+
+          return `
+            <button type="button" onclick="toggleRace('${escapeAttr(race.id)}')"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs sm:text-[13px] font-semibold transition-all active:scale-95 ${classes}">
+              ${checkIcon}
+              <span>${escapeHtml(race.name)}</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md ${badgeClasses}">${escapeHtml(shortTag)}</span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      const count = state.selectedRaceIds.size;
+      document.getElementById('selectedCountBadge').textContent = `${count} medali`;
+      document.getElementById('clearSelectionBtn').classList.toggle('hidden', count === 0);
+    }
+
+    function toggleRace(raceId) {
+      if (state.selectedRaceIds.has(raceId)) {
+        state.selectedRaceIds.delete(raceId);
+      } else {
+        state.selectedRaceIds.add(raceId);
+      }
+      renderRaceChips();
+      updatePersonaBadge();
+      renderWrappedCanvas();
+    }
+
+    function clearSelectedRaces() {
+      state.selectedRaceIds.clear();
+      renderRaceChips();
+      updatePersonaBadge();
+      renderWrappedCanvas();
+    }
+
+    function handleCustomKmSelectChange() {
+      const sel = document.getElementById('customRaceKmSelect').value;
+      const kmInput = document.getElementById('customRaceKmInput');
+      if (sel === 'custom') {
+        kmInput.classList.remove('hidden');
+        kmInput.focus();
+      } else {
+        kmInput.classList.add('hidden');
+      }
+    }
+
+    function addCustomRace() {
+      const nameInput = document.getElementById('customRaceName');
+      const kmSelect = document.getElementById('customRaceKmSelect').value;
+      const kmCustomInput = document.getElementById('customRaceKmInput');
+      const rawName = nameInput.value.trim();
+
+      if (!rawName) {
+        showToast('Tulis nama race 2026 dulu ya!', 'info');
+        nameInput.focus();
+        return;
+      }
+
+      let km = 10;
+      if (kmSelect === 'custom') {
+        const parsed = parseFloat(kmCustomInput.value);
+        if (isNaN(parsed) || parsed <= 0) {
+          showToast('Masukkan jarak KM yang valid (mis. 15 atau 50).', 'error');
+          kmCustomInput.focus();
+          return;
+        }
+        km = Math.round(parsed * 10) / 10;
+      } else {
+        km = parseFloat(kmSelect);
+      }
+
+      // Tentukan kategori otomatis berdasarkan jarak / nama
+      const lower = rawName.toLowerCase();
+      let category = '10K/5K';
+      if (lower.includes('trail') || lower.includes('ultra') || km > 43) {
+        category = 'Trail/Ultra';
+      } else if (km >= 40) {
+        category = 'Full';
+      } else if (km >= 20) {
+        category = 'Half';
+      }
+
+      const existing = state.races.find(r => r.name.toLowerCase() === rawName.toLowerCase());
+      if (existing) {
+        state.selectedRaceIds.add(existing.id);
+        nameInput.value = '';
+        renderRaceChips();
+        updatePersonaBadge();
+        renderWrappedCanvas();
+        showToast(`"${existing.name}" berhasil dipilih!`, 'success');
+        return;
+      }
+
+      const newRace = {
+        id: 'custom-' + Date.now(),
+        name: rawName,
+        category,
+        km,
+        customKmLabel: `${km}K`
+      };
+
+      state.races.push(newRace);
+      state.selectedRaceIds.add(newRace.id);
+
+      try {
+        const customOnly = state.races.filter(r => r.id.startsWith('custom-'));
+        localStorage.setItem(STORAGE_KEYS.CUSTOM_RACES, JSON.stringify(customOnly));
+      } catch (e) { /* abaikan */ }
+
+      nameInput.value = '';
+      kmCustomInput.value = '';
+      renderRaceChips();
+      updatePersonaBadge();
+      renderWrappedCanvas();
+      showToast(`"${rawName}" (${km} KM) ditambahkan & dipilih!`, 'success');
+    }
+
+    function getSelectedRaceObjects() {
+      return state.races.filter(r => state.selectedRaceIds.has(r.id));
+    }
+
+    function cleanIgUsername(raw) {
+      return (raw || '').trim().replace(/^@+/, '').replace(/\s+/g, '');
+    }
+
+    // =========================================================================
+    // 7. SIMPAN, UNDUH PNG & SINKRONISASI GOOGLE SHEETS
+    // =========================================================================
+    async function handleSaveAndDownload() {
+      const nameInput = document.getElementById('runnerNameInput');
+      const name = nameInput.value.trim();
+      const instagram = cleanIgUsername(document.getElementById('runnerIgInput').value);
+      const selectedRaces = getSelectedRaceObjects();
+      const target2027 = document.getElementById('target2027Input').value.trim();
+      const openToReview = document.getElementById('openToReviewToggle').checked;
+
+      if (!name) {
+        showToast('Isi Nama / Panggilan dulu ya!', 'error');
+        nameInput.focus();
+        return;
+      }
+      if (selectedRaces.length === 0) {
+        showToast('Tap minimal 1 race 2026 yang kamu ikuti!', 'error');
+        return;
+      }
+
+      const totalKm = Math.round(selectedRaces.reduce((sum, r) => sum + (Number(r.km) || 10), 0) * 10) / 10;
+      const persona = computeRunnerPersona(selectedRaces);
+
+      const entry = {
+        id: 'local-' + Date.now(),
+        timestamp: new Date().toISOString(),
+        name,
+        instagram,
+        cabang: state.selectedCabang,
+        races: selectedRaces.map(r => r.name),
+        medalCount: selectedRaces.length,
+        totalKm,
+        persona,
+        target2027,
+        openToReview,
+        isDemo: false
+      };
+
+      const btn = document.getElementById('saveDownloadBtn');
+      const btnText = document.getElementById('saveDownloadBtnText');
+      btn.disabled = true;
+      btnText.textContent = 'Menyimpan & Menyiapkan PNG...';
+
+      // Simpan ke local state
+      state.localEntries.unshift(entry);
+      saveLocalEntries();
+
+      // Render & Unduh PNG 1080x1920
+      renderWrappedCanvas();
+      downloadWrappedPNG(false);
+
+      // Kirim ke Google Apps Script jika URL tersedia
+      const scriptUrl = getActiveScriptUrl();
+      if (scriptUrl) {
+        try {
+          const res = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(entry)
+          });
+          if (res.ok) {
+            if (Array.isArray(state.liveEntries)) {
+              state.liveEntries.unshift(entry);
+            }
+            fetchLiveSheetData(false);
+          }
+        } catch (err) {
+          console.warn('POST ke Google Sheets gagal:', err);
+        }
+      }
+
+      btn.disabled = false;
+      btnText.textContent = 'Simpan & Unduh Kartu Wrapped (PNG)';
+
+      updateCommunityHeaderCount();
+      if (state.activeTab === 'hub') renderCommunityHub();
+
+      const totalCommunityMedals = getDisplayedEntries().reduce((s, e) => s + (Number(e.medalCount) || 0), 0);
+      showToast(`Mantap! Total koleksi IRJ 2026 sekarang tembus ${totalCommunityMedals.toLocaleString('id-ID')} medali!`, 'success');
+
+      if (window.innerWidth < 1024) {
+        document.getElementById('previewColumn').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    async function fetchLiveSheetData(showFeedback = false) {
+      const scriptUrl = getActiveScriptUrl();
+      if (!scriptUrl) {
+        state.liveEntries = null;
+        updateSyncIndicators();
+        if (showFeedback) showToast('URL Google Apps Script belum dipasang. Cek tab Admin & Sync.', 'info');
+        return;
+      }
+
+      const spinner = document.getElementById('refreshSpinner');
+      if (spinner) spinner.classList.add('animate-spin');
+
+      try {
+        const res = await fetch(scriptUrl);
+        const data = await res.json();
+        if (data && data.status === 'ok' && Array.isArray(data.entries)) {
+          state.liveEntries = data.entries;
+          updateSyncIndicators();
+          updateCommunityHeaderCount();
+          renderCommunityHub();
+          if (showFeedback) showToast(`Sinkronisasi berhasil! ${data.entries.length} pelari IRJ 2026 dimuat.`, 'success');
+        } else {
+          throw new Error('Format JSON tidak valid');
+        }
+      } catch (err) {
+        console.warn('GET dari Google Sheets gagal:', err);
+        if (showFeedback) showToast('Gagal menarik data Google Sheets. Pastikan akses Web App "Anyone".', 'error');
+      } finally {
+        if (spinner) spinner.classList.remove('animate-spin');
+      }
+    }
+
+    function updateSyncIndicators() {
+      const isLive = Array.isArray(state.liveEntries);
+      const hasDemo = !isLive && state.localEntries.some(e => e.isDemo);
+
+      const hubBadge = document.getElementById('hubSyncBadge');
+      const adminBadge = document.getElementById('adminSyncStatusBadge');
+      const demoBanner = document.getElementById('demoNoticeBanner');
+      const hardcodeBox = document.getElementById('hardcodeStatusBox');
+
+      if (isLive) {
+        const cls = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+        const html = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live Google Sheets';
+        hubBadge.className = cls;
+        hubBadge.innerHTML = html;
+        adminBadge.className = cls;
+        adminBadge.innerHTML = html;
+        demoBanner.classList.add('hidden');
+      } else {
+        const cls = 'inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30';
+        const html = hasDemo
+          ? '<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Data Demo Aktif'
+          : '<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Penyimpanan Lokal';
+        hubBadge.className = cls;
+        hubBadge.innerHTML = html;
+        adminBadge.className = cls;
+        adminBadge.innerHTML = html;
+        demoBanner.classList.toggle('hidden', !hasDemo);
+      }
+
+      if (hardcodeBox) {
+        if (APPS_SCRIPT_URL.trim()) {
+          hardcodeBox.innerHTML = `<span class="font-bold text-emerald-400">✓ APPS_SCRIPT_URL aktif di kode:</span> <span class="font-mono break-all text-slate-300">${escapeHtml(APPS_SCRIPT_URL.trim())}</span>`;
+        } else {
+          hardcodeBox.innerHTML = `<span class="font-bold text-volt">Info Deploy:</span> Konstanta <code class="font-mono bg-white/10 px-1.5 py-0.5 rounded text-white">const APPS_SCRIPT_URL = "";</code> masih kosong. Isi sebelum upload ke GitHub Pages agar semua member IRJ tersinkron otomatis ke satu Google Sheet.`;
+        }
+      }
+    }
+
+    // =========================================================================
+    // 8. RENDER CANVAS KARTU WRAPPED 2026 (1080x1920 PNG)
+    // =========================================================================
+    function renderWrappedCanvas() {
+      const canvas = document.getElementById('wrappedCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = 1080;
+      const H = 1920;
+
+      const theme = CARD_THEME_MERAH_PUTIH;
+      const runnerName = document.getElementById('runnerNameInput').value.trim() || 'NAMA PELARI';
+      const igClean = cleanIgUsername(document.getElementById('runnerIgInput').value);
+      const runnerIg = igClean ? '@' + igClean : '';
+      const target2027 = document.getElementById('target2027Input').value.trim();
+      const cabang = state.selectedCabang.toUpperCase();
+      const selectedRaces = getSelectedRaceObjects();
+      const medalCount = selectedRaces.length;
+      const totalKm = Math.round(selectedRaces.reduce((sum, r) => sum + (Number(r.km) || 10), 0) * 10) / 10;
+      const persona = computeRunnerPersona(selectedRaces).toUpperCase();
+
+      // --- 1. Background Gradien ---
+      const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+      bgGrad.addColorStop(0, theme.bgStart);
+      bgGrad.addColorStop(1, theme.bgEnd);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // --- 2. Ambient Glow ---
+      const g1 = ctx.createRadialGradient(W * 0.85, H * 0.14, 20, W * 0.85, H * 0.14, 720);
+      g1.addColorStop(0, theme.glowTop);
+      g1.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g1;
+      ctx.fillRect(0, 0, W, H);
+
+      const g2 = ctx.createRadialGradient(W * 0.12, H * 0.86, 20, W * 0.12, H * 0.86, 650);
+      g2.addColorStop(0, theme.glowBottom);
+      g2.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g2;
+      ctx.fillRect(0, 0, W, H);
+
+      // --- 3. Garis Lintasan Lari Diagonal ---
+      ctx.save();
+      ctx.strokeStyle = theme.trackLine;
+      ctx.lineWidth = 3;
+      for (let i = -H; i < W + H; i += 96) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i - 420, H);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // --- 4. Bingkai Luar ---
+      ctx.save();
+      roundRectPath(ctx, 48, 48, W - 96, H - 96, 48);
+      ctx.strokeStyle = theme.cardBorder;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.restore();
+
+      const padX = 96;
+      let cursorY = 92;
+
+      // --- 5. Top Bar: Logo IRJ Ekstra Besar (220x220) + Badge "2026 WRAPPED" ---
+      const logoSize = 330;
+      drawCanvasLogo(ctx, padX, cursorY, logoSize, theme);
+
+      const badgeX = padX + logoSize + 36;
+      ctx.save();
+      const wrappedLabel = '2026 WRAPPED';
+      ctx.font = '700 40px "Space Grotesk", sans-serif';
+      const wrappedW = ctx.measureText(wrappedLabel).width + 60;
+      roundRectPath(ctx, badgeX, cursorY + 34, wrappedW, 68, 34);
+      ctx.fillStyle = theme.accent;
+      ctx.fill();
+      ctx.fillStyle = theme.accentText;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(wrappedLabel, badgeX + 30, cursorY + 69);
+      ctx.restore();
+
+      ctx.fillStyle = theme.textPrimary;
+      ctx.font = '700 32px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('INDONESIAN RUNNERS', badgeX + 4, cursorY + 122);
+
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 23px "Inter", sans-serif';
+      ctx.fillText('JAPAN • OFFICIAL RECAP', badgeX + 4, cursorY + 162);
+
+      cursorY += logoSize + 34;
+
+      // --- 6. Nama Pelari, Cabang & @Instagram ---
+      ctx.fillStyle = theme.textPrimary;
+      ctx.font = '700 68px "Space Grotesk", sans-serif';
+      ctx.fillText(truncateText(ctx, runnerName.toUpperCase(), W - padX * 2), padX, cursorY);
+      cursorY += 76;
+
+      const subline = runnerIg ? `CABANG ${cabang}  •  ${runnerIg}` : `CABANG ${cabang}`;
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 26px "Inter", sans-serif';
+      ctx.fillText(truncateText(ctx, subline, W - padX * 2), padX, cursorY);
+      cursorY += 48;
+
+      // --- 7. Gelar Pelari 2026 Banner ---
+      const personaH = 88;
+      ctx.save();
+      roundRectPath(ctx, padX, cursorY, W - padX * 2, personaH, 26);
+      ctx.fillStyle = theme.cardSurface;
+      ctx.fill();
+      ctx.strokeStyle = theme.accent;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 21px "Inter", sans-serif';
+      ctx.fillText('GELAR 2026', padX + 34, cursorY + personaH / 2);
+
+      ctx.fillStyle = theme.accent;
+      ctx.font = '700 38px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(truncateText(ctx, persona, W - padX * 2 - 220), W - padX - 34, cursorY + personaH / 2 + 1);
+      ctx.restore();
+
+      cursorY += personaH + 26;
+
+      // --- 8. Hero Stats Card: Total Medali 2026 & Total KM ---
+      const heroH = 296;
+      ctx.save();
+      roundRectPath(ctx, padX, cursorY, W - padX * 2, heroH, 34);
+      ctx.fillStyle = theme.cardSurface;
+      ctx.fill();
+      ctx.strokeStyle = theme.cardBorder;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      const midX = W / 2 + 8;
+      ctx.beginPath();
+      ctx.moveTo(midX, cursorY + 42);
+      ctx.lineTo(midX, cursorY + heroH - 42);
+      ctx.strokeStyle = theme.cardBorder;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Kiri: Total Medali 2026
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 22px "Inter", sans-serif';
+      ctx.fillText('TOTAL MEDALI 2026', padX + 40, cursorY + 38);
+
+      ctx.fillStyle = theme.accent;
+      ctx.font = '700 164px "Space Grotesk", sans-serif';
+      ctx.fillText(String(medalCount), padX + 36, cursorY + 80);
+
+      // Kanan: Total Jarak Race Resmi (KM)
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 22px "Inter", sans-serif';
+      ctx.fillText('JARAK RACE RESMI', midX + 40, cursorY + 38);
+
+      ctx.fillStyle = theme.textPrimary;
+      ctx.font = '700 92px "Space Grotesk", sans-serif';
+      const kmStr = totalKm % 1 === 0 ? String(totalKm) : totalKm.toFixed(1);
+      ctx.fillText(kmStr, midX + 40, cursorY + 100);
+
+      ctx.fillStyle = theme.secondaryAccent || theme.accent;
+      ctx.font = '700 28px "Space Grotesk", sans-serif';
+      ctx.fillText('KILOMETER', midX + 40, cursorY + 210);
+      ctx.restore();
+
+      cursorY += heroH + 38;
+
+      // --- 9. Daftar Race 2026 (Auto-Fit) ---
+      const footerTopY = H - 170;
+      const targetBoxH = target2027 ? 124 : 0;
+      const targetBoxY = target2027 ? (footerTopY - targetBoxH - 26) : footerTopY;
+      const racesMaxBottom = targetBoxY - 26;
+
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = theme.textMuted;
+      ctx.font = '700 22px "Inter", sans-serif';
+      ctx.fillText('KOLEKSI RACE 2026', padX, cursorY);
+      cursorY += 42;
+
+      if (selectedRaces.length === 0) {
+        ctx.save();
+        roundRectPath(ctx, padX, cursorY, W - padX * 2, 118, 22);
+        ctx.fillStyle = theme.cardSurface;
+        ctx.fill();
+        ctx.strokeStyle = theme.cardBorder;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = theme.textMuted;
+        ctx.font = '600 28px "Inter", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Tap race 2026 kamu di formulir', W / 2, cursorY + 59);
+        ctx.restore();
+      } else {
+        const isDense = selectedRaces.length > 8 || Boolean(target2027);
+        const fontSize = isDense ? 24 : 27;
+        const rowH = isDense ? 60 : 70;
+        const gapX = isDense ? 14 : 16;
+        const gapY = isDense ? 14 : 16;
+        const padPillX = isDense ? 22 : 26;
+
+        const maxRight = W - padX;
+        let rx = padX;
+        let ry = cursorY;
+        ctx.font = `600 ${fontSize}px "Inter", sans-serif`;
+
+        let renderedCount = 0;
+        for (let i = 0; i < selectedRaces.length; i++) {
+          const race = selectedRaces[i];
+          const remaining = selectedRaces.length - i;
+          const label = truncateText(ctx, race.name, W - padX * 2 - padPillX * 2 - 20);
+          const chipW = Math.min(ctx.measureText(label).width + padPillX * 2, W - padX * 2);
+
+          if (rx + chipW > maxRight && rx > padX) {
+            rx = padX;
+            ry += rowH + gapY;
+          }
+
+          if (ry + rowH > racesMaxBottom) break;
+
+          const isLastRow = (ry + rowH + gapY + rowH) > racesMaxBottom;
+          if (isLastRow && remaining > 1) {
+            const moreText = `+${remaining} LAINNYA`;
+            const moreW = ctx.measureText(moreText).width + padPillX * 2 + 8;
+            if (rx + chipW + gapX + moreW > maxRight) {
+              drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true, fontSize, padPillX);
+              renderedCount = selectedRaces.length;
+              break;
+            }
+          }
+
+          drawRacePill(ctx, rx, ry, chipW, rowH, label, theme, false, fontSize, padPillX);
+          rx += chipW + gapX;
+          renderedCount++;
+        }
+
+        if (renderedCount < selectedRaces.length && ry + rowH <= racesMaxBottom) {
+          const rem = selectedRaces.length - renderedCount;
+          const moreText = `+${rem} LAINNYA`;
+          const moreW = ctx.measureText(moreText).width + padPillX * 2 + 8;
+          drawRacePill(ctx, rx, ry, moreW, rowH, moreText, theme, true, fontSize, padPillX);
+        }
+      }
+
+      // --- 10. Kotak Target 2027 (Jika Diisi) ---
+      if (target2027) {
+        ctx.save();
+        roundRectPath(ctx, padX, targetBoxY, W - padX * 2, targetBoxH, 24);
+        ctx.fillStyle = theme.cardSurface;
+        ctx.fill();
+        ctx.strokeStyle = theme.cardBorder;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = theme.accent;
+        ctx.font = '700 20px "Inter", sans-serif';
+        ctx.fillText('TARGET RACE 2027', padX + 30, targetBoxY + 24);
+
+        ctx.fillStyle = theme.textPrimary;
+        ctx.font = '700 32px "Space Grotesk", sans-serif';
+        ctx.fillText(truncateText(ctx, target2027, W - padX * 2 - 60), padX + 30, targetBoxY + 60);
+        ctx.restore();
+      }
+
+      // --- 11. Footer Branding ---
+      ctx.beginPath();
+      ctx.moveTo(padX, footerTopY);
+      ctx.lineTo(W - padX, footerTopY);
+      ctx.strokeStyle = theme.cardBorder;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = theme.textPrimary;
+      ctx.font = '700 28px "Space Grotesk", sans-serif';
+      ctx.fillText('Indonesian Runners Japan • #IRJ2026Wrapped', W / 2, footerTopY + 56);
+    }
+
+    function drawCanvasLogo(ctx, x, y, size, theme) {
+      // Subtle glow behind the enlarged IRJ logo
+      ctx.save();
+      const logoGlow = ctx.createRadialGradient(
+        x + size / 2, y + size / 2, size * 0.2,
+        x + size / 2, y + size / 2, size * 0.78
+      );
+      logoGlow.addColorStop(0, theme.glowTop);
+      logoGlow.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = logoGlow;
+      ctx.fillRect(x - 40, y - 40, size + 80, size + 80);
+      ctx.restore();
+
+      ctx.save();
+      roundRectPath(ctx, x, y, size, size, 36);
+      ctx.clip();
+
+      if (state.logoLoaded && state.logoImage && state.logoSafeForExport) {
+        try {
+          ctx.drawImage(state.logoImage, x, y, size, size);
+        } catch (e) {
+          drawVectorIRJBadge(ctx, x, y, size);
+        }
+      } else {
+        drawVectorIRJBadge(ctx, x, y, size);
+      }
+      ctx.restore();
+
+      ctx.save();
+      roundRectPath(ctx, x, y, size, size, 36);
+      ctx.strokeStyle = theme.accent;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawVectorIRJBadge(ctx, x, y, size) {
+      ctx.fillStyle = '#E11D48';
+      ctx.fillRect(x, y, size, size * 0.56);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(x, y + size * 0.56, size, size * 0.44);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = `700 ${Math.round(size * 0.36)}px "Space Grotesk", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('IRJ', x + size / 2, y + size * 0.30);
+
+      ctx.fillStyle = '#E11D48';
+      ctx.font = `700 ${Math.round(size * 0.16)}px "Inter", sans-serif`;
+      ctx.fillText('JAPAN', x + size / 2, y + size * 0.78);
+    }
+
+    function drawRacePill(ctx, x, y, w, h, text, theme, isHighlight, fontSize, padX) {
+      ctx.save();
+      roundRectPath(ctx, x, y, w, h, 18);
+      ctx.fillStyle = isHighlight ? theme.accent : theme.pillBg;
+      ctx.fill();
+      ctx.strokeStyle = isHighlight ? theme.accent : theme.pillBorder;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = isHighlight ? theme.accentText : theme.pillText;
+      ctx.font = isHighlight
+        ? `700 ${Math.max(21, fontSize - 2)}px "Space Grotesk", sans-serif`
+        : `600 ${fontSize}px "Inter", sans-serif`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x + padX, y + h / 2 + 1);
+      ctx.restore();
+    }
+
+    function roundRectPath(ctx, x, y, w, h, r) {
+      const radius = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.arcTo(x + w, y, x + w, y + h, radius);
+      ctx.arcTo(x + w, y + h, x, y + h, radius);
+      ctx.arcTo(x, y + h, x, y, radius);
+      ctx.arcTo(x, y, x + w, y, radius);
+      ctx.closePath();
+    }
+
+    function truncateText(ctx, text, maxWidth) {
+      if (ctx.measureText(text).width <= maxWidth) return text;
+      let t = text;
+      while (t.length > 0 && ctx.measureText(t + '…').width > maxWidth) {
+        t = t.slice(0, -1);
+      }
+      return t + '…';
+    }
+
+    // =========================================================================
+    // 9. UNDUH PNG & WEB SHARE API
+    // =========================================================================
+    function downloadWrappedPNG(withToast = true) {
+      const canvas = document.getElementById('wrappedCanvas');
+      const slug = (document.getElementById('runnerNameInput').value.trim() || 'pelari-irj')
+        .toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      try {
+        const dataUrl = canvas.toDataURL('image/png', 1.0);
+        triggerDownload(dataUrl, `irj-2026-wrapped-${slug}.png`);
+        if (withToast) showToast('Kartu IRJ 2026 Wrapped (PNG) berhasil diunduh!', 'success');
+      } catch (err) {
+        // Jika gambar logo cross-origin men-taint canvas, render ulang dengan emblem vektor IRJ yang aman
+        state.logoSafeForExport = false;
+        renderWrappedCanvas();
+        const dataUrl = canvas.toDataURL('image/png', 1.0);
+        triggerDownload(dataUrl, `irj-2026-wrapped-${slug}.png`);
+        if (withToast) showToast('Kartu IRJ 2026 Wrapped (PNG) berhasil diunduh!', 'success');
+      }
+    }
+
+    function triggerDownload(dataUrl, filename) {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = dataUrl;
+      link.click();
+    }
+
+    async function shareWrappedCard() {
+      const canvas = document.getElementById('wrappedCanvas');
+      if (navigator.canShare && navigator.share) {
+        try {
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          if (blob) {
+            const file = new File([blob], 'irj-2026-wrapped.png', { type: 'image/png' });
+            if (navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                title: 'IRJ 2026 Wrapped',
+                text: `Rekap race 2026 aku bersama Indonesian Runners Japan (${state.selectedCabang})! #IRJ2026Wrapped`,
+                files: [file]
+              });
+              return;
+            }
+          }
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+      downloadWrappedPNG(true);
+    }
+
+    // =========================================================================
+    // 10. REKAP KOMUNITAS (KPI, KLASEMEN CABANG, RACE TERPOPULER & DIREKTORI)
+    // =========================================================================
+    function updateCommunityHeaderCount() {
+      const totalMedals = getDisplayedEntries().reduce((sum, e) => sum + (Number(e.medalCount) || 0), 0);
+      document.getElementById('headerMedalTotal').textContent = totalMedals.toLocaleString('id-ID');
+    }
+
+    function renderCommunityHub() {
+      const entries = getDisplayedEntries();
+      const totalMedals = entries.reduce((sum, e) => sum + (Number(e.medalCount) || 0), 0);
+      const totalKm = Math.round(entries.reduce((sum, e) => sum + (Number(e.totalKm) || 0), 0));
+
+      const cabangStats = {};
+      const raceCounts = {};
+
+      entries.forEach(entry => {
+        const cab = entry.cabang || 'Umum / Ex-Japan';
+        if (!cabangStats[cab]) cabangStats[cab] = { medals: 0, runners: 0 };
+        cabangStats[cab].medals += Number(entry.medalCount) || (entry.races ? entry.races.length : 0);
+        cabangStats[cab].runners += 1;
+
+        (entry.races || []).forEach(raceName => {
+          raceCounts[raceName] = (raceCounts[raceName] || 0) + 1;
+        });
+      });
+
+      const sortedCabang = Object.keys(cabangStats).sort((a, b) => cabangStats[b].medals - cabangStats[a].medals);
+      const sortedRaces = Object.keys(raceCounts).sort((a, b) => raceCounts[b] - raceCounts[a]);
+
+      // Update 4 KPI
+      document.getElementById('kpiTotalMedals').textContent = totalMedals.toLocaleString('id-ID');
+      document.getElementById('kpiActiveRacers').textContent = entries.length.toLocaleString('id-ID');
+      document.getElementById('kpiTotalKm').textContent = totalKm.toLocaleString('id-ID');
+      document.getElementById('kpiUniqueRaces').textContent = sortedRaces.length.toLocaleString('id-ID');
+
+      // Klasemen Cabang IRJ 2026
+      const cabContainer = document.getElementById('cabangLeaderboard');
+      if (sortedCabang.length === 0) {
+        cabContainer.innerHTML = `<p class="text-xs text-slate-500 py-6 text-center">Belum ada data pelari tercatat di 2026.</p>`;
+      } else {
+        const maxMedals = cabangStats[sortedCabang[0]].medals || 1;
+        cabContainer.innerHTML = sortedCabang.map((cab, idx) => {
+          const stat = cabangStats[cab];
+          const pct = Math.max(12, Math.round((stat.medals / maxMedals) * 100));
+          const barColor = idx === 0 ? 'bg-gradient-to-r from-crimson to-rose-500' : idx === 1 ? 'bg-volt' : 'bg-slate-500';
+          return `
+            <button type="button" onclick="filterDirectoryByCabang('${escapeAttr(cab)}')"
+              class="w-full text-left group p-2.5 -mx-2.5 rounded-xl hover:bg-white/5 transition">
+              <div class="flex items-center justify-between text-xs sm:text-sm mb-1.5 gap-2">
+                <span class="font-bold text-white group-hover:text-volt truncate">
+                  <span class="font-display text-slate-500 mr-1.5">#${idx + 1}</span>
+                  ${escapeHtml(cab)}
+                </span>
+                <span class="text-xs text-slate-400 shrink-0">
+                  <strong class="font-display text-white text-sm">${stat.medals}</strong> medali • ${stat.runners} pelari
+                </span>
+              </div>
+              <div class="w-full h-2.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full ${barColor} rounded-full transition-all duration-700" style="width: ${pct}%"></div>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Race Terpopuler 2026
+      const raceContainer = document.getElementById('raceLeaderboard');
+      if (sortedRaces.length === 0) {
+        raceContainer.innerHTML = `<p class="text-xs text-slate-500 py-6 text-center">Belum ada race tercatat di 2026.</p>`;
+      } else {
+        const topRaces = sortedRaces.slice(0, 8);
+        raceContainer.innerHTML = topRaces.map((raceName, idx) => {
+          const count = raceCounts[raceName];
+          const isSelected = state.directoryRaceFilter === raceName;
+          return `
+            <button type="button" onclick="filterDirectoryByRace('${escapeAttr(raceName)}')"
+              class="w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border transition text-left ${
+                isSelected
+                  ? 'bg-crimson/20 border-crimson text-white'
+                  : 'bg-[#090D16] border-white/10 hover:border-volt/50 text-slate-200'
+              }">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-white/10 font-display font-bold text-xs flex items-center justify-center shrink-0 ${idx === 0 ? 'text-volt' : 'text-slate-400'}">
+                  ${idx + 1}
+                </span>
+                <span class="font-semibold text-xs sm:text-sm truncate">${escapeHtml(raceName)}</span>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-white/10 text-volt shrink-0">
+                ${count} pelari
+              </span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Dropdown Cabang
+      const cabSelect = document.getElementById('directoryCabangSelect');
+      const prevCab = cabSelect.value;
+      cabSelect.innerHTML = `<option value="ALL">Semua Cabang IRJ (${sortedCabang.length})</option>` +
+        sortedCabang.map(c => `<option value="${escapeAttr(c)}">${escapeHtml(c)} (${cabangStats[c].runners})</option>`).join('');
+      if (sortedCabang.includes(prevCab)) cabSelect.value = prevCab;
+
+      renderReviewDirectory();
+    }
+
+    function filterDirectoryByCabang(cabang) {
+      document.getElementById('directoryCabangSelect').value = cabang;
+      renderReviewDirectory();
+      document.getElementById('reviewDirectorySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast(`Direktori difilter ke Cabang ${cabang}`, 'info');
+    }
+
+    function filterDirectoryByRace(raceName) {
+      state.directoryRaceFilter = (state.directoryRaceFilter === raceName) ? 'ALL' : raceName;
+      renderCommunityHub();
+      if (state.directoryRaceFilter !== 'ALL') {
+        document.getElementById('reviewDirectorySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast(`Menampilkan finisher "${raceName}"`, 'info');
+      }
+    }
+
+    function resetDirectoryFilters() {
+      state.directoryRaceFilter = 'ALL';
+      document.getElementById('directorySearchInput').value = '';
+      document.getElementById('directoryCabangSelect').value = 'ALL';
+      renderCommunityHub();
+    }
+
+    function renderReviewDirectory() {
+      const entries = getDisplayedEntries();
+      const cabangFilter = document.getElementById('directoryCabangSelect').value;
+      const raceFilter = state.directoryRaceFilter;
+      const query = document.getElementById('directorySearchInput').value.trim().toLowerCase();
+
+      const hasFilters = cabangFilter !== 'ALL' || raceFilter !== 'ALL' || Boolean(query);
+      document.getElementById('activeFiltersBar').classList.toggle('hidden', !hasFilters);
+
+      const raceChip = document.getElementById('activeRaceChip');
+      if (raceFilter !== 'ALL') {
+        raceChip.textContent = `Race: ${raceFilter}`;
+        raceChip.classList.remove('hidden');
+      } else {
+        raceChip.classList.add('hidden');
+      }
+
+      const filtered = entries.filter(entry => {
+        const matchesCabang = cabangFilter === 'ALL' || entry.cabang === cabangFilter;
+        const matchesRace = raceFilter === 'ALL' || (entry.races || []).includes(raceFilter);
+        const matchesQuery = !query ||
+          (entry.name || '').toLowerCase().includes(query) ||
+          (entry.instagram || '').toLowerCase().includes(query) ||
+          (entry.cabang || '').toLowerCase().includes(query) ||
+          (entry.target2027 || '').toLowerCase().includes(query) ||
+          (entry.races || []).some(r => r.toLowerCase().includes(query));
+        return matchesCabang && matchesRace && matchesQuery;
+      });
+
+      document.getElementById('directoryMatchCount').textContent = `${filtered.length} pelari`;
+
+      const container = document.getElementById('reviewDirectoryList');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="md:col-span-2 py-10 text-center text-sm text-slate-400">Tidak ada pelari yang cocok dengan filter ini.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(entry => {
+        const cleanHandle = cleanIgUsername(entry.instagram);
+        const igHtml = cleanHandle
+          ? `<a href="https://instagram.com/${encodeURIComponent(cleanHandle)}" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-1 text-xs font-semibold text-sky-400 hover:text-sky-300 hover:underline">
+               @${escapeHtml(cleanHandle)}
+               <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+               </svg>
+             </a>`
+          : '';
+
+        const reviewBadge = entry.openToReview
+          ? `<span class="inline-flex items-center gap-1 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0">
+               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Siap Review
+             </span>`
+          : `<span class="inline-flex items-center bg-white/5 text-slate-400 text-[11px] font-semibold px-2.5 py-0.5 rounded-full shrink-0">
+               Statistik Saja
+             </span>`;
+
+        const racePills = (entry.races || []).map(r => {
+          const isMatch = raceFilter !== 'ALL' && r === raceFilter;
+          return `<span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${
+            isMatch ? 'bg-crimson text-white' : 'bg-white/10 text-slate-300'
+          }">${escapeHtml(r)}</span>`;
+        }).join('');
+
+        const targetHtml = entry.target2027
+          ? `<div class="pt-2 border-t border-white/10 text-xs text-slate-400">
+               <span class="font-bold text-volt">Target 2027:</span> ${escapeHtml(entry.target2027)}
+             </div>`
+          : '';
+
+        return `
+          <div class="p-4 rounded-2xl border border-white/10 bg-[#090D16] hover:border-white/25 transition flex flex-col justify-between gap-3">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <h4 class="font-display font-bold text-white text-sm sm:text-base truncate">${escapeHtml(entry.name)}</h4>
+                    ${igHtml}
+                  </div>
+                  <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson/20 text-rose-300 border border-crimson/30">${escapeHtml(entry.cabang || 'IRJ')}</span>
+                    <span class="text-xs font-semibold text-slate-300">${entry.medalCount} Medali • ${entry.totalKm} KM</span>
+                  </div>
+                </div>
+                ${reviewBadge}
+              </div>
+              <div class="flex flex-wrap gap-1.5">${racePills}</div>
+            </div>
+            ${targetHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 11. ADMIN & SYNC UTILITIES
+    // =========================================================================
+    function saveTempWebhookUrl() {
+      const url = document.getElementById('webhookUrlInput').value.trim();
+      state.tempScriptUrl = url;
+      try {
+        localStorage.setItem(STORAGE_KEYS.TEMP_URL, url);
+      } catch (e) { /* abaikan */ }
+
+      if (url) {
+        fetchLiveSheetData(true);
+      } else {
+        state.liveEntries = null;
+        updateSyncIndicators();
+        updateCommunityHeaderCount();
+        renderCommunityHub();
+        showToast('URL sementara dihapus. Kembali ke Mode Lokal.', 'info');
+      }
+    }
+
+    function copyAppsScript() {
+      const code = document.getElementById('appsScriptCode').textContent;
+      const ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Kode Google Apps Script berhasil disalin!', 'success');
+      } catch (e) {
+        showToast('Silakan pilih dan salin kode secara manual.', 'error');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function exportCSV() {
+      const entries = getDisplayedEntries();
+      if (entries.length === 0) {
+        showToast('Belum ada data untuk diekspor.', 'info');
+        return;
+      }
+      const headers = ['Timestamp', 'Nama', 'Instagram', 'Cabang', 'TotalMedali', 'TotalKM', 'Gelar', 'DaftarRace', 'Target2027', 'SiapReview'];
+      const rows = entries.map(e => [
+        e.timestamp || '',
+        e.name || '',
+        e.instagram ? '@' + cleanIgUsername(e.instagram) : '',
+        e.cabang || '',
+        e.medalCount || 0,
+        e.totalKm || 0,
+        e.persona || '',
+        (e.races || []).join('; '),
+        e.target2027 || '',
+        e.openToReview ? 'Ya' : 'Tidak'
+      ].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','));
+
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'IRJ-2026-Wrapped-Data-Sponsor.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('CSV Data Sponsor IRJ 2026 berhasil diunduh!', 'success');
+    }
+
+    function clearDemoData() {
+      const before = state.localEntries.length;
+      state.localEntries = state.localEntries.filter(e => !e.isDemo);
+      saveLocalEntries();
+      updateSyncIndicators();
+      updateCommunityHeaderCount();
+      renderCommunityHub();
+      const removed = before - state.localEntries.length;
+      showToast(removed > 0 ? `${removed} profil demo berhasil dihapus.` : 'Tidak ada data demo yang tersisa.', 'info');
+    }
+
+    function toggleResetConfirm(show) {
+      document.getElementById('resetAllInitialBtn').classList.toggle('hidden', show);
+      document.getElementById('resetAllConfirmBox').classList.toggle('hidden', !show);
+    }
+
+    function resetLocalData() {
+      state.localEntries = [];
+      saveLocalEntries();
+      toggleResetConfirm(false);
+      updateSyncIndicators();
+      updateCommunityHeaderCount();
+      renderCommunityHub();
+      showToast('Semua data lokal browser telah dikosongkan.', 'info');
+    }
+
+    // =========================================================================
+    // 12. UTILITAS UI (TOAST & ESCAPING)
+    // =========================================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      const styles = {
+        success: 'bg-[#111625] text-white border-volt/50',
+        error: 'bg-crimson text-white border-rose-300',
+        info: 'bg-[#111625] text-slate-100 border-white/20'
+      };
+      const dot = {
+        success: 'bg-volt',
+        error: 'bg-white',
+        info: 'bg-sky-400'
+      };
+      toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3.5 rounded-2xl border shadow-2xl text-xs sm:text-sm font-semibold animate-pop ${styles[type] || styles.info}`;
+      toast.innerHTML = `<span class="w-2.5 h-2.5 rounded-full shrink-0 ${dot[type] || dot.info}"></span><span>${escapeHtml(message)}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 3600);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeAttr(str) {
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Boot Aplikasi
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
